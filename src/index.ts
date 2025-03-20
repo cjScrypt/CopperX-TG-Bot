@@ -12,3 +12,5 @@ const main = async () => {
         console.log(`======= App running on port ${PORT} =======`);
     })
 }
+
+main();
