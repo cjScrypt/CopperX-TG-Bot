@@ -3,6 +3,7 @@ import { Telegraf } from "telegraf";
 
 import { TG_TOKEN } from "./config";
 import { ExtendedContext } from "./interfaces";
+import { StartController } from "./controllers/start.controller";
 
 export const setupBot = () => {
     const agent = new Agent({
@@ -12,6 +13,8 @@ export const setupBot = () => {
     const bot = new Telegraf<ExtendedContext>(TG_TOKEN, {
         telegram: { agent }
     });
+
+    bot.start(StartController.showStart);
 
     return bot;
 }
