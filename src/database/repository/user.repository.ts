@@ -19,4 +19,12 @@ export class UserRepository {
 
         return user;
     }
+
+    async findOne(filter: any) {
+        const user = await this.prisma.user.findFirst({
+            where: filter
+        });
+
+        return user;
+    }
 }
