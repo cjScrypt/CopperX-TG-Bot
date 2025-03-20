@@ -5,6 +5,9 @@ logs
 # Vim swap files
 *.swp
 
+# Prisma migration files
+migrations/
+
 package-lock.json
 
 # Dependency directories
