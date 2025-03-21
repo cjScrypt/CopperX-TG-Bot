@@ -1,7 +1,7 @@
 action:
     back: "${code} Back"
 header:
-    help: "${code} Welcome to Copperx Payout Bot!"
+    welcome: "Welcome to Copperx Payout Bot!"
 description:
     help: "💳 Manage your USDC directly in Telegram.\nUse the commands below to navigate:"
 intro:
