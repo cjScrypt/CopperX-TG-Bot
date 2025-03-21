@@ -12,10 +12,6 @@ export class TelegramUtils {
     }
 
     static getChatId(ctx: ExtendedContext) {
-        if (!ctx.chat) {
-            return -1;
-        }
-
-        return ctx.chat.id;
+        return ctx.chat?.id;
     }
 }

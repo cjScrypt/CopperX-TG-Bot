@@ -18,6 +18,7 @@ export const setupBot = () => {
 
     bot.use(GlobalMiddleware.addI18nToContext);
     bot.use(UserMiddleware.addUserToContext);
+    bot.use(GlobalMiddleware.addCopperXSessionToContext);
 
     bot.command(BOT.COMMAND.HELP, HelpController.showHelp);
 
