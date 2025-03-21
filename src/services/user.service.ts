@@ -9,16 +9,16 @@ export class UserService {
         this.repository = new UserRepository(prisma);
     }
 
-    async getOrRegisterUser(fields: CreateUserDto) {
-        let user = await this.repository.findOne({
-            telegramId: fields.telegramId
-        });
-        let created = false;
+    async createUser(fields: CreateUserDto) {
+        let user = await this.findUserByTgId(fields.telegramId);
         if (!user) {
             user = await this.repository.create(fields);
-            created = true;
         }
 
-        return { user, created }
+        return user;
+    }
+
+    async findUserByTgId(id: number) {
+        return this.repository.findOne({ telegramId: id });
     }
 }
