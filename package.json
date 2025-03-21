@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "copy-templates": "copyfiles -u 3 ./src/views/templates/** ./dist/views/templates/",
-    "build": "tsc && npm run copy-templates",
+	"copy-locales": "copyfiles -u 2 ./src/locales/** ./dist/locales/",
+    "build": "tsc && npm run copy-templates && npm run copy-locales",
     "start": "pm2 restart ./dist/index.js",
     "dev": "npm run build && node ./dist/index.js",
     "prisma": "prisma migrate dev && prisma generate"
