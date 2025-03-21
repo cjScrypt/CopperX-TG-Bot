@@ -4,6 +4,7 @@ import { Telegraf } from "telegraf";
 import { TG_TOKEN } from "./config";
 import { ExtendedContext } from "./interfaces";
 import { StartController } from "./controllers/start.controller";
+import { GlobalMiddleware } from "./middlewares";
 
 export const setupBot = () => {
     const agent = new Agent({
@@ -13,6 +14,8 @@ export const setupBot = () => {
     const bot = new Telegraf<ExtendedContext>(TG_TOKEN, {
         telegram: { agent }
     });
+
+    bot.use(GlobalMiddleware.addI18nToContext);
 
     bot.start(StartController.showStart);
 
