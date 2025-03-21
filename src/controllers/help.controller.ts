@@ -1,12 +1,12 @@
 import { ExtendedContext } from "../interfaces";
-import { StartView } from "../views";
+import { HelpView } from "../views";
 
-export class StartController {
-    static async showStart(ctx: ExtendedContext, next: () => Promise<void>) {
+export class HelpController {
+    static async showHelp(ctx: ExtendedContext, next: () => Promise<void>) {
         const user = ctx.user;
         const name = [ user.firstName, user.lastName ].filter(Boolean).join(" ");
 
-        const htmlContent = await StartView.getOnboardingStartHtml(name);
+        const htmlContent = await HelpView.getHelpHtml(name);
 
         ctx.reply(htmlContent, {
             parse_mode: "HTML",

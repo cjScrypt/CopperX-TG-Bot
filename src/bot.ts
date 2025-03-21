@@ -3,7 +3,7 @@ import { Telegraf } from "telegraf";
 
 import { TG_TOKEN } from "./config";
 import { ExtendedContext } from "./interfaces";
-import { StartController } from "./controllers";
+import { HelpController } from "./controllers";
 import { GlobalMiddleware, UserMiddleware } from "./middlewares";
 
 export const setupBot = () => {
@@ -18,7 +18,7 @@ export const setupBot = () => {
     bot.use(GlobalMiddleware.addI18nToContext);
     bot.use(UserMiddleware.addUserToContext);
 
-    bot.start(StartController.showStart);
+    bot.start(HelpController.showHelp);
 
     return bot;
 }

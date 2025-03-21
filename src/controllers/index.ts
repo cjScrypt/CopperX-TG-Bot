@@ -1,1 +1,1 @@
-export * from "./start.controller";
+export * from "./help.controller";
