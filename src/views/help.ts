@@ -3,7 +3,7 @@ import { resolve } from "path";
 
 export class HelpView {
     static getHelpHtml(name: string) {
-        return renderFile(resolve(__dirname, "templates/onboarding.ejs"), {
+        return renderFile(resolve(__dirname, "templates/help.ejs"), {
             name
         });
     }
