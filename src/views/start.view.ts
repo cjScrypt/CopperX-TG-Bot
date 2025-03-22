@@ -74,7 +74,8 @@ export class StartView {
         return render(resolve(__dirname, "templates/start.ejs"), {
             i18n,
             name,
-            copperXSession
+            copperXSession,
+            LocaleUtils
         });
     }
 }

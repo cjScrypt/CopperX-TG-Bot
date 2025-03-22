@@ -1,4 +1,24 @@
+welcome:
+    title_new_user: "Welcome to CopperWallet Bot, ${value}!"
+    title_returning_user: "Welcome back to CopperWallet Bot, ${value}!"
+    description: "I'm your unofficial gateway to managing your Copperx stablecoin wallet directly from Telegram. With me, you can:"
+    features:
+        - "View wallet balances and transaction history"
+        - "Send USDC to emails and external wallets"
+        - "Withdraw funds to your bank account"
+        - "Receive real-time deposit notifications"
+    login_prompt: "To get started, please login to connect your Copperx account."
+    help_hint: "<i>Need help?</i> Use the /help command to see all available actions you can perform."
+    action_prompt_new: "What would you like to do next?"
+    action_prompt_returning: "Your Copperx wallet is at your fingertips. What would you like to do today?"
 action:
+    login: "${code} Login"
+    help: "${code} Help"
+    support: "${code} Support"
+    wallet_management: "${code} Wallet Management"
+    send_transfer: "${code} Send/Transfer"
+    profile: "${code} Profile"
+    logout: "${code} Logout"
     back: "${code} Back"
 header:
     welcome: "Welcome to Copperx Payout Bot!"
