@@ -3,7 +3,7 @@ export interface CopperXSession {
     user: CopperXUser
 }
 
-interface CopperXUser {
+export interface CopperXUser {
     id: string,
     firstName: string,
     lastName: string,
