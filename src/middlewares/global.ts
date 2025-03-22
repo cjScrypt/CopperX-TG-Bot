@@ -1,6 +1,6 @@
 import { i18n } from "../commons/locale";
 import { ExtendedContext } from "../interfaces";
-import { RedisService } from "../services/redis.service";
+import { CopperXService, RedisService } from "../services";
 import { TelegramUtils } from "../utils";
 
 export class GlobalMiddleware {
@@ -15,13 +15,21 @@ export class GlobalMiddleware {
             return;
         }
 
-        const key = `${chatId}_copperx`;
-        const session = await (new RedisService()).getValue(key);
-        if (!session) {
-            return next(); // Do nothing
+        const copperXService = new CopperXService();
+        const authData = await copperXService.getAuthTokenByChatId(chatId);
+        if (!authData) {
+            return next();
         }
 
-        ctx.copperXSession = session;
+        const userProfile = await copperXService.fetchUserProfile(authData.token);
+        if (!userProfile) {
+            return next();
+        }
+
+        ctx.copperXSession = {
+            user: userProfile,
+            token: authData.token
+        }
 
         return next();
     }

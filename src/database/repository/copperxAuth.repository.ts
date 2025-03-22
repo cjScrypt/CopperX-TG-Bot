@@ -6,4 +6,13 @@ export class CopperXRepository {
     constructor(prisma: PrismaClient) {
         this.prisma = prisma;
     }
+
+    async getAuthTokenByChatId(chatId: number) {
+        const copperXAuth = await this.prisma.copperXAuth.findUnique({
+            where: { chatId },
+            select: { token: true, expiresAt: true }
+        });
+
+        return copperXAuth;
+    }
 }

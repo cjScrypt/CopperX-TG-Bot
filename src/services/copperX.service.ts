@@ -31,6 +31,15 @@ export class CopperXService {
         return response.json();
     }
 
+    async getAuthTokenByChatId(chatId: number) {
+        const copperXAuth = await this.repository.getAuthTokenByChatId(chatId);
+        if (!copperXAuth || new Date() >= copperXAuth.expiresAt) {
+            return null;
+        }
+
+        return copperXAuth;
+    }
+
     async fetchUserProfile(token: string) {
         try {
             const userProfile = await this.makeGetRequest("api/auth/me", token) as CopperXUser;
