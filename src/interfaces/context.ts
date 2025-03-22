@@ -4,7 +4,7 @@ import { Context } from "telegraf";
 import { CopperXSession } from "./copperx.interface";
 
 export interface ExtendedContext extends Context  {
-    copperXSession: CopperXSession,
+    copperXSession?: CopperXSession,
     i18n: I18nContext,
     user: User
 }
