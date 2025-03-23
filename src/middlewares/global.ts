@@ -6,7 +6,7 @@ import { TelegramUtils } from "../utils";
 export class GlobalMiddleware {
     static addI18nToContext = i18n.middleware();
 
-    static async addCopperXSessionToContext(
+    static async addCopperXTokenToContext(
         ctx: ExtendedContext,
         next: () => Promise<void>
     ) {
@@ -21,13 +21,7 @@ export class GlobalMiddleware {
             return next();
         }
 
-        const userProfile = await copperXService.fetchUserProfile(authData.token);
-        if (!userProfile) {
-            return next();
-        }
-
         ctx.copperXSession = {
-            user: userProfile,
             token: authData.token
         }
 
