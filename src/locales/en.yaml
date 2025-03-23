@@ -8,7 +8,8 @@ welcome:
       - Withdraw funds to your bank account
       - Receive real-time deposit notifications
     login_prompt: "To get started, please login to connect your Copperx account."
-    help_hint: "<i>Need help?</i> Use the /help command to see all available actions you can perform."
+    help_question: "Need help?"
+    help_hint: "Use the /help command to see all available actions you can perform."
     action_prompt_new: "What would you like to do next?"
     action_prompt_returning: "Your Copperx wallet is at your fingertips. What would you like to do today?"
 action:
