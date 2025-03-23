@@ -1,5 +1,5 @@
 import { I18nContext } from "@grammyjs/i18n";
-import { render } from "ejs";
+import { renderFile } from "ejs";
 import { resolve } from "path";
 import { Markup } from "telegraf";
 import { BOT } from "../constants";
@@ -71,7 +71,7 @@ export class StartView {
         name: string,
         copperXSession?: CopperXSession
     ) {
-        return render(resolve(__dirname, "templates/start.ejs"), {
+        return renderFile(resolve(__dirname, "templates/start.ejs"), {
             i18n,
             name,
             copperXSession,
