@@ -12,7 +12,7 @@ export class StartController {
 
         const user = ctx.user;
         const name = [ user.firstName, user.lastName ].filter(Boolean).join(" ");
-        const htmlContent = StartView.getStartHtml(ctx.i18n, name, ctx.copperXSession);
+        const htmlContent = await StartView.getStartHtml(ctx.i18n, name, ctx.copperXSession);
 
         ctx.reply(htmlContent, {
             parse_mode: "HTML",
