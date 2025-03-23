@@ -1,11 +1,15 @@
 import { Agent } from "https";
-import { Telegraf } from "telegraf";
+import { session, Telegraf } from "telegraf";
 
 import { TG_TOKEN } from "./config";
 import { ExtendedContext } from "./interfaces";
-import { HelpController, StartController } from "./controllers";
+import {
+    HelpController,
+    StartController
+} from "./controllers";
 import { BOT } from "./constants";
 import { GlobalMiddleware, UserMiddleware } from "./middlewares";
+import { mainStage } from "./scenes";
 
 export const setupBot = () => {
     const agent = new Agent({
@@ -15,6 +19,9 @@ export const setupBot = () => {
     const bot = new Telegraf<ExtendedContext>(TG_TOKEN, {
         telegram: { agent }
     });
+
+    bot.use(session());
+    bot.use(mainStage.middleware());
 
     bot.use(GlobalMiddleware.addI18nToContext);
     bot.use(UserMiddleware.addUserToContext);
