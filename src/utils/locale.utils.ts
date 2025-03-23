@@ -6,8 +6,8 @@ export class LocaleUtils {
         return this.getActionCommonText(i18n, "action", action);
     }
 
-    static getWelcomeText(i18n: I18nContext, text: string) {
-        return this.getActionCommonText(i18n, "welcome", text);
+    static getWelcomeText(i18n: I18nContext, text: string, value?: string) {
+        return this.getActionCommonText(i18n, "welcome", text, value);
     }
 
     private static getActionCommonText(
