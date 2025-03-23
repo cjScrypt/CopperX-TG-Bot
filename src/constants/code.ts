@@ -3,6 +3,13 @@ export const CODE: { [ index: string ]: { [ index: string ]: string } } = {
         AUTH_EXPIRED: "AUTH_EXPIRED"
     },
     ACTION: {
-        WALLET_MANAGEMENT: "💼"
+        BACK: "🔙",
+        HELP: "❓",
+        PROFILE: "👤",
+        SEND_TRANSFER: "💸",
+        LOGIN: "🔑",
+        LOGOUT: "🚪➡️",
+        WALLET_MANAGEMENT: "💼",
+        SUPPORT: "📞"
     }
 }
