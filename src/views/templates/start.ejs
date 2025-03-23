@@ -1,16 +1,15 @@
-<% if (copperxSession) { %>
-🚀<b><%= LocaleUtils.getWelcomeText(i18n) %></b>
+<% if (!copperXSession) { %>
+🚀<b><%= LocaleUtils.getWelcomeText(i18n, "title_new_user") %></b>
 
 <%= LocaleUtils.getWelcomeText(i18n, "description") %>
 
-<% i18n.t("welcome.features", { returnObject: true }).forEach(function(feature) { %>
-- <%= feature %>
-<% }); %>
-
+<%= i18n.t("welcome.features") %>
 <%= LocaleUtils.getWelcomeText(i18n, "login_prompt") %>
 💡 <%= LocaleUtils.getWelcomeText(i18n, "help_hint") %>
 
 <%= LocaleUtils.getWelcomeText(i18n, "action_prompt_new") %>
 <% } else { %>
-    🚀 <%= LocaleUtils.getWelcomeText(i18n, "title_returning_user", name) %>
+🚀 <%= LocaleUtils.getWelcomeText(i18n, "title_returning_user", name) %>
+
+<%= LocaleUtils.getWelcomeText(i18n, "action_prompt_returning") %>
 <% } %>
