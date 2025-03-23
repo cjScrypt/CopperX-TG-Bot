@@ -1,6 +1,6 @@
 export interface CopperXSession {
     token: string,
-    user: CopperXUser
+    user?: CopperXUser
 }
 
 export interface CopperXUser {

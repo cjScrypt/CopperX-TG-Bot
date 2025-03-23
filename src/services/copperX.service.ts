@@ -33,7 +33,11 @@ export class CopperXService {
 
     async getAuthTokenByChatId(chatId: number) {
         const copperXAuth = await this.repository.getAuthTokenByChatId(chatId);
-        if (!copperXAuth || new Date() >= copperXAuth.expiresAt) {
+        if (!copperXAuth || !copperXAuth.isValid) {
+            return null;
+        }
+
+        if (new Date() >= copperXAuth.expiresAt) {
             return null;
         }
 

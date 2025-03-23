@@ -10,7 +10,7 @@ export class CopperXRepository {
     async getAuthTokenByChatId(chatId: number) {
         const copperXAuth = await this.prisma.copperXAuth.findUnique({
             where: { chatId },
-            select: { token: true, expiresAt: true }
+            select: { token: true, expiresAt: true, isValid: true }
         });
 
         return copperXAuth;
