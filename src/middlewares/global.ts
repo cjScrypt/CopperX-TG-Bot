@@ -27,4 +27,28 @@ export class GlobalMiddleware {
 
         return next();
     }
+
+    static async addCopperXProfileToContext(
+        ctx: ExtendedContext,
+        next: () => Promise<void>
+    ) {
+        const token = ctx.copperXSession?.token;
+        if (!token) {
+            return next();
+        }
+
+        const copperXService = new CopperXService();
+        const userProfile = await copperXService.fetchUserProfile(token);
+        if (!userProfile) {
+            return next();
+        }
+
+        // @todo Cache this data
+        ctx.copperXSession = {
+            user: userProfile,
+            token: token
+        }
+
+        return next();
+    }
 }

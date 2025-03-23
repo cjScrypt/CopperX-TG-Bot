@@ -20,7 +20,10 @@ export const setupBot = () => {
     bot.use(UserMiddleware.addUserToContext);
     bot.use(GlobalMiddleware.addCopperXTokenToContext);
 
-    bot.start(StartController.showStart);
+    bot.start(
+        GlobalMiddleware.addCopperXProfileToContext,
+        StartController.showStart
+    );
 
     bot.command(BOT.COMMAND.HELP, HelpController.showHelp);
 
