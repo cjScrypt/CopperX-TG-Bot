@@ -15,6 +15,7 @@ welcome:
 reply:
     login:
         actionPrompt: "Welcome to the login process! Please enter your email address:"
+        invalidEmail: "Please enter a valid email address."
 
 action:
     login: "${code} Login"
