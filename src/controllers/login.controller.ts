@@ -1,3 +1,4 @@
+import { isEmail } from "class-validator";
 import { ExtendedContext } from "../interfaces";
 import { AuthService } from "../services";
 import { LocaleUtils, TelegramUtils } from "../utils";
@@ -14,7 +15,7 @@ export class LoginController {
 
     static async requestOtp(ctx: ExtendedContext, next: () => Promise<void>) {
         const email = TelegramUtils.getMessageText(ctx);
-        if (!email) {
+        if (!email || !isEmail(email)) {
             ctx.reply(LocaleUtils.getActionReplyText(
                 ctx.i18n,
                 "login.invalidEmail"
