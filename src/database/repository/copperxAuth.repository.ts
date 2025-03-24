@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-export class CopperXRepository {
+export class CopperXAuthRepository {
     private readonly prisma: PrismaClient;
 
     constructor(prisma: PrismaClient) {

@@ -1,15 +1,15 @@
 import { CODE } from "../constants";
 import prisma from "../database/prisma/client";
-import { CopperXRepository } from "../database/repository";
+import { CopperXAuthRepository } from "../database/repository";
 import { CopperXUser } from "../interfaces";
 
 
 export class CopperXService {
-    repository: CopperXRepository;
+    repository: CopperXAuthRepository;
     private readonly baseApiUrl: string = "https://income-api.copperx.io";
   
     constructor() {
-        this.repository = new CopperXRepository(prisma);
+        this.repository = new CopperXAuthRepository(prisma);
     }
 
     private async makeRequest(
