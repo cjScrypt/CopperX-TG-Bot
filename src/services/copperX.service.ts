@@ -41,14 +41,26 @@ export class CopperXService {
         }
     }
 
-    async makeGetRequest(endpoint: string, authToken: string) {
+    async makeGetRequest(
+        endpoint: string,
+        authToken: string
+    ): Promise<any | undefined> {
         const response = await this.makeRequest("GET", endpoint, authToken);
 
         return response?.json();
     }
 
-    async makePostRequest(endpoint: string, authToken: string, body: object) {
-        const response = await this.makeRequest("POST", endpoint, authToken, body);
+    async makePostRequest(
+        endpoint: string,
+        authToken: string,
+        body: object
+    ): Promise<any | undefined> {
+        const response = await this.makeRequest(
+            "POST",
+            endpoint,
+            authToken,
+            body
+        );
 
         return response?.json();
     }
