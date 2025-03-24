@@ -12,6 +12,10 @@ welcome:
     help_hint: "Use the /help command to see all available actions you can perform."
     action_prompt_new: "What would you like to do next?"
     action_prompt_returning: "Your Copperx wallet is at your fingertips. What would you like to do today?"
+reply:
+    login:
+        actionPrompt: "Welcome to the login process! Please enter your email address:"
+
 action:
     login: "${code} Login"
     help: "${code} Help"

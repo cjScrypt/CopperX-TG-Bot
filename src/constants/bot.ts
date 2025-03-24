@@ -15,5 +15,8 @@ export const BOT = {
         SEND_TRANSFER: "send_transfer",
         PROFILE: "profile",
         LOGOUT: "logout"
+    },
+    SCENE: {
+        LOGIN: "login"
     }
 }

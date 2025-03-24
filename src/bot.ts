@@ -4,6 +4,7 @@ import { session, Telegraf } from "telegraf";
 import { TG_TOKEN } from "./config";
 import { ExtendedContext } from "./interfaces";
 import {
+    CommonController,
     HelpController,
     StartController
 } from "./controllers";
@@ -33,6 +34,8 @@ export const setupBot = () => {
     );
 
     bot.command(BOT.COMMAND.HELP, HelpController.showHelp);
+
+    bot.command(BOT.COMMAND.LOGIN, CommonController.enterScene(BOT.SCENE.LOGIN));
 
     return bot;
 }

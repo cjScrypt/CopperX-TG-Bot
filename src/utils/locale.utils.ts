@@ -6,6 +6,10 @@ export class LocaleUtils {
         return this.getActionCommonText(i18n, "action", action);
     }
 
+    static getActionReplyText(i18n: I18nContext, action: string) {
+        return this.getActionCommonText(i18n, "reply", action);
+    }
+
     static getWelcomeText(i18n: I18nContext, text: string, value?: string) {
         return this.getActionCommonText(i18n, "welcome", text, value);
     }
