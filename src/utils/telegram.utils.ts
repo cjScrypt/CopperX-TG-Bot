@@ -17,7 +17,7 @@ export class TelegramUtils {
 
     static getMessageText(ctx: ExtendedContext) {
         if (ctx.message && 'text' in ctx.message) {
-            return ctx.message.text;
+            return ctx.message.text.trim();
         }
 
         return '';
