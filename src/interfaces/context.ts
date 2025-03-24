@@ -5,7 +5,7 @@ import { CopperXSession } from "./copperx.interface";
 import { WizardSessionData } from "telegraf/typings/scenes";
 
 export interface ExtendedContext extends Context  {
-    copperXSession?: CopperXSession,
+    copperXSession: CopperXSession,
     i18n: I18nContext,
     scene: Scenes.SceneContextScene<ExtendedContext, WizardSessionData>,
     user: User,

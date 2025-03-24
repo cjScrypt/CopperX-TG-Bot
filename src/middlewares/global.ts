@@ -32,10 +32,7 @@ export class GlobalMiddleware {
         ctx: ExtendedContext,
         next: () => Promise<void>
     ) {
-        const token = ctx.copperXSession?.token;
-        if (!token) {
-            return next();
-        }
+        const token = ctx.copperXSession.token;
 
         const copperXService = new CopperXService();
         const userProfile = await copperXService.fetchUserProfile(token);
