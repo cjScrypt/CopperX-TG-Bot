@@ -12,23 +12,45 @@ export class CopperXService {
         this.repository = new CopperXRepository(prisma);
     }
 
-    private async makeGetRequest(endpoint: string, token: string) {
-        const url = `${this.baseApiUrl}/${endpoint}`;
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
+    private async makeRequest(
+        method: string,
+        endpoint: string,
+        authToken: string,
+        body?: object
+    ) {
+        try {
+            const url = `${this.baseApiUrl}/${endpoint}`;
+            const response = await fetch(url, {
+                method,
+                headers: {
+                    "Authorization": `Bearer ${authToken}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            });
+            if (!response.ok) {
+                if (response.status === 401) {
+                    throw new Error(CODE.ERROR.AUTH_EXPIRED);
+                }
+                throw new Error(`API responsed with status: ${response.status}`);
             }
-        });
-        if (!response.ok) {
-            if (response.status === 401) {
-                throw new Error(CODE.ERROR.AUTH_EXPIRED);
-            }
-            throw new Error(`API responsed with status: ${response.status}`);
-        }
 
-        return response.json();
+            return response;
+        } catch(error) {
+            return null;
+        }
+    }
+
+    async makeGetRequest(endpoint: string, authToken: string) {
+        const response = await this.makeRequest("GET", endpoint, authToken);
+
+        return response?.json();
+    }
+
+    async makePostRequest(endpoint: string, authToken: string, body: object) {
+        const response = await this.makeRequest("POST", endpoint, authToken, body);
+
+        return response?.json();
     }
 
     async getAuthTokenByChatId(chatId: number) {
@@ -65,6 +87,5 @@ export class CopperXService {
 
             return null;
         }
-        
     }
 }
