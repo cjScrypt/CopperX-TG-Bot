@@ -28,6 +28,14 @@ export class LoginController {
 
         const authService = new AuthService();
         const response = await authService.requestOtp(ctx.copperXSession.token, email);
+        if (!response) {
+            ctx.reply(LocaleUtils.getActionReplyText(
+                ctx.i18n,
+                "login.failedRequestOtp"
+            ));
+            return ctx.wizard.back();
+        }
+
         ctx.wizard.state.userOtp = {
             email,
             sid: response.sid
