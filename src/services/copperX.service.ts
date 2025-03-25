@@ -83,7 +83,6 @@ export class CopperXService {
             const userProfile = await this.makeGetRequest("api/auth/me", token) as CopperXUser;
 
             return {
-                id: userProfile.id,
                 firstName: userProfile.firstName,
                 lastName: userProfile.lastName,
                 email: userProfile.email,
