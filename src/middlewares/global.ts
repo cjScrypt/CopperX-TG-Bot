@@ -1,10 +1,13 @@
+import { session } from "telegraf";
 import { i18n } from "../commons/locale";
+import { store } from "../database/session";
 import { ExtendedContext } from "../interfaces";
 import { CopperXService, RedisService } from "../services";
 import { TelegramUtils } from "../utils";
 
 export class GlobalMiddleware {
     static addI18nToContext = i18n.middleware();
+    static addSessionToContext = session({ store });
 
     static async addCopperXTokenToContext(
         ctx: ExtendedContext,
