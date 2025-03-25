@@ -21,12 +21,12 @@ export const setupBot = () => {
         telegram: { agent }
     });
 
-    bot.use(session());
-    bot.use(mainStage.middleware());
-
     bot.use(GlobalMiddleware.addI18nToContext);
     bot.use(UserMiddleware.addUserToContext);
     bot.use(GlobalMiddleware.addCopperXTokenToContext);
+
+    bot.use(session());
+    bot.use(mainStage.middleware());
 
     bot.start(
         GlobalMiddleware.addCopperXProfileToContext,
