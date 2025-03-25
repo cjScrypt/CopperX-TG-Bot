@@ -24,12 +24,10 @@ export const setupBot = () => {
     bot.use(GlobalMiddleware.addI18nToContext);
     bot.use(GlobalMiddleware.addSessionToContext);
     bot.use(UserMiddleware.addUserToContext);
-    bot.use(GlobalMiddleware.addCopperXTokenToContext);
 
     bot.use(mainStage.middleware());
 
     bot.start(
-        GlobalMiddleware.addCopperXProfileToContext,
         StartController.showStart
     );
 
