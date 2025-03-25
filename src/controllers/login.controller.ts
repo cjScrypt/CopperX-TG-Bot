@@ -37,7 +37,11 @@ export class LoginController {
             email,
             sid: response.sid
         }
-        ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.otpSent"));
+        ctx.reply(LocaleUtils.getActionReplyText(
+            ctx.i18n,
+            "login.otpSent",
+            email
+        ));
 
         return ctx.wizard.next();
     }
