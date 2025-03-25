@@ -67,6 +67,7 @@ export class LoginController {
 
             return;
         }
+        ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.success"));
 
         ctx.session.copperX = {
             token: response.accessToken,
