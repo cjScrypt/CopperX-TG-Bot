@@ -5,8 +5,8 @@ import { CopperXSession } from "./copperx.interface";
 
 interface WizardSessionData extends Scenes.WizardSessionData {
     userOtp: {
-        email?: string;
-        sid?: string;
+        email: string;
+        sid: string;
     }
 
 }
