@@ -15,17 +15,19 @@ export class CopperXService {
     private async makeRequest(
         method: string,
         endpoint: string,
-        authToken: string,
+        authToken?: string,
         body?: object
     ) {
         try {
             const url = `${this.baseApiUrl}/${endpoint}`;
+            const headers: HeadersInit = { "Content-Type": "application/json" }
+            if (authToken) {
+                headers["Authorization"] = `Bearer ${authToken}`;
+            }
+
             const response = await fetch(url, {
                 method,
-                headers: {
-                    "Authorization": `Bearer ${authToken}`,
-                    "Content-Type": "application/json"
-                },
+                headers,
                 body: JSON.stringify(body)
             });
             if (!response.ok) {
@@ -43,7 +45,7 @@ export class CopperXService {
 
     async makeGetRequest(
         endpoint: string,
-        authToken: string
+        authToken?: string
     ): Promise<any | undefined> {
         const response = await this.makeRequest("GET", endpoint, authToken);
 
@@ -52,8 +54,8 @@ export class CopperXService {
 
     async makePostRequest(
         endpoint: string,
-        authToken: string,
-        body: object
+        body: object,
+        authToken?: string,
     ): Promise<any | undefined> {
         const response = await this.makeRequest(
             "POST",
