@@ -1,0 +1,23 @@
+action:
+    back: "${code} Back"
+header:
+    help: "${code} Welcome to Copperx Payout Bot!"
+description:
+    help: "💳 Manage your USDC directly in Telegram.\nUse the commands below to navigate:"
+intro:
+    help: "I'm your gateway to managing your Copperx stablecoin wallet directly from Telegram. With me, you can:"
+command:
+    login: "sign-in"
+    wallet: "wallet"
+    send: "send"
+    history: "history"
+    settings: "settings"
+    support: "support"
+command_text:
+    login: "Sign in to your Copperx account"
+    wallet: "View balances and manage wallets"
+    send: "Transfer USDC"
+    history: "Review recent transactions"
+    settings: "Adjust preferences"
+    help: "View this menu anytime"
+    support: ""

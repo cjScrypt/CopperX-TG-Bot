@@ -6,7 +6,7 @@ export class HelpController {
         const user = ctx.user;
         const name = [ user.firstName, user.lastName ].filter(Boolean).join(" ");
 
-        const htmlContent = await HelpView.getHelpHtml(name);
+        const htmlContent = await HelpView.getHelpHtml(name, ctx.i18n);
 
         ctx.reply(htmlContent, {
             parse_mode: "HTML",
