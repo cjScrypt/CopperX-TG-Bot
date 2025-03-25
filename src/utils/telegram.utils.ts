@@ -1,4 +1,4 @@
-import { ExtendedContext } from "../interfaces";
+import { ExtendedContext, SceneSession } from "../interfaces";
 
 export class TelegramUtils {
     static getUserFromContext(ctx: ExtendedContext) {
@@ -21,5 +21,13 @@ export class TelegramUtils {
         }
 
         return '';
+    }
+
+    static getAuthTokenFromSession(session: SceneSession) {
+        if (!session.copperX) {
+            return null;
+        }
+
+        return session.copperX.token;
     }
 }
