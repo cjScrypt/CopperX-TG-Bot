@@ -4,7 +4,6 @@ export interface CopperXSession {
 }
 
 export interface CopperXUser {
-    id: string,
     firstName: string,
     lastName: string,
     email: string,
