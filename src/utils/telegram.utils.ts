@@ -12,10 +12,14 @@ export class TelegramUtils {
     }
 
     static getChatId(ctx: ExtendedContext) {
-        if (!ctx.chat) {
-            return -1;
+        return ctx.chat?.id;
+    }
+
+    static getMessageText(ctx: ExtendedContext) {
+        if (ctx.message && 'text' in ctx.message) {
+            return ctx.message.text.trim();
         }
 
-        return ctx.chat.id;
+        return '';
     }
 }

@@ -6,5 +6,17 @@ export const BOT = {
         WALLET: "wallet",
         SEND: "send",
         HISTORY: "history",
+    },
+    ACTION: {
+        LOGIN: "login",
+        HELP: "help",
+        SUPPORT: "support",
+        WALLET_MANAGEMENT: "wallet_management",
+        SEND_TRANSFER: "send_transfer",
+        PROFILE: "profile",
+        LOGOUT: "logout"
+    },
+    SCENE: {
+        LOGIN: "login"
     }
 }
