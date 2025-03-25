@@ -28,12 +28,11 @@ export class AuthService {
         this.copperXAuthRepository = new CopperXAuthRepository(prisma);
     }
 
-    async requestOtp(authToken: string, email: string) {
+    async requestOtp(email: string) {
         const endpoint = "/api/auth/email-otp/request";
         const body = { email }
         const response = await this.copperXService.makePostRequest(
             endpoint,
-            authToken,
             body
         ) as LoginEmailOtpResponseDto | undefined;
 
@@ -52,7 +51,6 @@ export class AuthService {
         }
         const response = await this.copperXService.makePostRequest(
             endpoint,
-            "",
             body
         ) as AuthenticateResponseDto | undefined;
         if (response) {

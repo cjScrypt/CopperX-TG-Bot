@@ -24,7 +24,7 @@ export class LoginController {
         }
 
         const authService = new AuthService();
-        const response = await authService.requestOtp(ctx.copperXSession.token, email);
+        const response = await authService.requestOtp(email);
         if (!response) {
             ctx.reply(LocaleUtils.getActionReplyText(
                 ctx.i18n,
