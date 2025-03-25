@@ -6,6 +6,6 @@ import { LoginController } from "../controllers";
 export const loginScene = new Scenes.WizardScene<ExtendedContext>(
     BOT.SCENE.LOGIN,
     LoginController.showLoginActionPrompt,
-    LoginController.requestOtp
+    LoginController.requestOtp,
+    LoginController.verifyOtp
 );
-

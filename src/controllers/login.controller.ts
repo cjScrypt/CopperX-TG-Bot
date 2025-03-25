@@ -44,4 +44,40 @@ export class LoginController {
 
         return ctx.wizard.next();
     }
+
+    static async verifyOtp(ctx: ExtendedContext, next: () => Promise<void>) {
+        const chatId = TelegramUtils.getChatId(ctx);
+        if (!chatId) {
+            return;
+        }
+
+        const otp = TelegramUtils.getMessageText(ctx);
+        if (!otp) {
+            ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.reenterOtp"));
+        }
+
+        const authService = new AuthService();
+        const response = await authService.verifyOtp(otp, ctx.wizard.state.userOtp, chatId);
+        if (!response) {
+            ctx.reply(LocaleUtils.getActionReplyText(
+                ctx.i18n,
+                "login.invalidOtp"
+            ));
+
+            return;
+        }
+
+        ctx.session.copperX = {
+            token: response.accessToken,
+            user: {
+                firstName: response.user.firstName,
+                lastName: response.user.lastName,
+                email: response.user.email,
+                status: response.user.status,
+                walletAddress: response.user.walletAddress
+            }
+        }
+
+        return next();
+    }
 }

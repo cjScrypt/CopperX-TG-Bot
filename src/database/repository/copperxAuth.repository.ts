@@ -15,4 +15,19 @@ export class CopperXAuthRepository {
 
         return copperXAuth;
     }
+
+    async saveAuthToken(chatId: number, token: string, expiresAt: Date): Promise<void> {
+        await this.prisma.copperXAuth.upsert({
+            where: { chatId },
+            update: {
+                token,
+                expiresAt
+            },
+            create: {
+                chatId,
+                token,
+                expiresAt
+            }
+        });
+    }
 }
