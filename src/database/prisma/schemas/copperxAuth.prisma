@@ -1,0 +1,9 @@
+model CopperXAuth {
+  id            String      @id @default(uuid())
+  chatId        Int         @unique
+  token         String
+  isValid       Boolean     @default(true)
+  expiresAt     DateTime
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
