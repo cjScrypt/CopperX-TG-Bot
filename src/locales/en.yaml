@@ -15,6 +15,7 @@ welcome:
 reply:
     login:
         actionPrompt: "Welcome to the login process! Please enter your email address:"
+        reenterOtp: "Please enter the OTP sent to your email:"
         invalidEmail: "Please enter a valid email address."
         invalidOtp: "Invalid OTP. Please re-enter the correct one or use the options below."
         failedRequestOtp: "Something went wrong while requesting the OTP. Please try again."
