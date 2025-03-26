@@ -9,6 +9,8 @@ export const BOT = {
     },
     ACTION: {
         LOGIN: "login",
+        RESEND_OTP: "resend_otp",
+        CHANGE_EMAIL: "change_email",
         HELP: "help",
         SUPPORT: "support",
         WALLET_MANAGEMENT: "wallet_management",

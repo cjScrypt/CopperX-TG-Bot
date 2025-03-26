@@ -60,10 +60,12 @@ export class LoginController {
         const authService = new AuthService();
         const response = await authService.verifyOtp(otp, ctx.wizard.state.userOtp, chatId);
         if (!response) {
-            ctx.reply(LocaleUtils.getActionReplyText(
-                ctx.i18n,
-                "login.invalidOtp"
-            ));
+            ctx.reply(
+                LocaleUtils.getActionReplyText(ctx.i18n, "login.invalidOtp" ),
+                {
+                    reply_markup: LoginView.getInvalidOtpKeyboard(ctx.i18n).reply_markup
+                }
+            );
 
             return;
         }
@@ -80,6 +82,6 @@ export class LoginController {
             }
         }
 
-        return next();
+        return ctx.scene.leave();
     }
 }

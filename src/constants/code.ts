@@ -11,6 +11,8 @@ export const CODE: { [ index: string ]: { [ index: string ]: string } } = {
         LOGIN: "🔑",
         LOGOUT: "🚪➡️",
         WALLET_MANAGEMENT: "💼",
-        SUPPORT: "📞"
+        SUPPORT: "📞",
+        RESEND_OTP: "🔄",
+        CHANGE_EMAIL: "✉"
     }
 }
