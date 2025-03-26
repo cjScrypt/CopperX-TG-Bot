@@ -30,15 +30,17 @@ export class CopperXService {
                 headers,
                 body: JSON.stringify(body)
             });
+            const responseBody = await response.json();
             if (!response.ok) {
-                if (response.status === 401) {
-                    throw new Error(CODE.ERROR.AUTH_EXPIRED);
-                }
-                throw new Error(`API responsed with status: ${response.status}`);
+                throw new Error(responseBody.message);
             }
 
-            return response;
-        } catch(error) {
+            return responseBody;
+        } catch(error: any) {
+            if (error.message == CODE.ERROR.INVALID_TOKEN) { // Missing authentication token
+                throw error; // This will be handled by the error middleware
+            }
+            console.error(`Error making request to CopperX: ${error}`);
             return null;
         }
     }
@@ -49,7 +51,7 @@ export class CopperXService {
     ): Promise<any | undefined> {
         const response = await this.makeRequest("GET", endpoint, authToken);
 
-        return response?.json();
+        return response;
     }
 
     async makePostRequest(
@@ -64,7 +66,7 @@ export class CopperXService {
             body
         );
 
-        return response?.json();
+        return response;
     }
 
     async getAuthTokenByChatId(chatId: number) {
