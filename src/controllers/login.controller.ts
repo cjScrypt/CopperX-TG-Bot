@@ -90,4 +90,10 @@ export class LoginController {
 
         return LoginController.requestOtp(ctx, next);
     }
+
+    static async changeEmail(ctx: ExtendedContext, next: () => Promise<void>) {
+        ctx.wizard.cursor = 0;
+
+        return LoginController.showLoginActionPrompt(ctx, next);
+    }
 }

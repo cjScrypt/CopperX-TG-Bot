@@ -11,3 +11,4 @@ export const loginScene = new Scenes.WizardScene<ExtendedContext>(
 );
 
 loginScene.action(BOT.ACTION.RESEND_OTP, LoginController.resendOtp);
+loginScene.action(BOT.ACTION.CHANGE_EMAIL, LoginController.changeEmail);

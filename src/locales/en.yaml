@@ -14,7 +14,7 @@ welcome:
     action_prompt_returning: "Your Copperx wallet is at your fingertips. What would you like to do today?"
 reply:
     login:
-        actionPrompt: "Welcome to the login process! Please enter your email address:"
+        actionPrompt: "Please enter your email address:"
         reenterOtp: "Please enter the OTP sent to your email:"
         invalidEmail: "Please enter a valid email address."
         invalidOtp: "Invalid OTP. Please re-enter the correct one or use the options below."
