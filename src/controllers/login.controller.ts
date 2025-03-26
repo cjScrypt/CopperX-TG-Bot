@@ -67,7 +67,7 @@ export class LoginController {
                 }
             );
 
-            return;
+            return ctx.wizard.back();
         }
         ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.success"));
 
