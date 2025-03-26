@@ -13,7 +13,7 @@ export class LoginController {
     }
 
     static async requestOtp(ctx: ExtendedContext, next: () => Promise<void>) {
-        const email = TelegramUtils.getMessageText(ctx);
+        const email = TelegramUtils.getMessageText(ctx) || ctx.wizard.state.userOtp?.email;
         if (!email || !isEmail(email)) {
             ctx.reply(LocaleUtils.getActionReplyText(
                 ctx.i18n,
@@ -67,7 +67,7 @@ export class LoginController {
                 }
             );
 
-            return ctx.wizard.back();
+            return next();
         }
         ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.success"));
 
@@ -83,5 +83,11 @@ export class LoginController {
         }
 
         return ctx.scene.leave();
+    }
+
+    static async resendOtp(ctx: ExtendedContext, next: () => Promise<void>) {
+        ctx.wizard.cursor = 1;
+
+        return LoginController.requestOtp(ctx, next);
     }
 }

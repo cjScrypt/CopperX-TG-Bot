@@ -9,3 +9,5 @@ export const loginScene = new Scenes.WizardScene<ExtendedContext>(
     LoginController.requestOtp,
     LoginController.verifyOtp
 );
+
+loginScene.action(BOT.ACTION.RESEND_OTP, LoginController.resendOtp);
