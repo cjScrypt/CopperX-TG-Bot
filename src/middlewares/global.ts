@@ -63,4 +63,11 @@ export class GlobalMiddleware {
             return next();
         }
     }
+
+    static async cleanupMessage(ctx: ExtendedContext, next: () => Promise<void>) {
+        if (ctx.scene.current && ctx.session.lastMessageId) {
+            await ctx.deleteMessage(ctx.session.lastMessageId);
+        }
+        return next();
+    }
 }
