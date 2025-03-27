@@ -52,13 +52,16 @@ export class GlobalMiddleware {
         return next();
     }
 
-    static async exitSceneOnCommand(ctx: ExtendedContext, next: () => Promise<void>) {
-        if (ctx.scene && ctx.scene.current) {
-            const text = TelegramUtils.getMessageText(ctx);
-            if (RegexUtils.isCommand(text)) {
+    static exitSceneOnCommand(excludeCommand: string) {
+        return async (ctx: ExtendedContext, next: () => Promise<void>) => {
+            const command = TelegramUtils.getMessageText(ctx);
+
+            if (ctx.scene && ctx.scene.current &&
+                RegexUtils.isCommand(command) &&
+                command !== excludeCommand
+            ) {
                 await ctx.scene.leave();
             }
-            ctx.scene.leave();
 
             return next();
         }

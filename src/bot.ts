@@ -25,7 +25,6 @@ export const setupBot = () => {
     bot.use(GlobalMiddleware.addSessionToContext);
     bot.use(UserMiddleware.addUserToContext);
     bot.use(GlobalMiddleware.cleanupMessage);
-    bot.use(GlobalMiddleware.exitSceneOnCommand);
 
     bot.use(mainStage.middleware());
 
