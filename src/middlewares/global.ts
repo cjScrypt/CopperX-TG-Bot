@@ -3,7 +3,7 @@ import { i18n } from "../commons/locale";
 import { store } from "../database/session";
 import { ExtendedContext } from "../interfaces";
 import { CopperXService, RedisService } from "../services";
-import { TelegramUtils } from "../utils";
+import { RegexUtils, TelegramUtils } from "../utils";
 
 export class GlobalMiddleware {
     static addI18nToContext = i18n.middleware();
@@ -50,5 +50,17 @@ export class GlobalMiddleware {
         }
 
         return next();
+    }
+
+    static async exitSceneOnCommand(ctx: ExtendedContext, next: () => Promise<void>) {
+        if (ctx.scene && ctx.scene.current) {
+            const text = TelegramUtils.getMessageText(ctx);
+            if (RegexUtils.isCommand(text)) {
+                await ctx.scene.leave();
+            }
+            ctx.scene.leave();
+
+            return next();
+        }
     }
 }
