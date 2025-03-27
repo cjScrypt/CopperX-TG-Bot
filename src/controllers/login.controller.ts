@@ -30,7 +30,7 @@ export class LoginController {
                 ctx.i18n,
                 "login.failedRequestOtp"
             ));
-            return ctx.wizard.back();
+            return;
         }
 
         ctx.wizard.state.userOtp = {
@@ -87,12 +87,14 @@ export class LoginController {
 
     static async resendOtp(ctx: ExtendedContext, next: () => Promise<void>) {
         ctx.wizard.cursor = 1;
+        ctx.answerCbQuery();
 
         return LoginController.requestOtp(ctx, next);
     }
 
     static async changeEmail(ctx: ExtendedContext, next: () => Promise<void>) {
         ctx.wizard.cursor = 0;
+        ctx.answerCbQuery();
 
         return LoginController.showLoginActionPrompt(ctx, next);
     }
