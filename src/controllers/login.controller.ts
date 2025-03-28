@@ -1,7 +1,7 @@
 import { isEmail } from "class-validator";
 import { ExtendedContext } from "../interfaces";
 import { AuthService } from "../services";
-import { LocaleUtils, SessionUtils, TelegramUtils } from "../utils";
+import { LocaleUtils, TelegramUtils } from "../utils";
 import { LoginView } from "../views";
 
 export class LoginController {
@@ -13,7 +13,6 @@ export class LoginController {
 
     static async requestOtp(ctx: ExtendedContext, next: () => Promise<void>) {
         const email = TelegramUtils.getMessageText(ctx) || ctx.wizard.state.userOtp?.email;
-        SessionUtils.setLastMessageId(ctx.session, ctx.message?.message_id);
         if (!email || !isEmail(email)) {
             await ctx.editMessageText(LocaleUtils.getActionReplyText(
                 ctx.i18n,
@@ -53,7 +52,6 @@ export class LoginController {
         }
 
         const otp = TelegramUtils.getMessageText(ctx);
-        SessionUtils.setLastMessageId(ctx.session, ctx.message?.message_id);
         if (!otp) {
             await ctx.editMessageText(LocaleUtils.getActionReplyText(ctx.i18n, "login.reenterOtp"));
             return;
