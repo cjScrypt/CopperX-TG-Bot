@@ -5,6 +5,13 @@ export class SessionUtils {
         if (!messageId) {
             return;
         }
-        session.userLastMessageId = messageId;
+        session.userMessageId = messageId;
+    }
+
+    static setBotLastMessageId(session: SceneSession, messageId?: number) {
+        if (!messageId) {
+            return;
+        }
+        session.botMessageId = messageId;
     }
 }

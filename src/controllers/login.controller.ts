@@ -1,12 +1,13 @@
 import { isEmail } from "class-validator";
 import { ExtendedContext } from "../interfaces";
 import { AuthService } from "../services";
-import { LocaleUtils, TelegramUtils } from "../utils";
+import { LocaleUtils, SessionUtils, TelegramUtils } from "../utils";
 import { LoginView } from "../views";
 
 export class LoginController {
     static async showLoginActionPrompt(ctx: ExtendedContext, next: () => Promise<void>) {
-        await ctx.reply(LoginView.getLoginActionPrompt(ctx.i18n));
+        const msg = await ctx.reply(LoginView.getLoginActionPrompt(ctx.i18n));
+        SessionUtils.setBotLastMessageId(ctx.session, msg.message_id);
 
         return ctx.wizard.next();
     }
@@ -14,21 +15,30 @@ export class LoginController {
     static async requestOtp(ctx: ExtendedContext, next: () => Promise<void>) {
         const email = TelegramUtils.getMessageText(ctx) || ctx.wizard.state.userOtp?.email;
         if (!email || !isEmail(email)) {
-            await ctx.editMessageText(LocaleUtils.getActionReplyText(
-                ctx.i18n,
-                "login.invalidEmail"
-            ));
-
+            await ctx.telegram.editMessageText(
+                ctx.chat?.id,
+                ctx.session.botMessageId,
+                undefined,
+                LocaleUtils.getActionReplyText(
+                    ctx.i18n,
+                    "login.invalidEmail"
+                )
+            );
             return;
         }
 
         const authService = new AuthService();
         const response = await authService.requestOtp(email);
         if (!response) {
-            await ctx.editMessageText(LocaleUtils.getActionReplyText(
-                ctx.i18n,
-                "login.failedRequestOtp"
-            ));
+            await ctx.telegram.editMessageText(
+                ctx.chat?.id,
+                ctx.session.botMessageId,
+                undefined,
+                LocaleUtils.getActionReplyText(
+                    ctx.i18n,
+                    "login.failedRequestOtp"
+                )
+            );
             return;
         }
 
@@ -36,11 +46,16 @@ export class LoginController {
             email,
             sid: response.sid
         }
-        await ctx.editMessageText(LocaleUtils.getActionReplyText(
-            ctx.i18n,
-            "login.otpSent",
-            email
-        ));
+        await ctx.telegram.editMessageText(
+            ctx.chat?.id,
+            ctx.session.botMessageId,
+            undefined,
+            LocaleUtils.getActionReplyText(
+                ctx.i18n,
+                "login.otpSent",
+                email
+            )
+        );
 
         return ctx.wizard.next();
     }
@@ -53,14 +68,22 @@ export class LoginController {
 
         const otp = TelegramUtils.getMessageText(ctx);
         if (!otp) {
-            await ctx.editMessageText(LocaleUtils.getActionReplyText(ctx.i18n, "login.reenterOtp"));
+            await ctx.telegram.editMessageText(
+                ctx.chat?.id,
+                ctx.session.botMessageId,
+                undefined,
+                LocaleUtils.getActionReplyText(ctx.i18n, "login.reenterOtp")
+            );
             return;
         }
 
         const authService = new AuthService();
         const response = await authService.verifyOtp(otp, ctx.wizard.state.userOtp, chatId);
         if (!response) {
-            await ctx.editMessageText(
+            await ctx.telegram.editMessageText(
+                ctx.chat?.id,
+                ctx.session.botMessageId,
+                undefined,
                 LocaleUtils.getActionReplyText(ctx.i18n, "login.invalidOtp" ),
                 {
                     reply_markup: LoginView.getInvalidOtpKeyboard(ctx.i18n).reply_markup
@@ -69,7 +92,12 @@ export class LoginController {
 
             return;
         }
-        await ctx.editMessageText(LocaleUtils.getActionReplyText(ctx.i18n, "login.success"));
+        await ctx.telegram.editMessageText(
+            ctx.chat?.id,
+            ctx.session.botMessageId,
+            undefined,
+            LocaleUtils.getActionReplyText(ctx.i18n, "login.success")
+        );
 
         ctx.session.copperX = {
             token: response.accessToken,

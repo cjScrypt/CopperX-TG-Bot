@@ -11,7 +11,8 @@ export interface WizardSessionData extends Scenes.WizardSessionData {
 
 export interface SessionData {
     copperX: CopperXSession;
-    userLastMessageId: number;
+    botMessageId: number;
+    userMessageId: number;
 }
 
 export interface SceneSession extends Scenes.SceneSession<WizardSessionData>, SessionData {}
