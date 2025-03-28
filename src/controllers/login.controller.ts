@@ -6,7 +6,7 @@ import { LoginView } from "../views";
 
 export class LoginController {
     static async showLoginActionPrompt(ctx: ExtendedContext, next: () => Promise<void>) {
-        ctx.reply(LoginView.getLoginActionPrompt(ctx.i18n));
+        await ctx.reply(LoginView.getLoginActionPrompt(ctx.i18n));
 
         return ctx.wizard.next();
     }
@@ -15,7 +15,7 @@ export class LoginController {
         const email = TelegramUtils.getMessageText(ctx) || ctx.wizard.state.userOtp?.email;
         SessionUtils.setLastMessageId(ctx.session, ctx.message?.message_id);
         if (!email || !isEmail(email)) {
-            ctx.editMessageText(LocaleUtils.getActionReplyText(
+            await ctx.editMessageText(LocaleUtils.getActionReplyText(
                 ctx.i18n,
                 "login.invalidEmail"
             ));
@@ -26,7 +26,7 @@ export class LoginController {
         const authService = new AuthService();
         const response = await authService.requestOtp(email);
         if (!response) {
-            ctx.editMessageText(LocaleUtils.getActionReplyText(
+            await ctx.editMessageText(LocaleUtils.getActionReplyText(
                 ctx.i18n,
                 "login.failedRequestOtp"
             ));
@@ -37,7 +37,7 @@ export class LoginController {
             email,
             sid: response.sid
         }
-        ctx.editMessageText(LocaleUtils.getActionReplyText(
+        await ctx.editMessageText(LocaleUtils.getActionReplyText(
             ctx.i18n,
             "login.otpSent",
             email
@@ -55,22 +55,23 @@ export class LoginController {
         const otp = TelegramUtils.getMessageText(ctx);
         SessionUtils.setLastMessageId(ctx.session, ctx.message?.message_id);
         if (!otp) {
-            ctx.editMessageText(LocaleUtils.getActionReplyText(ctx.i18n, "login.reenterOtp"));
+            await ctx.editMessageText(LocaleUtils.getActionReplyText(ctx.i18n, "login.reenterOtp"));
+            return;
         }
 
         const authService = new AuthService();
         const response = await authService.verifyOtp(otp, ctx.wizard.state.userOtp, chatId);
         if (!response) {
-            ctx.editMessageText(
+            await ctx.editMessageText(
                 LocaleUtils.getActionReplyText(ctx.i18n, "login.invalidOtp" ),
                 {
                     reply_markup: LoginView.getInvalidOtpKeyboard(ctx.i18n).reply_markup
                 }
             );
 
-            return next();
+            return;
         }
-        ctx.editMessageText(LocaleUtils.getActionReplyText(ctx.i18n, "login.success"));
+        await ctx.editMessageText(LocaleUtils.getActionReplyText(ctx.i18n, "login.success"));
 
         ctx.session.copperX = {
             token: response.accessToken,
