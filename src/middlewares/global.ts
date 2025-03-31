@@ -1,4 +1,4 @@
-import { session } from "telegraf";
+import { Middleware, MiddlewareFn, session } from "telegraf";
 import { i18n } from "../commons/locale";
 import { store } from "../database/session";
 import { ExtendedContext } from "../interfaces";
@@ -75,5 +75,15 @@ export class GlobalMiddleware {
             ]);
         }
         return next();
+    }
+
+    static sceneSpecific(sceneid: string, middlewares: MiddlewareFn<ExtendedContext>[]) {
+        return async (ctx: ExtendedContext, next: () => Promise<void>) => {
+            if (ctx.scene.current && ctx.scene.current.id === sceneid) {
+                for (const middleware of middlewares) {
+                    await middleware(ctx, next);
+                }
+            }
+        }
     }
 }

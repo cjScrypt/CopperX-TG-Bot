@@ -12,7 +12,11 @@ export const loginScene = new Scenes.WizardScene<ExtendedContext>(
 );
 
 loginScene.use(GlobalMiddleware.exitSceneOnCommand(`/${BOT.ACTION.LOGIN}`));
-loginScene.use(GlobalMiddleware.cleanupMessages);
+loginScene.use(GlobalMiddleware.sceneSpecific(
+    BOT.SCENE.LOGIN, [
+        GlobalMiddleware.cleanupMessages
+    ]
+));
 
 loginScene.action(BOT.ACTION.RESEND_OTP, LoginController.resendOtp);
 loginScene.action(BOT.ACTION.CHANGE_EMAIL, LoginController.changeEmail);
