@@ -1,5 +1,5 @@
 import { Agent } from "https";
-import { session, Telegraf } from "telegraf";
+import { Telegraf } from "telegraf";
 
 import { TG_TOKEN } from "./config";
 import { ExtendedContext } from "./interfaces";
@@ -22,14 +22,12 @@ export const setupBot = () => {
     });
 
     bot.use(GlobalMiddleware.addI18nToContext);
+    bot.use(GlobalMiddleware.addSessionToContext);
     bot.use(UserMiddleware.addUserToContext);
-    bot.use(GlobalMiddleware.addCopperXTokenToContext);
 
-    bot.use(session());
     bot.use(mainStage.middleware());
 
     bot.start(
-        GlobalMiddleware.addCopperXProfileToContext,
         StartController.showStart
     );
 

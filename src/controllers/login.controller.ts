@@ -1,43 +1,61 @@
 import { isEmail } from "class-validator";
 import { ExtendedContext } from "../interfaces";
 import { AuthService } from "../services";
-import { LocaleUtils, TelegramUtils } from "../utils";
+import { LocaleUtils, SessionUtils, TelegramUtils } from "../utils";
 import { LoginView } from "../views";
 
 export class LoginController {
     static async showLoginActionPrompt(ctx: ExtendedContext, next: () => Promise<void>) {
-        // @todo Cache message ID and delete on next query
-        ctx.reply(LoginView.getLoginActionPrompt(ctx.i18n));
+        const msg = await ctx.reply(LoginView.getLoginActionPrompt(ctx.i18n));
+        SessionUtils.setBotLastMessageId(ctx.session, msg.message_id);
 
         return ctx.wizard.next();
     }
 
     static async requestOtp(ctx: ExtendedContext, next: () => Promise<void>) {
-        const email = TelegramUtils.getMessageText(ctx);
+        const email = TelegramUtils.getMessageText(ctx) || ctx.wizard.state.userOtp?.email;
         if (!email || !isEmail(email)) {
-            ctx.reply(LocaleUtils.getActionReplyText(
-                ctx.i18n,
-                "login.invalidEmail"
-            ));
-
+            await ctx.telegram.editMessageText(
+                ctx.chat?.id,
+                ctx.session.botMessageId,
+                undefined,
+                LocaleUtils.getActionReplyText(
+                    ctx.i18n,
+                    "login.invalidEmail"
+                )
+            );
             return;
         }
 
         const authService = new AuthService();
         const response = await authService.requestOtp(email);
         if (!response) {
-            ctx.reply(LocaleUtils.getActionReplyText(
-                ctx.i18n,
-                "login.failedRequestOtp"
-            ));
-            return ctx.wizard.back();
+            await ctx.telegram.editMessageText(
+                ctx.chat?.id,
+                ctx.session.botMessageId,
+                undefined,
+                LocaleUtils.getActionReplyText(
+                    ctx.i18n,
+                    "login.failedRequestOtp"
+                )
+            );
+            return;
         }
 
         ctx.wizard.state.userOtp = {
             email,
             sid: response.sid
         }
-        ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.otpSent"));
+        await ctx.telegram.editMessageText(
+            ctx.chat?.id,
+            ctx.session.botMessageId,
+            undefined,
+            LocaleUtils.getActionReplyText(
+                ctx.i18n,
+                "login.otpSent",
+                email
+            )
+        );
 
         return ctx.wizard.next();
     }
@@ -50,19 +68,36 @@ export class LoginController {
 
         const otp = TelegramUtils.getMessageText(ctx);
         if (!otp) {
-            ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.reenterOtp"));
+            await ctx.telegram.editMessageText(
+                ctx.chat?.id,
+                ctx.session.botMessageId,
+                undefined,
+                LocaleUtils.getActionReplyText(ctx.i18n, "login.reenterOtp")
+            );
+            return;
         }
 
         const authService = new AuthService();
         const response = await authService.verifyOtp(otp, ctx.wizard.state.userOtp, chatId);
         if (!response) {
-            ctx.reply(LocaleUtils.getActionReplyText(
-                ctx.i18n,
-                "login.invalidOtp"
-            ));
+            await ctx.telegram.editMessageText(
+                ctx.chat?.id,
+                ctx.session.botMessageId,
+                undefined,
+                LocaleUtils.getActionReplyText(ctx.i18n, "login.invalidOtp" ),
+                {
+                    reply_markup: LoginView.getInvalidOtpKeyboard(ctx.i18n).reply_markup
+                }
+            );
 
             return;
         }
+        await ctx.telegram.editMessageText(
+            ctx.chat?.id,
+            ctx.session.botMessageId,
+            undefined,
+            LocaleUtils.getActionReplyText(ctx.i18n, "login.success")
+        );
 
         ctx.session.copperX = {
             token: response.accessToken,
@@ -75,6 +110,20 @@ export class LoginController {
             }
         }
 
-        return next();
+        return ctx.scene.leave();
+    }
+
+    static async resendOtp(ctx: ExtendedContext, next: () => Promise<void>) {
+        ctx.wizard.cursor = 1;
+        ctx.answerCbQuery();
+
+        return LoginController.requestOtp(ctx, next);
+    }
+
+    static async changeEmail(ctx: ExtendedContext, next: () => Promise<void>) {
+        ctx.wizard.cursor = 0;
+        ctx.answerCbQuery();
+
+        return LoginController.showLoginActionPrompt(ctx, next);
     }
 }

@@ -14,12 +14,17 @@ welcome:
     action_prompt_returning: "Your Copperx wallet is at your fingertips. What would you like to do today?"
 reply:
     login:
-        actionPrompt: "Welcome to the login process! Please enter your email address:"
+        actionPrompt: "Please enter your email address:"
+        reenterOtp: "Please enter the OTP sent to your email:"
         invalidEmail: "Please enter a valid email address."
+        invalidOtp: "Invalid OTP. Please re-enter the correct one or use the options below."
         failedRequestOtp: "Something went wrong while requesting the OTP. Please try again."
-
+        otpSent: "We've sent an OTP to ${value}. Please enter the code to continue:"
+        success: "Login successful! You are now authenticated."
 action:
     login: "${code} Login"
+    resend_otp: "${code} Resend OTP"
+    change_email: "${code} Change Email"
     help: "${code} Help"
     support: "${code} Support"
     wallet_management: "${code} Wallet Management"

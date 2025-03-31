@@ -1,4 +1,5 @@
-import { ExtendedContext } from "../interfaces";
+import { ExtendedContext, SceneSession } from "../interfaces";
+import { SessionUtils } from "./session.utils";
 
 export class TelegramUtils {
     static getUserFromContext(ctx: ExtendedContext) {
@@ -17,9 +18,20 @@ export class TelegramUtils {
 
     static getMessageText(ctx: ExtendedContext) {
         if (ctx.message && 'text' in ctx.message) {
-            return ctx.message.text.trim();
+            SessionUtils.setUserLastMessageId(ctx.session, ctx.message.message_id);
+            const text = ctx.message.text.trim();
+
+            return text;
         }
 
         return '';
+    }
+
+    static getAuthTokenFromSession(session: SceneSession) {
+        if (!session.copperX) {
+            return null;
+        }
+
+        return session.copperX.token;
     }
 }

@@ -1,6 +1,7 @@
 export const CODE: { [ index: string ]: { [ index: string ]: string } } = {
     ERROR: {
-        AUTH_EXPIRED: "AUTH_EXPIRED"
+        AUTH_EXPIRED: "AUTH_EXPIRED",
+        INVALID_TOKEN: "Invalid token",
     },
     ACTION: {
         BACK: "🔙",
@@ -10,6 +11,8 @@ export const CODE: { [ index: string ]: { [ index: string ]: string } } = {
         LOGIN: "🔑",
         LOGOUT: "🚪➡️",
         WALLET_MANAGEMENT: "💼",
-        SUPPORT: "📞"
+        SUPPORT: "📞",
+        RESEND_OTP: "🔄",
+        CHANGE_EMAIL: "✉"
     }
 }

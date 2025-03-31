@@ -29,7 +29,7 @@ export class AuthService {
     }
 
     async requestOtp(email: string) {
-        const endpoint = "/api/auth/email-otp/request";
+        const endpoint = "api/auth/email-otp/request";
         const body = { email }
         const response = await this.copperXService.makePostRequest(
             endpoint,
@@ -44,7 +44,7 @@ export class AuthService {
         loginDto: LoginEmailOtpResponseDto,
         chatId: number
     ) {
-        const endpoint = "/api/auth/email-otp/authenticate";
+        const endpoint = "api/auth/email-otp/authenticate";
         const body = {
             ...loginDto,
             otp

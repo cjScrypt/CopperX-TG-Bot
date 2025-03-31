@@ -1,4 +1,5 @@
 import { ExtendedContext } from "../interfaces";
+import { TelegramUtils } from "../utils";
 import { StartView } from "../views";
 
 export class StartController {
@@ -6,13 +7,17 @@ export class StartController {
         ctx: ExtendedContext,
         next: () => Promise<void>
     ) {
-        const keyboard = ctx.copperXSession
+        const keyboard = TelegramUtils.getAuthTokenFromSession(ctx.session)
             ? StartView.getLoggedInKeyboard(ctx.i18n)
             : StartView.getLoggedOutKeyboard(ctx.i18n);
 
         const user = ctx.user;
         const name = [ user.firstName, user.lastName ].filter(Boolean).join(" ");
-        const htmlContent = await StartView.getStartHtml(ctx.i18n, name, ctx.copperXSession);
+        const htmlContent = await StartView.getStartHtml(
+            ctx.i18n,
+            name,
+            ctx.session.copperX
+        );
 
         ctx.reply(htmlContent, {
             parse_mode: "HTML",
