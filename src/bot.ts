@@ -26,8 +26,6 @@ export const setupBot = () => {
     bot.use(UserMiddleware.addUserToContext);
     bot.use(GlobalMiddleware.cleanupMessage);
 
-    bot.use(mainStage.middleware());
-
     bot.start(
         StartController.showStart
     );
@@ -35,6 +33,8 @@ export const setupBot = () => {
     bot.command(BOT.COMMAND.HELP, HelpController.showHelp);
 
     bot.command(BOT.COMMAND.LOGIN, CommonController.enterScene(BOT.SCENE.LOGIN));
+
+    bot.use(mainStage.middleware());
 
     return bot;
 }
