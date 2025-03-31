@@ -67,9 +67,12 @@ export class GlobalMiddleware {
         }
     }
 
-    static async cleanupUserMessage(ctx: ExtendedContext, next: () => Promise<void>) {
-        if (ctx.scene.current && ctx.session.userMessageId) {
-            await ctx.deleteMessage(ctx.session.userMessageId);
+    static async cleanupMessages(ctx: ExtendedContext, next: () => Promise<void>) {
+        if (ctx.scene.current && ctx.session) {
+            await ctx.deleteMessages([
+                ctx.session.userMessageId,
+                ctx.session.botMessageId
+            ]);
         }
         return next();
     }

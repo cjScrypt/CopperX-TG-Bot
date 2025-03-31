@@ -6,5 +6,3 @@ import { GlobalMiddleware } from "../middlewares";
 export const mainStage = new Scenes.Stage<ExtendedContext>(
     [loginScene]
 );
-
-mainStage.use(GlobalMiddleware.cleanupUserMessage);
