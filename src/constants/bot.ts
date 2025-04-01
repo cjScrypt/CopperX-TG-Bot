@@ -16,7 +16,8 @@ export const BOT = {
         WALLET_MANAGEMENT: "wallet_management",
         SEND_TRANSFER: "send_transfer",
         PROFILE: "profile",
-        LOGOUT: "logout"
+        LOGOUT: "logout",
+        CANCEL: "cancel"
     },
     SCENE: {
         LOGIN: "login"

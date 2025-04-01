@@ -6,7 +6,12 @@ import { LoginView } from "../views";
 
 export class LoginController {
     static async showLoginActionPrompt(ctx: ExtendedContext, next: () => Promise<void>) {
-        const msg = await ctx.reply(LoginView.getLoginActionPrompt(ctx.i18n));
+        const msg = await ctx.reply(
+            LoginView.getLoginActionPrompt(ctx.i18n),
+            {
+                reply_markup: LoginView.getCancelKeyboard(ctx.i18n).reply_markup
+            }
+        );
         SessionUtils.setBotLastMessageId(ctx.session, msg.message_id);
 
         return ctx.wizard.next();
@@ -15,30 +20,28 @@ export class LoginController {
     static async requestOtp(ctx: ExtendedContext, next: () => Promise<void>) {
         const email = TelegramUtils.getMessageText(ctx) || ctx.wizard.state.userOtp?.email;
         if (!email || !isEmail(email)) {
-            await ctx.telegram.editMessageText(
-                ctx.chat?.id,
-                ctx.session.botMessageId,
-                undefined,
-                LocaleUtils.getActionReplyText(
-                    ctx.i18n,
-                    "login.invalidEmail"
-                )
+            const msg = await ctx.reply(
+                LocaleUtils.getActionReplyText(ctx.i18n, "login.invalidEmail"),
+                {
+                    reply_markup: LoginView.getCancelKeyboard(ctx.i18n).reply_markup
+                }
             );
+            SessionUtils.setBotLastMessageId(ctx.session, msg.message_id);
+
             return;
         }
 
         const authService = new AuthService();
         const response = await authService.requestOtp(email);
         if (!response) {
-            await ctx.telegram.editMessageText(
-                ctx.chat?.id,
-                ctx.session.botMessageId,
-                undefined,
-                LocaleUtils.getActionReplyText(
-                    ctx.i18n,
-                    "login.failedRequestOtp"
-                )
+            const msg = await ctx.reply(
+                LocaleUtils.getActionReplyText(ctx.i18n, "login.failedRequestOtp"),
+                {
+                    reply_markup: LoginView.getCancelKeyboard(ctx.i18n).reply_markup
+                }
             );
+            SessionUtils.setBotLastMessageId(ctx.session, msg.message_id);
+
             return;
         }
 
@@ -46,16 +49,17 @@ export class LoginController {
             email,
             sid: response.sid
         }
-        await ctx.telegram.editMessageText(
-            ctx.chat?.id,
-            ctx.session.botMessageId,
-            undefined,
+        const msg = await ctx.reply(
             LocaleUtils.getActionReplyText(
                 ctx.i18n,
                 "login.otpSent",
                 email
-            )
+            ),
+            {
+                reply_markup: LoginView.getCancelKeyboard(ctx.i18n).reply_markup
+            }
         );
+        SessionUtils.setBotLastMessageId(ctx.session, msg.message_id);
 
         return ctx.wizard.next();
     }
@@ -68,36 +72,36 @@ export class LoginController {
 
         const otp = TelegramUtils.getMessageText(ctx);
         if (!otp) {
-            await ctx.telegram.editMessageText(
-                ctx.chat?.id,
-                ctx.session.botMessageId,
-                undefined,
-                LocaleUtils.getActionReplyText(ctx.i18n, "login.reenterOtp")
+            const msg = await ctx.reply(
+                LocaleUtils.getActionReplyText(ctx.i18n, "login.reenterOtp"),
+                {
+                    reply_markup: LoginView.getCancelKeyboard(ctx.i18n).reply_markup
+                }
             );
+            SessionUtils.setBotLastMessageId(ctx.session, msg.message_id);
             return;
         }
 
         const authService = new AuthService();
         const response = await authService.verifyOtp(otp, ctx.wizard.state.userOtp, chatId);
         if (!response) {
-            await ctx.telegram.editMessageText(
-                ctx.chat?.id,
-                ctx.session.botMessageId,
-                undefined,
+            const msg = await ctx.reply(
                 LocaleUtils.getActionReplyText(ctx.i18n, "login.invalidOtp" ),
                 {
                     reply_markup: LoginView.getInvalidOtpKeyboard(ctx.i18n).reply_markup
                 }
             );
+            SessionUtils.setBotLastMessageId(ctx.session, msg.message_id);
 
             return;
         }
-        await ctx.telegram.editMessageText(
-            ctx.chat?.id,
-            ctx.session.botMessageId,
-            undefined,
-            LocaleUtils.getActionReplyText(ctx.i18n, "login.success")
+        const msg = await ctx.reply(
+            LocaleUtils.getActionReplyText(ctx.i18n, "login.success"),
+            {
+                reply_markup: LoginView.getCancelKeyboard(ctx.i18n).reply_markup
+            }
         );
+        SessionUtils.setBotLastMessageId(ctx.session, msg.message_id);
 
         ctx.session.copperX = {
             token: response.accessToken,

@@ -3,7 +3,7 @@ import { i18n } from "../commons/locale";
 import { store } from "../database/session";
 import { ExtendedContext } from "../interfaces";
 import { CopperXService, RedisService } from "../services";
-import { RegexUtils, TelegramUtils } from "../utils";
+import { LocaleUtils, RegexUtils, TelegramUtils } from "../utils";
 
 export class GlobalMiddleware {
     static addI18nToContext = i18n.middleware();
@@ -65,6 +65,12 @@ export class GlobalMiddleware {
 
             return next();
         }
+    }
+
+    static async cancelScene(ctx: ExtendedContext, next: () => Promise<void>) {
+        await ctx.scene.leave();
+
+        return next();
     }
 
     static async cleanupMessages(ctx: ExtendedContext, next: () => Promise<void>) {

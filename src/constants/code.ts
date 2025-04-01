@@ -13,6 +13,7 @@ export const CODE: { [ index: string ]: { [ index: string ]: string } } = {
         WALLET_MANAGEMENT: "💼",
         SUPPORT: "📞",
         RESEND_OTP: "🔄",
-        CHANGE_EMAIL: "✉"
+        CHANGE_EMAIL: "✉",
+        CANCEL: "🚫"
     }
 }
