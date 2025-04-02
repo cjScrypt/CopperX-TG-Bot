@@ -2,6 +2,7 @@ export const CODE: { [ index: string ]: { [ index: string ]: string } } = {
     ERROR: {
         AUTH_EXPIRED: "AUTH_EXPIRED",
         INVALID_TOKEN: "Invalid token",
+        UNAUTHORIZED: "Unauthorized"
     },
     ACTION: {
         BACK: "🔙",

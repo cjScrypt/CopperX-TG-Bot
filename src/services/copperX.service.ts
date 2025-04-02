@@ -32,12 +32,12 @@ export class CopperXService {
             });
             const responseBody = await response.json();
             if (!response.ok) {
-                throw new Error(responseBody.message);
+                throw new Error(responseBody.error);
             }
 
             return responseBody;
         } catch(error: any) {
-            if (error.message == CODE.ERROR.INVALID_TOKEN) { // Missing authentication token
+            if (error.message == CODE.ERROR.UNAUTHORIZED) { // Missing authentication token
                 throw error; // This will be handled by the error middleware
             }
             console.error(`Error making request to CopperX: ${error}`);

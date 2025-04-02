@@ -9,7 +9,7 @@ import {
     StartController
 } from "./controllers";
 import { BOT } from "./constants";
-import { GlobalMiddleware, UserMiddleware } from "./middlewares";
+import { GlobalMiddleware, UserMiddleware, errorHandler } from "./middlewares";
 import { mainStage } from "./scenes";
 
 export const setupBot = () => {
@@ -38,6 +38,8 @@ export const setupBot = () => {
     bot.command(BOT.COMMAND.HELP, HelpController.showHelp);
 
     bot.command(BOT.COMMAND.LOGIN, CommonController.enterScene(BOT.SCENE.LOGIN));
+
+    bot.catch(errorHandler);
 
     return bot;
 }
