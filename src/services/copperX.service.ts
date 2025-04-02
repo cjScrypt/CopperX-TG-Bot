@@ -83,24 +83,17 @@ export class CopperXService {
     }
 
     async fetchUserProfile(token: string) {
-        try {
-            const userProfile = await this.makeGetRequest("api/auth/me", token) as CopperXUser;
-
-            return {
-                firstName: userProfile.firstName,
-                lastName: userProfile.lastName,
-                email: userProfile.email,
-                status: userProfile.status,
-                walletAddress: userProfile.walletAddress
-            }
-        } catch (error) {
-            console.error(`Error fetching user profile: ${error}`);
-            if (error instanceof Error && error.message === CODE.ERROR.AUTH_EXPIRED) {
-                // @todo Do Something else
-                return null;
-            }
-
+        const userProfile = await this.makeGetRequest("api/auth/me", token) as CopperXUser | null;
+        if (!userProfile) {
             return null;
+        }
+
+        return {
+            firstName: userProfile.firstName,
+            lastName: userProfile.lastName,
+            email: userProfile.email,
+            status: userProfile.status,
+            walletAddress: userProfile.walletAddress
         }
     }
 }
