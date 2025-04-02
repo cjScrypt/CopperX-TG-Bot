@@ -21,6 +21,7 @@ reply:
         failedRequestOtp: "Something went wrong while requesting the OTP. Please try again."
         otpSent: "We've sent an OTP to ${value}. Please enter the code to continue:"
         success: "Login successful! You are now authenticated."
+        commandInScene: "Please use the 'Cancel' button to exit this process before trying other commands."
 action:
     login: "${code} Login"
     resend_otp: "${code} Resend OTP"
@@ -32,6 +33,7 @@ action:
     profile: "${code} Profile"
     logout: "${code} Logout"
     back: "${code} Back"
+    cancel: "${code} Cancel"
 header:
     welcome: "Welcome to Copperx Payout Bot!"
 description:

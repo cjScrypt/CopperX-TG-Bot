@@ -73,6 +73,22 @@ export class GlobalMiddleware {
         return next();
     }
 
+    static preventCommandsInScene(excludeCommand: string) {
+        return async (ctx: ExtendedContext, next: () => Promise<void>) => {
+            const command = TelegramUtils.getMessageText(ctx);
+
+            if (ctx.scene.current &&
+                RegexUtils.isCommand(command) &&
+                command !== excludeCommand
+            ) {
+                ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.commandInScene"));
+                return;
+            }
+
+            return next();
+        }
+    }
+
     static async cleanupMessages(ctx: ExtendedContext, next: () => Promise<void>) {
         if (ctx.scene.current && ctx.session) {
             await ctx.deleteMessages([
