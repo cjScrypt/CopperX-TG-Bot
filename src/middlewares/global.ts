@@ -9,25 +9,13 @@ export class GlobalMiddleware {
     static addI18nToContext = i18n.middleware();
     static addSessionToContext = session({ store });
 
-    static async addCopperXTokenToContext(
+    static async initializeCopperXSession(
         ctx: ExtendedContext,
         next: () => Promise<void>
     ) {
-        const chatId = TelegramUtils.getChatId(ctx);
-        if (!chatId) {
-            return;
+        if (!ctx.session.copperX) {
+            ctx.session.copperX = { token: "" };
         }
-
-        const copperXService = new CopperXService();
-        const authData = await copperXService.getAuthTokenByChatId(chatId);
-        if (!authData) {
-            return next();
-        }
-
-        ctx.copperXSession = {
-            token: authData.token
-        }
-
         return next();
     }
 
@@ -35,19 +23,30 @@ export class GlobalMiddleware {
         ctx: ExtendedContext,
         next: () => Promise<void>
     ) {
-        const token = ctx.copperXSession.token;
+        const chatId = TelegramUtils.getChatId(ctx);
+        if (!chatId) {
+            return;
+        }
+        const key = `profile_${chatId}`;
+        const redisService = new RedisService();
 
-        const copperXService = new CopperXService();
-        const userProfile = await copperXService.fetchUserProfile(token);
+        let data = await redisService.getValue(key);
+        if (data) {
+            ctx.session.copperX.user = data;
+            return next();
+        }
+
+        const token = ctx.session.copperX.token;
+        if (!token) {
+            return next();
+        }
+        const userProfile = await (new CopperXService()).fetchUserProfile(token);
         if (!userProfile) {
             return next();
         }
 
-        // @todo Cache this data
-        ctx.copperXSession = {
-            user: userProfile,
-            token: token
-        }
+        await redisService.setValue(key, userProfile, 60 * 60);
+        ctx.session.copperX.user = userProfile;
 
         return next();
     }

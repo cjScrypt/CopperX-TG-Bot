@@ -6,7 +6,6 @@ import { SceneSession, WizardSessionData } from "./session.interface";
 
 export interface ExtendedContext extends Context  {
     session: SceneSession,
-    copperXSession: CopperXSession,
     i18n: I18nContext,
     scene: Scenes.SceneContextScene<ExtendedContext, WizardSessionData>,
     user: User,
