@@ -36,8 +36,16 @@ export const setupBot = () => {
     );
 
     bot.command(BOT.COMMAND.HELP, HelpController.showHelp);
+    bot.action(BOT.ACTION.HELP, HelpController.showHelp);
 
-    bot.command(BOT.COMMAND.LOGIN, CommonController.enterScene(BOT.SCENE.LOGIN));
+    bot.command(
+        BOT.COMMAND.LOGIN,
+        CommonController.enterScene(BOT.SCENE.LOGIN)
+    );
+    bot.action(
+        BOT.ACTION.LOGIN,
+        CommonController.enterScene(BOT.SCENE.LOGIN)
+    );
 
     bot.catch(errorHandler);
 
