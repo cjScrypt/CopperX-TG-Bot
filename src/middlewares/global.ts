@@ -18,6 +18,7 @@ export class GlobalMiddleware {
         ctx: ExtendedContext,
         next: () => Promise<void>
     ) {
+        ctx.session = ctx.session || {};
         if (!ctx.session.copperX) {
             ctx.session.copperX = { token: "" };
         }
