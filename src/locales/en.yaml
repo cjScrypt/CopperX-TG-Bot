@@ -1,6 +1,6 @@
 welcome:
     title_new_user: "Welcome to CopperWallet Bot, ${value}!"
-    title_returning_user: "Welcome back to CopperWallet Bot, ${value}!"
+    title_returning_user: "Welcome to CopperX Payout Bot, ${value}!"
     description: "I'm your unofficial gateway to managing your Copperx stablecoin wallet directly from Telegram. With me, you can:"
     features: |
       • View wallet balances and transaction history
@@ -12,6 +12,8 @@ welcome:
     help_hint: "Use the /help command to see all available actions you can perform."
     action_prompt_new: "What would you like to do next?"
     action_prompt_returning: "Your Copperx wallet is at your fingertips. What would you like to do today?"
+    loggedIn: "You're currently logged in and ready to go. What would you like to do today?"
+    loggedOut: "Please log in to access all features and personalized content."
 reply:
     login:
         actionPrompt: "Please enter your email address:"

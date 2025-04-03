@@ -3,7 +3,6 @@ import { renderFile } from "ejs";
 import { resolve } from "path";
 import { Markup } from "telegraf";
 import { BOT } from "../constants";
-import { CopperXSession } from "../interfaces";
 import { LocaleUtils } from "../utils";
 
 
@@ -66,15 +65,11 @@ export class StartView {
         ]);
     }
 
-    static getStartHtml(
-        i18n: I18nContext,
-        name: string,
-        copperXSession?: CopperXSession
-    ) {
+    static getStartHtml( i18n: I18nContext, name: string, token?: string) {
         return renderFile(resolve(__dirname, "templates/start.ejs"), {
             i18n,
             name,
-            copperXSession,
+            token,
             LocaleUtils
         });
     }

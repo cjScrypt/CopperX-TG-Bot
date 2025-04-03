@@ -16,7 +16,7 @@ export class StartController {
         const htmlContent = await StartView.getStartHtml(
             ctx.i18n,
             name,
-            ctx.session.copperX
+            ctx.session.copperX.token
         );
 
         ctx.reply(htmlContent, {

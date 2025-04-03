@@ -1,16 +1,7 @@
-<% if (!copperXSession) { %>
-🚀 <b><%= LocaleUtils.getWelcomeText(i18n, "title_new_user", name) %></b>
+👋 <%= LocaleUtils.getWelcomeText(i18n, "title_returning_user", name) %>
 
-<%= LocaleUtils.getWelcomeText(i18n, "description") %>
-
-<%= i18n.t("welcome.features") %>
-<%= LocaleUtils.getWelcomeText(i18n, "login_prompt") %>
-
-💡 <i><%= LocaleUtils.getWelcomeText(i18n, "help_question") %></i> <%= LocaleUtils.getWelcomeText(i18n, "help_hint") %>
-
-<%= LocaleUtils.getWelcomeText(i18n, "action_prompt_new") %>
+<% if (token) { %>
+<%= LocaleUtils.getWelcomeText(i18n, "loggedIn") %>
 <% } else { %>
-🚀 <%= LocaleUtils.getWelcomeText(i18n, "title_returning_user", name) %>
-
-<%= LocaleUtils.getWelcomeText(i18n, "action_prompt_returning") %>
+<%= LocaleUtils.getWelcomeText(i18n, "loggedOut") %>
 <% } %>
