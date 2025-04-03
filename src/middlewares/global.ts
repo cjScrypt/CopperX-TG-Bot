@@ -114,4 +114,14 @@ export class GlobalMiddleware {
             }
         }
     }
+
+    static async isCbMessageOrigin(ctx: ExtendedContext, next: () => Promise<void>) {
+        if (ctx.callbackQuery &&
+            ctx.callbackQuery.message?.message_id != ctx.session.botMessageId
+        ) {
+            await ctx.answerCbQuery();
+            return;
+        }
+        return next();
+    }
 }

@@ -11,7 +11,10 @@ export const loginScene = new Scenes.WizardScene<ExtendedContext>(
     LoginController.verifyOtp
 );
 
-loginScene.use(GlobalMiddleware.preventCommandsInScene(`/${BOT.ACTION.LOGIN}`));
+loginScene.use(
+    GlobalMiddleware.preventCommandsInScene(`/${BOT.ACTION.LOGIN}`),
+    GlobalMiddleware.isCbMessageOrigin
+);
 loginScene.action(
     BOT.ACTION.CANCEL,
     GlobalMiddleware.cancelScene,
