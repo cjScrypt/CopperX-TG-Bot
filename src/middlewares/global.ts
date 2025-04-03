@@ -3,11 +3,16 @@ import { i18n } from "../commons/locale";
 import { store } from "../database/session";
 import { ExtendedContext } from "../interfaces";
 import { CopperXService, RedisService } from "../services";
-import { LocaleUtils, RegexUtils, TelegramUtils } from "../utils";
+import { LocaleUtils, RegexUtils, SessionUtils, TelegramUtils } from "../utils";
 
 export class GlobalMiddleware {
     static addI18nToContext = i18n.middleware();
-    static addSessionToContext = session({ store });
+    static addSessionToContext = session({
+        store,
+        getSessionKey: (ctx: ExtendedContext) => {
+            return SessionUtils.getSessionKey(ctx);
+        }
+    });
 
     static async initializeCopperXSession(
         ctx: ExtendedContext,
@@ -42,6 +47,7 @@ export class GlobalMiddleware {
         }
         const userProfile = await (new CopperXService()).fetchUserProfile(token);
         if (!userProfile) {
+            // @todo Remove auth token from session
             return next();
         }
 

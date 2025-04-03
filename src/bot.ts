@@ -39,7 +39,7 @@ export const setupBot = () => {
 
     bot.command(BOT.COMMAND.LOGIN, CommonController.enterScene(BOT.SCENE.LOGIN));
 
-    bot.catch(errorHandler);
+    bot.use(errorHandler); // Custom error handler
 
     return bot;
 }
