@@ -36,6 +36,7 @@ action:
     profile: "${code} Profile"
     logout: "${code} Logout"
     back: "${code} Back"
+    profile_back: "${code} Back"
     cancel: "${code} Cancel"
 header:
     welcome: "Welcome to Copperx Payout Bot!"

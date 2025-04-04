@@ -6,6 +6,7 @@ export const CODE: { [ index: string ]: { [ index: string ]: string } } = {
     },
     ACTION: {
         BACK: "🔙",
+        PROFILE_BACK: "🔙",
         HELP: "❓",
         PROFILE: "👤",
         SEND_TRANSFER: "💸",
