@@ -10,4 +10,7 @@ export const profileScene = new Scenes.BaseScene<ExtendedContext>(
 
 profileScene.enter(ProfileController.showProfile);
 
-profileScene.use(GlobalMiddleware.authTokenInSession);
+profileScene.use(
+    GlobalMiddleware.authTokenInSession,
+    GlobalMiddleware.addCopperXProfileToContext
+);
