@@ -58,3 +58,9 @@ command_text:
     settings: "Adjust preferences"
     help: "View this menu anytime"
     support: ""
+userProfile:
+    title: "===== USER PROFILE ====="
+    name: "👤 {value}"
+    email: "📧 {value}"
+    status: "🔵 Status: {value}"
+    walletAddress: "💼 Wallet Address: {value}"
