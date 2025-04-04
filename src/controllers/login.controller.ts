@@ -96,10 +96,7 @@ export class LoginController {
             return;
         }
         const msg = await ctx.reply(
-            LocaleUtils.getActionReplyText(ctx.i18n, "login.success"),
-            { // @todo Remove keyboard and exit scene
-                reply_markup: LoginView.getCancelKeyboard(ctx.i18n).reply_markup
-            }
+            LocaleUtils.getActionReplyText(ctx.i18n, "login.success")
         );
         SessionUtils.saveHistory(ctx.session, msg.message_id);
 

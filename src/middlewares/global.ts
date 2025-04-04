@@ -87,6 +87,7 @@ export class GlobalMiddleware {
                 RegexUtils.isCommand(command) &&
                 command !== excludeCommand
             ) {
+                // @todo Delete this message when 'Cancel' button is pressed
                 ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.commandInScene"));
                 return;
             }
