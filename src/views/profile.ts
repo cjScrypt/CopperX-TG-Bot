@@ -12,6 +12,7 @@ export class ProfileView {
             .filter(Boolean)
             .join(" ");
         return renderFile(resolve(__dirname, "./templates", "profile.ejs"), {
+            LocaleUtils,
             i18n,
             name,
             profile
