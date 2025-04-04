@@ -6,6 +6,7 @@ export const BOT = {
         WALLET: "wallet",
         SEND: "send",
         HISTORY: "history",
+        PROFILE: "profile"
     },
     ACTION: {
         LOGIN: "login",
@@ -20,6 +21,7 @@ export const BOT = {
         CANCEL: "cancel"
     },
     SCENE: {
-        LOGIN: "login"
+        LOGIN: "login",
+        PROFILE: "profile"
     }
 }

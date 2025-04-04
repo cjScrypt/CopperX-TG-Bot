@@ -47,6 +47,15 @@ export const setupBot = () => {
         CommonController.enterScene(BOT.SCENE.LOGIN)
     );
 
+    bot.command(
+        BOT.COMMAND.PROFILE,
+        CommonController.enterScene(BOT.SCENE.PROFILE)
+    );
+    bot.action(
+        BOT.ACTION.PROFILE,
+        CommonController.enterScene(BOT.SCENE.PROFILE)
+    );
+
     bot.catch(errorHandler);
 
     return bot;
