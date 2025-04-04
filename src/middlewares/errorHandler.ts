@@ -1,7 +1,8 @@
-import { CODE } from "../constants";
+import { NODE_ENV } from "../config";
+import { CODE, GLOBAL } from "../constants";
+import { store } from "../database/session";
 import { ExtendedContext } from "../interfaces";
 import { LocaleUtils, SessionUtils } from "../utils";
-import { store } from "../database/session";
 
 export const errorHandler = async (error: any, ctx: ExtendedContext) => {
     if (error.message == CODE.ERROR.UNAUTHORIZED) {
@@ -12,5 +13,8 @@ export const errorHandler = async (error: any, ctx: ExtendedContext) => {
         await ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.expiredSession"));
         return;
     }
-    throw error;
+    if (NODE_ENV == GLOBAL.ENVIRONMENT.DEVELOPMENT) {
+        throw error;
+    }
+    console.error(`Error (${Date}) - ${error}`);
 }

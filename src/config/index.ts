@@ -1,6 +1,9 @@
 import * as dotenv from "dotenv";
+import { GLOBAL } from "../constants";
 
 dotenv.config();
+
+export const NODE_ENV = process.env.NODE_ENV || GLOBAL.ENVIRONMENT.DEVELOPMENT;
 
 export const REDIS_URL = process.env.REDIS_URL || "";
 
