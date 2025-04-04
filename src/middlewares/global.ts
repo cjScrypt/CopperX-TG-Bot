@@ -145,4 +145,14 @@ export class GlobalMiddleware {
 
         return next();
     }
+
+    static async authTokenInSession(ctx: ExtendedContext, next: () => Promise<void>) {
+        const token = TelegramUtils.getAuthTokenFromSession(ctx.session);
+        if (!token) {
+            ctx.reply(LocaleUtils.getActionReplyText(ctx.i18n, "login.expiredSession"));
+            return;
+        }
+
+        return next();
+    }
 }
