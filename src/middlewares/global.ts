@@ -1,4 +1,4 @@
-import { Middleware, MiddlewareFn, session } from "telegraf";
+import { MiddlewareFn, session } from "telegraf";
 import { i18n } from "../commons/locale";
 import { store } from "../database/session";
 import { ExtendedContext } from "../interfaces";
@@ -115,13 +115,33 @@ export class GlobalMiddleware {
         }
     }
 
-    static async isCbMessageOrigin(ctx: ExtendedContext, next: () => Promise<void>) {
-        if (ctx.callbackQuery &&
-            ctx.callbackQuery.message?.message_id != ctx.session.botMessageId
-        ) {
-            await ctx.answerCbQuery();
-            return;
+    static filterForeignCallbacks(excludeAction: string) {
+        return async (ctx: ExtendedContext, next: () => Promise<void>) => {
+            const lastBotMessage = ctx.session.__scenes?.history?.botMessageId || ctx.session.botMessageId;
+            if (ctx.scene.current &&
+                ctx.callbackQuery &&
+                'data' in ctx.callbackQuery &&
+                ctx.callbackQuery.data != excludeAction &&
+                ctx.callbackQuery.message?.message_id != lastBotMessage
+            ) {
+                await ctx.answerCbQuery();
+                return;
+            }
+            return next();
         }
+    }
+
+    static async clearPreviousStage(ctx: ExtendedContext, next: () => Promise<void>) {
+        const prompt = ctx.session.__scenes?.history?.botMessageId;
+        const response = ctx.message?.message_id;
+
+        if (ctx.scene.current && prompt && response) {
+            if (ctx.session.__scenes?.history?.botMessageId) {
+                ctx.session.__scenes.history.botMessageId = 0;
+            }
+            await ctx.deleteMessages([prompt, response]);
+        }
+
         return next();
     }
 }

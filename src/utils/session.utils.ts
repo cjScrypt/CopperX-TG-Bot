@@ -21,4 +21,16 @@ export class SessionUtils {
         }
         session.botMessageId = messageId;
     }
+
+    static saveHistory(
+        session: SceneSession,
+        botMessageId?: number
+    ) {
+        if (!botMessageId) {
+            return;
+        }
+        if (session.__scenes) {
+            session.__scenes.history = { botMessageId }
+        }
+    }
 }

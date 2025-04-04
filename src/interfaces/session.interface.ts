@@ -6,7 +6,9 @@ export interface WizardSessionData extends Scenes.WizardSessionData {
         email: string;
         sid: string;
     }
-
+    history?: {
+        botMessageId: number
+    }
 }
 
 export interface SessionData {

@@ -10,14 +10,22 @@ export class LoginView {
 
     static getInvalidOtpKeyboard(i18n: I18nContext) {
         return Markup.inlineKeyboard([
-            Markup.button.callback(
-                LocaleUtils.getActionText(i18n, BOT.ACTION.RESEND_OTP),
-                BOT.ACTION.RESEND_OTP
-            ),
-            Markup.button.callback(
-                LocaleUtils.getActionText(i18n, BOT.ACTION.CHANGE_EMAIL),
-                BOT.ACTION.CHANGE_EMAIL
-            )
+            [
+                Markup.button.callback(
+                    LocaleUtils.getActionText(i18n, BOT.ACTION.RESEND_OTP),
+                    BOT.ACTION.RESEND_OTP
+                ),
+                Markup.button.callback(
+                    LocaleUtils.getActionText(i18n, BOT.ACTION.CHANGE_EMAIL),
+                    BOT.ACTION.CHANGE_EMAIL
+                )
+            ],
+            [
+                Markup.button.callback(
+                    LocaleUtils.getActionText(i18n, BOT.ACTION.CANCEL),
+                    BOT.ACTION.CANCEL
+                )
+            ]
         ]);
     }
 
