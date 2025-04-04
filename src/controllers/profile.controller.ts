@@ -9,9 +9,10 @@ export class ProfileController {
         }
 
         const htmlContent = await ProfileView.getProfileHtml(ctx.i18n, profile);
-        await ctx.reply(htmlContent, {
+        const msg = await ctx.reply(htmlContent, {
             reply_markup: ProfileView.getProfileKeyboard(ctx.i18n).reply_markup
         });
+        ctx.session.botMessageId = msg.message_id;
 
         return next();
     }

@@ -12,5 +12,8 @@ profileScene.enter(ProfileController.showProfile);
 
 profileScene.use(
     GlobalMiddleware.authTokenInSession,
-    GlobalMiddleware.addCopperXProfileToContext
+    GlobalMiddleware.addCopperXProfileToContext,
+    GlobalMiddleware.cleanupMessages
 );
+
+profileScene.leave(GlobalMiddleware.cleanupMessages);

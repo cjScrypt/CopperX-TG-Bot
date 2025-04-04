@@ -97,12 +97,10 @@ export class GlobalMiddleware {
     }
 
     static async cleanupMessages(ctx: ExtendedContext, next: () => Promise<void>) {
-        if (ctx.scene.current && ctx.session) {
-            await ctx.deleteMessages([
-                ctx.session.userMessageId,
-                ctx.session.botMessageId
-            ]);
-        }
+        const lastBotMessage = ctx.session.botMessageId;
+        ctx.session.botMessageId = 0;
+        await ctx.deleteMessage(lastBotMessage);
+
         return next();
     }
 
