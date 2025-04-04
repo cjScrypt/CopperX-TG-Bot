@@ -61,7 +61,7 @@ command_text:
     support: ""
 userProfile:
     title: "===== USER PROFILE ====="
-    name: "👤 {value}"
-    email: "📧 {value}"
-    status: "🔵 Status: {value}"
-    walletAddress: "💼 Wallet Address: {value}"
+    name: "👤 ${value}"
+    email: "📧 ${value}"
+    status: "🔵 Status: ${value}"
+    walletAddress: "💼 Wallet Address: ${value}"
