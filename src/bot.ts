@@ -28,10 +28,7 @@ export const setupBot = () => {
 
     bot.use(mainStage.middleware());
 
-    bot.start(
-        GlobalMiddleware.addCopperXProfileToContext,
-        StartController.showStart
-    );
+    bot.start(StartController.showStart);
 
     bot.command(BOT.COMMAND.HELP, HelpController.showHelp);
     bot.action(BOT.ACTION.HELP, HelpController.showHelp);
