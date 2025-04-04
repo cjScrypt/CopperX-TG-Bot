@@ -18,7 +18,8 @@ export const BOT = {
         SEND_TRANSFER: "send_transfer",
         PROFILE: "profile",
         LOGOUT: "logout",
-        CANCEL: "cancel"
+        CANCEL: "cancel",
+        PROFILE_BACK: "profile_back"
     },
     SCENE: {
         LOGIN: "login",
