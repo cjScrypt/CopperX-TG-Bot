@@ -68,6 +68,7 @@ userProfile:
 wallet:
     default:
         title: "Your default wallet"
+        name: "Name: ${value}"
         network: "Network: ${value}"
         address: "Wallet Address: ${value}"
 
