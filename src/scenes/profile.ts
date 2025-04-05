@@ -1,6 +1,6 @@
 import { Scenes } from "telegraf";
 import { BOT } from "../constants";
-import { ProfileController } from "../controllers";
+import { ProfileController, StartController } from "../controllers";
 import { ExtendedContext } from "../interfaces";
 import { GlobalMiddleware } from "../middlewares";
 
@@ -14,6 +14,12 @@ profileScene.use(
     GlobalMiddleware.authTokenInSession,
     GlobalMiddleware.addCopperXProfileToContext,
     GlobalMiddleware.cleanupMessages
+);
+
+profileScene.action(
+    BOT.ACTION.PROFILE_BACK,
+    StartController.showStart,
+    Scenes.Stage.leave<ExtendedContext>()
 );
 
 profileScene.leave(GlobalMiddleware.cleanupMessages);
