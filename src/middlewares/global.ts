@@ -99,7 +99,9 @@ export class GlobalMiddleware {
     static async cleanupMessages(ctx: ExtendedContext, next: () => Promise<void>) {
         const lastBotMessage = ctx.session.botMessageId;
         ctx.session.botMessageId = 0;
-        await ctx.deleteMessage(lastBotMessage);
+        if (lastBotMessage) {
+            await ctx.deleteMessage(lastBotMessage);
+        }
 
         return next();
     }
