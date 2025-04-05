@@ -51,6 +51,11 @@ export const setupBot = () => {
         CommonController.enterScene(BOT.SCENE.PROFILE)
     );
 
+    bot.action(
+        BOT.ACTION.WALLET_MANAGEMENT,
+        CommonController.enterScene(BOT.SCENE.WALLET_MANAGEMENT)
+    );
+
     bot.catch(errorHandler);
 
     return bot;

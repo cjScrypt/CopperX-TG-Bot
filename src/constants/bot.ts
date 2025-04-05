@@ -23,6 +23,7 @@ export const BOT = {
     },
     SCENE: {
         LOGIN: "login",
-        PROFILE: "profile"
+        PROFILE: "profile",
+        WALLET_MANAGEMENT: "wallet_management"
     }
 }
