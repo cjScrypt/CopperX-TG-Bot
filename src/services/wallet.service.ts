@@ -22,7 +22,7 @@ export class WalletService {
         const data = {
             id: response.id,
             network: ConstantUtils.getNetworkName(response.network),
-            walletAddress: response.walletAddress
+            address: response.address
         }
 
         return data;
