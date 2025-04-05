@@ -18,6 +18,10 @@ export class LocaleUtils {
         return this.getActionCommonText(i18n, "userProfile", text, value);
     }
 
+    static getWalletText(i18n: I18nContext, text: string, value?: string) {
+        return this.getActionCommonText(i18n, "wallet", text, value);
+    }
+
     private static getActionCommonText(
         i18n: I18nContext,
         group: string,

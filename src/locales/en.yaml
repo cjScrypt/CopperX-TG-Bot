@@ -65,3 +65,9 @@ userProfile:
     email: "📧 ${value}"
     status: "🔵 Status: ${value}"
     walletAddress: "💼 Wallet Address: ${value}"
+wallet:
+    default:
+        title: "Your default wallet"
+        network: "Network: ${value}"
+        address: "Wallet Address: ${value}"
+

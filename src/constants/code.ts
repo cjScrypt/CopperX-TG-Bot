@@ -17,5 +17,11 @@ export const CODE: { [ index: string ]: { [ index: string ]: string } } = {
         RESEND_OTP: "🔄",
         CHANGE_EMAIL: "✉",
         CANCEL: "🚫"
+    },
+    NETWORK: {
+        23434: "23434",
+        137: "Polygon",
+        42161: "Arbitrum",
+        8453: "Base"
     }
 }
