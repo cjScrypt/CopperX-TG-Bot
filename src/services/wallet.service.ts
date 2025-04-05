@@ -1,4 +1,5 @@
 import { WalletDto } from "../interfaces";
+import { ConstantUtils } from "../utils";
 import { CopperXService } from "./copperX.service"
 
 export class WalletService {
@@ -20,7 +21,7 @@ export class WalletService {
 
         const data = {
             id: response.id,
-            network: response.network,
+            network: ConstantUtils.getNetworkName(response.network),
             walletAddress: response.walletAddress
         }
 
