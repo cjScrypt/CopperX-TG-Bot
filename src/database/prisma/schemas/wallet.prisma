@@ -1,7 +1,7 @@
 model Wallet {
-    id          String      @id @default(uuid())
-    profileId   String
-    name        String?
-    network     String
+    id                String      @id @default(uuid())
+    profileId         String
+    name              String?     @default("No name set yet")
+    network           String
     walletAddress     String
 }
