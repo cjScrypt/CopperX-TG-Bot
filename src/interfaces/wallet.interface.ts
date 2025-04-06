@@ -1,6 +1,6 @@
 export interface WalletDto {
     "id": string,
     "network": string,
-    "address": string,
+    "walletAddress": string,
     "name": string | null
 }

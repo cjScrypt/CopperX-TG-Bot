@@ -10,7 +10,7 @@ export class WalletView {
             i18n,
             name: wallet.name,
             network: wallet.network,
-            address: wallet.address
+            walletAddress: wallet.walletAddress
         });
     }
 }

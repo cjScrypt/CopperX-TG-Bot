@@ -32,7 +32,7 @@ export class WalletService {
             id: response.id,
             name: wallet.name,
             network: ConstantUtils.getNetworkName(response.network),
-            address: response.address
+            walletAddress: response.walletAddress
         }
 
         return data;

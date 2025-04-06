@@ -17,7 +17,7 @@ export class WalletRepository {
                 data: {
                     id: wallet.id,
                     network: wallet.network,
-                    address: wallet.address,
+                    walletAddress: wallet.walletAddress,
                     profileId
                 }
             });

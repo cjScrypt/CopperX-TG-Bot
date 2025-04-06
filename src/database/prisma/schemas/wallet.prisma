@@ -3,5 +3,5 @@ model Wallet {
     profileId   String
     name        String?
     network     String
-    address     String
+    walletAddress     String
 }
