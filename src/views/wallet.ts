@@ -1,8 +1,10 @@
 import { I18nContext } from "@grammyjs/i18n";
 import { renderFile } from "ejs";
 import { resolve } from "path";
+import { Markup } from "telegraf";
 import { WalletDto } from "../interfaces";
-import { LocaleUtils } from "../utils";
+import { ConstantUtils, LocaleUtils, StringUtils } from "../utils";
+import { BOT } from "../constants";
 
 export class WalletView {
     static getDefaultWalletHtml(i18n: I18nContext, wallet: WalletDto) {
@@ -13,5 +15,39 @@ export class WalletView {
             walletAddress: wallet.walletAddress,
             LocaleUtils
         });
+    }
+
+    static getWalletOverviewKeyboard(
+        i18n: I18nContext,
+        defaultWallet: WalletDto,
+        wallets: WalletDto[]
+    ) {
+        const keyboard = [
+            Markup.button.callback(
+                LocaleUtils.getActionText(i18n, BOT.ACTION.EXPAND_DEFAULT_WALLET),
+                ConstantUtils.getActionData(
+                    BOT.ACTION.EXPAND_WALLET,
+                    defaultWallet.id
+                ),
+            )
+        ];
+
+        for (const wallet of wallets) {
+            if (wallet.id == defaultWallet.id) {
+                continue;
+            }
+            const name = wallet.name || StringUtils.trimWalletAddress(
+                wallet.walletAddress
+            );
+
+            keyboard.push(
+                Markup.button.callback(
+                    name,
+                    ConstantUtils.getActionData(BOT.ACTION.EXPAND_WALLET, wallet.id)
+                )
+            );
+        }
+
+        return Markup.inlineKeyboard(keyboard);
     }
 }

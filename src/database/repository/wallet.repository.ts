@@ -25,4 +25,23 @@ export class WalletRepository {
 
         return walletObj;
     }
+
+    async getWalletNamesById(walletIds: string[]) {
+        const wallets = await this.prisma.wallet.findMany({
+            where: {
+                id: { in: walletIds }
+            },
+            select: {
+                id: true,
+                name: true
+            }
+        });
+
+        const walletMap = new Map<string, string>();
+        wallets.forEach((wallet) => {
+            walletMap.set(wallet.id, wallet.name);
+        });
+
+        return walletMap;
+    }
 }

@@ -13,17 +13,26 @@ export class WalletController {
             return;
         }
 
-        const wallet = await (new WalletService()).getDefaultWallet(
-            ctx.session.copperX.token,
+        const token = ctx.session.copperX.token;
+        const walletService = new WalletService();
+
+        const defaultWallet = await walletService.getDefaultWallet(
+            token,
             profileId
         );
-        if (!wallet) {
-            console.error(`No default wallet found`);
-            return;
-        }
-        
-        const htmlContent = await WalletView.getDefaultWalletHtml(ctx.i18n, wallet);
-        await ctx.reply(htmlContent);
+        const wallets = await walletService.getWallets(token);
+
+        const htmlContent = await WalletView.getDefaultWalletHtml(
+            ctx.i18n,
+            defaultWallet
+        );
+        const keyboard = WalletView.getWalletOverviewKeyboard(
+            ctx.i18n,
+            defaultWallet,
+            wallets
+        ).reply_markup;
+
+        await ctx.reply(htmlContent, { reply_markup: keyboard });
 
         return next();
     }

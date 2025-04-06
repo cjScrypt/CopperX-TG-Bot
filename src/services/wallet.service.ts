@@ -20,7 +20,7 @@ export class WalletService {
             token
         ) as WalletDto | undefined; 
         if (!response) {
-            return null;
+            throw new Error(`No default wallet found`);
         }
 
         const wallet = await this.walletRepository.getOrCreateWallet(

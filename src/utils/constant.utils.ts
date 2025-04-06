@@ -13,4 +13,16 @@ export class ConstantUtils {
 
         return networkCode;
     }
+
+    static getActionData(action: string, code?: string) {
+        const actionCode = CODE.ACTION[action.toUpperCase()];
+        if (!actionCode) {
+            return action;
+        }
+        if (code) {
+            return `${actionCode}_${code}`;
+        }
+
+        return actionCode;
+    }
 }

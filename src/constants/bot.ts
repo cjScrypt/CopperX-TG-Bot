@@ -19,7 +19,9 @@ export const BOT = {
         PROFILE: "profile",
         LOGOUT: "logout",
         CANCEL: "cancel",
-        PROFILE_BACK: "profile_back"
+        PROFILE_BACK: "profile_back",
+        EXPAND_DEFAULT_WALLET: "expand_default_wallet",
+        EXPAND_WALLET: "expand_wallet"
     },
     SCENE: {
         LOGIN: "login",
