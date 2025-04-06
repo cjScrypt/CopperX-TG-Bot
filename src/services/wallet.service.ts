@@ -1,8 +1,8 @@
+import { CopperXService } from "./copperX.service";
 import { WalletRepository } from "../database/repository";
 import prisma from "../database/prisma/client";
 import { WalletDto } from "../interfaces";
 import { ConstantUtils } from "../utils";
-import { CopperXService } from "./copperX.service"
 
 export class WalletService {
     private readonly copperXService: CopperXService;
@@ -36,5 +36,23 @@ export class WalletService {
         }
 
         return data;
+    }
+
+    async getWallets(token: string) {
+        const endpoint = "api/wallets";
+        const response = await this.copperXService.makeGetRequest(
+            endpoint,
+            token
+        ) as WalletDto[];
+
+        const walletIds = response.map((wallet) => wallet.id);
+        const walletNames = await this.walletRepository.getWalletNamesById(walletIds);
+
+        return response.map((wallet) => ({
+            id: wallet.id,
+            network: ConstantUtils.getNetworkName(wallet.network),
+            walletAddress: wallet.walletAddress,
+            name: walletNames.get(wallet.id) || ""
+        }));
     }
 }
