@@ -1,4 +1,4 @@
-import { CODE } from "../constants";
+import { BOT, CODE } from "../constants";
 
 export class ConstantUtils {
     static getActionCode(action: string) {
@@ -15,7 +15,7 @@ export class ConstantUtils {
     }
 
     static getActionData(action: string, code?: string) {
-        const actionCode = CODE.ACTION[action.toUpperCase()];
+        const actionCode = BOT.ACTION[action.toUpperCase()];
         if (!actionCode) {
             return action;
         }
