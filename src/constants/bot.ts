@@ -1,4 +1,4 @@
-export const BOT = {
+export const BOT: { [ index: string ]: { [ index: string ]: string } } = {
     COMMAND: {
         HELP: "help",
         START: "start",
