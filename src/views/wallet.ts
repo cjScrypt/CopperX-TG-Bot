@@ -3,7 +3,7 @@ import { renderFile } from "ejs";
 import { resolve } from "path";
 import { Markup } from "telegraf";
 import { WalletBalanceDto, WalletDto } from "../interfaces";
-import { ConstantUtils, LocaleUtils, StringUtils } from "../utils";
+import { ConstantUtils, LocaleUtils } from "../utils";
 import { BOT } from "../constants";
 
 export class WalletView {
@@ -60,6 +60,7 @@ export class WalletView {
     static getWalletDetailsView(i18n: I18nContext, wallet: WalletBalanceDto ) {
         return renderFile(resolve(__dirname, "./templates/walletDetails.ejs"), {
             LocaleUtils,
+            i18n,
             wallet
         });
     }
