@@ -36,9 +36,7 @@ export class WalletView {
             if (wallet.id == defaultWallet.id) {
                 continue;
             }
-            const name = wallet.name || StringUtils.trimWalletAddress(
-                wallet.walletAddress
-            );
+            const name = wallet.name || wallet.network;
 
             keyboard.push(
                 Markup.button.callback(
