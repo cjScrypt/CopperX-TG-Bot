@@ -1,5 +1,7 @@
+import { BOT } from "../constants";
 import { ExtendedContext } from "../interfaces";
 import { WalletService } from "../services";
+import { RegexUtils } from "../utils";
 import { WalletView } from "../views";
 
 export class WalletController {
@@ -45,5 +47,20 @@ export class WalletController {
         if (!ctx.callbackQuery || !('data' in ctx.callbackQuery)) {
             return;
         }
+        const match = data.match(RegexUtils.matchActionCode(BOT.ACTION.EXPAND_WALLET));
+        if (!match) {
+            return;
+        }
+
+        const walletId = match[1];
+        const token = ctx.session.copperX.token;
+        const wallet = await (new WalletService()).getWalletById(walletId, token);
+        if (!wallet) {
+            await ctx.reply("Wallet not found");
+            return;
+        }
+        const htmlContent = await WalletView.getWalletDetailsView(ctx.i18n, wallet);
+
+        ctx.reply(htmlContent);
     }
 }

@@ -2,7 +2,7 @@ import { I18nContext } from "@grammyjs/i18n";
 import { renderFile } from "ejs";
 import { resolve } from "path";
 import { Markup } from "telegraf";
-import { WalletDto } from "../interfaces";
+import { WalletBalanceDto, WalletDto } from "../interfaces";
 import { ConstantUtils, LocaleUtils, StringUtils } from "../utils";
 import { BOT } from "../constants";
 
@@ -55,5 +55,12 @@ export class WalletView {
         keyboard.push(middleRow);
 
         return Markup.inlineKeyboard(keyboard);
+    }
+
+    static getWalletDetailsView(i18n: I18nContext, wallet: WalletBalanceDto ) {
+        return renderFile(resolve(__dirname, "./templates/walletDetails.ejs"), {
+            LocaleUtils,
+            wallet
+        });
     }
 }
