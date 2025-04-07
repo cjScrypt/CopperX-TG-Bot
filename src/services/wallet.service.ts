@@ -1,7 +1,7 @@
 import { CopperXService } from "./copperX.service";
 import { WalletRepository } from "../database/repository";
 import prisma from "../database/prisma/client";
-import { WalletDto } from "../interfaces";
+import { WalletBalanceDto, WalletDto } from "../interfaces";
 import { ConstantUtils } from "../utils";
 
 export class WalletService {
@@ -61,7 +61,7 @@ export class WalletService {
         const response = await this.copperXService.makeGetRequest(
             endpoint,
             token
-        ) as any[];
+        ) as WalletBalanceDto[];
         if (!response) {
             throw new Error(`Failed to fetch wallets`);
         }
@@ -71,7 +71,6 @@ export class WalletService {
             network: ConstantUtils.getNetworkName(value.network),
             balances: value.balances
         }));
-
     }
 
     async getWalletById(walletId: string, token: string) {
