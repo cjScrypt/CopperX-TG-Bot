@@ -22,7 +22,8 @@ export class WalletView {
         defaultWallet: WalletDto,
         wallets: WalletDto[]
     ) {
-        const keyboard = [
+        const keyboard = []
+        const firstRow = [
             Markup.button.callback(
                 LocaleUtils.getActionText(i18n, BOT.ACTION.EXPAND_DEFAULT_WALLET),
                 ConstantUtils.getActionData(
@@ -31,20 +32,27 @@ export class WalletView {
                 ),
             )
         ];
+        keyboard.push(firstRow);
 
+        let middleRow = [];
         for (const wallet of wallets) {
             if (wallet.id == defaultWallet.id) {
                 continue;
             }
             const name = wallet.name || wallet.network;
 
-            keyboard.push(
+            middleRow.push(
                 Markup.button.callback(
                     name,
                     ConstantUtils.getActionData(BOT.ACTION.EXPAND_WALLET, wallet.id)
                 )
             );
+            if (middleRow.length == 2) {
+                keyboard.push(middleRow);
+                middleRow = [];
+            }
         }
+        keyboard.push(middleRow);
 
         return Markup.inlineKeyboard(keyboard);
     }
