@@ -55,4 +55,31 @@ export class WalletService {
             name: walletNames.get(wallet.id) || ""
         }));
     }
+
+    async getWalletsBalances(token: string) {
+        const endpoint = "api/wallets/balances";
+        const response = await this.copperXService.makeGetRequest(
+            endpoint,
+            token
+        ) as any[];
+        if (!response) {
+            throw new Error(`Failed to fetch wallets`);
+        }
+
+        return response.map((value) => ({
+            walletId: value.walletId,
+            network: ConstantUtils.getNetworkName(value.network),
+            balances: value.balances
+        }));
+
+    }
+
+    async getWalletById(walletId: string, token: string) {
+        const wallets = await this.getWalletsBalances(token);
+
+        return wallets.find((wallet) => {
+            return wallet.walletId == walletId;
+        })
+    }
 }
+
