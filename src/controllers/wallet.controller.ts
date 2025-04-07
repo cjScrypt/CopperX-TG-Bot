@@ -44,8 +44,8 @@ export class WalletController {
         next: () => Promise<void>
     ) {
         let data = "";
-        if (!ctx.callbackQuery || !('data' in ctx.callbackQuery)) {
-            return;
+        if (ctx.callbackQuery && 'data' in ctx.callbackQuery) {
+            data = ctx.callbackQuery.data;
         }
         const match = data.match(RegexUtils.matchActionCode(BOT.ACTION.EXPAND_WALLET));
         if (!match) {
