@@ -36,4 +36,14 @@ export class WalletController {
 
         return next();
     }
+
+    static async showWalletDetails(
+        ctx: ExtendedContext,
+        next: () => Promise<void>
+    ) {
+        let data = "";
+        if (!ctx.callbackQuery || !('data' in ctx.callbackQuery)) {
+            return;
+        }
+    }
 }
