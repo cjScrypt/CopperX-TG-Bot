@@ -1,7 +1,4 @@
 model Wallet {
     id                String      @id @default(uuid())
-    profileId         String
     name              String      @default("")
-    network           String
-    walletAddress     String
 }
