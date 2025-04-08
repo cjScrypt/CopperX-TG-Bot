@@ -74,6 +74,8 @@ wallet:
         address: "Wallet Address: ${value}"
     details:
         title: "Wallet Details"
+        name: "Name"
         network: "Network"
         balances: "Balances"
-
+    editName:
+        prompt: "Please enter a new name for the wallet:"

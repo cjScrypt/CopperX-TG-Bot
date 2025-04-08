@@ -70,4 +70,23 @@ export class WalletController {
             reply_markup: keyboard
         });
     }
+
+    static async promptEditWalletName(ctx: ExtendedContext, next: () => Promise<void>) {
+        let data = "";
+        if (ctx.callbackQuery && 'data' in ctx.callbackQuery) {
+            data = ctx.callbackQuery.data;
+        }
+        const match = data.match(RegexUtils.matchActionCode(BOT.ACTION.EDIT_WALLET_NAME));
+        if (!match) {
+            return;
+        }
+
+        const walletId = match[1];
+        ctx.session.editWalletId = walletId;
+
+        const htmlContent = WalletView.getEditWalletPrompt(ctx.i18n);
+        await ctx.reply(htmlContent);
+
+        return next();
+    }
 }

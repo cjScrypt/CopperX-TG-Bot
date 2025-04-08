@@ -6,7 +6,7 @@ export class RegexUtils {
     }
 
     static matchExpandWallet() {
-        return new RegExp(`^${BOT.ACTION.EXPAND_WALLET}_*$`);
+        return new RegExp(`^${BOT.ACTION.EXPAND_WALLET}_.+$`);
     }
 
     static matchActionCode(action: string) {
