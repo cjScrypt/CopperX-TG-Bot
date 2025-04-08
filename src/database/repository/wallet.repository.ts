@@ -34,4 +34,17 @@ export class WalletRepository {
 
         return walletMap;
     }
+
+    async upsert(walletId: string, name: string) {
+        return this.prisma.wallet.upsert({
+            where: { id: walletId },
+            update: {
+                name
+            },
+            create: {
+                id: walletId,
+                name: name
+            }
+        });
+    }
 }

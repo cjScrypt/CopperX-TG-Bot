@@ -13,6 +13,10 @@ export class WalletService {
         this.walletRepository = new WalletRepository(prisma);
     }
 
+    async upsertName(walletId: string, name: string) {
+        return this.walletRepository.upsert(walletId, name);
+    }
+
     async getDefaultWallet(token: string, profileId: string) {
         const endpoint = "api/wallets/default";
         const response = await this.copperXService.makeGetRequest(
@@ -81,4 +85,3 @@ export class WalletService {
         })
     }
 }
-

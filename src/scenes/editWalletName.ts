@@ -8,3 +8,5 @@ export const editWalletName = new Scenes.BaseScene<ExtendedContext>(
 );
 
 editWalletName.enter(WalletController.promptEditWalletName);
+
+editWalletName.on("text", WalletController.editWalletName);

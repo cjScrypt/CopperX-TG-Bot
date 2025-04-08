@@ -90,4 +90,26 @@ export class WalletController {
 
         return next();
     }
+
+    static async editWalletName(ctx: ExtendedContext, next: () => Promise<void>) {
+        const walletId = ctx.session.editWalletId;
+        if (!walletId) {
+            return;
+        }
+
+        const newName = TelegramUtils.getMessageText(ctx);
+        if (!newName) {
+            await ctx.reply(
+                LocaleUtils.getWalletText(ctx.i18n, "editName.prompt")
+            );
+            return;
+        }
+
+        await (new WalletService()).upsertName(walletId, newName);
+        await ctx.reply(
+            LocaleUtils.getWalletText(ctx.i18n, "editName.success")
+        );
+
+        return next();
+    }
 }
