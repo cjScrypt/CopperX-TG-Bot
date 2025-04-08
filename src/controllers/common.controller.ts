@@ -6,10 +6,4 @@ export class CommonController {
             await ctx.scene.enter(scene);
         };
     }
-
-    static reenterScene(scene: string) {
-        return async (ctx: ExtendedContext) => {
-            await ctx.scene.reenter(scene);
-        };
-    }
 }
