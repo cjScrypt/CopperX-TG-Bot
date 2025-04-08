@@ -78,4 +78,4 @@ wallet:
         network: "Network"
         balances: "Balances"
     editName:
-        prompt: "Please enter a new name for the wallet:"
+        prompt: "Please provide a new wallet name."

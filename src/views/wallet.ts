@@ -75,8 +75,4 @@ export class WalletView {
             ]
         ]);
     }
-
-    static getEditWalletPrompt(i18n: I18nContext) {
-        return i18n.t("wallet.editName.prompt");
-    }
 }

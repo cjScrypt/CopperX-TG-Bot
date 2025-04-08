@@ -1,7 +1,7 @@
 import { BOT } from "../constants";
 import { ExtendedContext } from "../interfaces";
 import { WalletService } from "../services";
-import { RegexUtils } from "../utils";
+import { LocaleUtils, RegexUtils, TelegramUtils } from "../utils";
 import { WalletView } from "../views";
 
 export class WalletController {
@@ -84,8 +84,9 @@ export class WalletController {
         const walletId = match[1];
         ctx.session.editWalletId = walletId;
 
-        const htmlContent = WalletView.getEditWalletPrompt(ctx.i18n);
-        await ctx.reply(htmlContent);
+        await ctx.reply(
+            LocaleUtils.getWalletText(ctx.i18n, "editName.prompt")
+        );
 
         return next();
     }
