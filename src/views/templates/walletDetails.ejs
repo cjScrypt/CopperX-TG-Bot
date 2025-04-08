@@ -1,11 +1,12 @@
 <b><%= LocaleUtils.getWalletText(i18n, "details.title") %></b>
 
+<b><%= LocaleUtils.getWalletText(i18n, "details.name") %>:</b> <%= wallet.name %>
 <b><%= LocaleUtils.getWalletText(i18n, "details.network") %>:</b> <%= wallet.network %>
 
 <b><%= LocaleUtils.getWalletText(i18n, "details.balances") %>:</b>
 <% wallet.balances.forEach((walletBalance) => { %>
 Wallet Address: <code><%= walletBalance.address %></code>
 
-<%= walletBalance.symbol %>: <%= walletBalance.balance %> <%= walletBalance.symbol %>
+<%= walletBalance.symbol %> Balance: <%= walletBalance.balance %> <%= walletBalance.symbol %>
 
 <% }); %>

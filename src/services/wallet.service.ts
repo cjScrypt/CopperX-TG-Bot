@@ -65,11 +65,14 @@ export class WalletService {
         if (!response) {
             throw new Error(`Failed to fetch wallets`);
         }
+        const walletIds = response.map((wallet) => wallet.walletId);
+        const walletNames = await this.walletRepository.getWalletNamesById(walletIds);
 
         return response.map((value) => ({
             walletId: value.walletId,
             network: ConstantUtils.getNetworkName(value.network),
-            balances: value.balances
+            balances: value.balances,
+            name: walletNames.get(value.walletId) || "No name set",
         }));
     }
 
