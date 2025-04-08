@@ -34,7 +34,10 @@ export class WalletController {
             wallets
         ).reply_markup;
 
-        await ctx.reply(htmlContent, { reply_markup: keyboard });
+        await ctx.reply(htmlContent, {
+            parse_mode: "HTML",
+            reply_markup: keyboard
+        });
 
         return next();
     }
@@ -61,6 +64,8 @@ export class WalletController {
         }
         const htmlContent = await WalletView.getWalletDetailsView(ctx.i18n, wallet);
 
-        ctx.reply(htmlContent);
+        ctx.reply(htmlContent, {
+            parse_mode: "HTML"
+        });
     }
 }
