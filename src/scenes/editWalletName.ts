@@ -1,7 +1,10 @@
 import { Scenes } from "telegraf";
+import { message } from "telegraf/filters";
 import { BOT } from "../constants";
 import { ExtendedContext } from "../interfaces";
-import { WalletController } from "../controllers";
+import { CommonController, WalletController } from "../controllers";
+import { GlobalMiddleware } from "../middlewares";
+import { RegexUtils } from "../utils";
 
 export const editWalletName = new Scenes.BaseScene<ExtendedContext>(
     BOT.SCENE.EDIT_WALLET_NAME
@@ -9,4 +12,11 @@ export const editWalletName = new Scenes.BaseScene<ExtendedContext>(
 
 editWalletName.enter(WalletController.promptEditWalletName);
 
-editWalletName.on("text", WalletController.editWalletName);
+editWalletName.on(message('text'), WalletController.editWalletName);
+
+editWalletName.action(
+    RegexUtils.matchAction(BOT.ACTION.EDIT_WALLET_NAME_BACK),
+    GlobalMiddleware.cancelScene,
+    CommonController.reenterScene(BOT.ACTION.EDIT_WALLET_NAME_BACK),
+    WalletController.showWalletDetails
+);

@@ -5,6 +5,10 @@ export class RegexUtils {
         return text.startsWith("/");
     }
 
+    static matchAction(action: string) {
+        return new RegExp(`^${action}_.+$`);
+    }
+
     static matchExpandWallet() {
         return new RegExp(`^${BOT.ACTION.EXPAND_WALLET}_.+$`);
     }
