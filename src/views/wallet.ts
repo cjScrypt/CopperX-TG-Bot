@@ -64,4 +64,15 @@ export class WalletView {
             wallet
         });
     }
+
+    static getWalletDetailsKeyboard(i18n: I18nContext) {
+        return Markup.inlineKeyboard([
+            [
+                Markup.button.callback(
+                    LocaleUtils.getActionText(i18n, BOT.ACTION.EDIT_WALLET_NAME),
+                    BOT.ACTION.EDIT_WALLET_NAME
+                ),
+            ]
+        ]);
+    }
 }

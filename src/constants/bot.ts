@@ -21,7 +21,8 @@ export const BOT: { [ index: string ]: { [ index: string ]: string } } = {
         CANCEL: "cancel",
         PROFILE_BACK: "profile_back",
         EXPAND_DEFAULT_WALLET: "expand_default_wallet",
-        EXPAND_WALLET: "expand_wallet"
+        EXPAND_WALLET: "expand_wallet",
+        EDIT_WALLET_NAME: "edit_wallet_name"
     },
     SCENE: {
         LOGIN: "login",
