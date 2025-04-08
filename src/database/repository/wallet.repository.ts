@@ -8,20 +8,10 @@ export class WalletRepository {
         this.prisma = prisma;
     }
 
-    async getOrCreateWallet(profileId: string, wallet: WalletDto) {
+    async findWallet(walletId: string) {
         let walletObj = await this.prisma.wallet.findFirst({
-            where: { profileId }
+            where: { id: walletId }
         });
-        if (!walletObj) {
-            walletObj = await this.prisma.wallet.create({
-                data: {
-                    id: wallet.id,
-                    network: wallet.network,
-                    walletAddress: wallet.walletAddress,
-                    profileId
-                }
-            });
-        }
 
         return walletObj;
     }

@@ -23,14 +23,11 @@ export class WalletService {
             throw new Error(`No default wallet found`);
         }
 
-        const wallet = await this.walletRepository.getOrCreateWallet(
-            profileId,
-            response
-        );
+        const wallet = await this.walletRepository.findWallet(response.id);
 
         const data = {
             id: response.id,
-            name: wallet.name,
+            name: wallet?.name || "No name set",
             network: ConstantUtils.getNetworkName(response.network),
             walletAddress: response.walletAddress
         }
