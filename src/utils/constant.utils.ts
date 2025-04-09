@@ -20,7 +20,8 @@ export class ConstantUtils {
             return action;
         }
         if (code) {
-            return `${actionCode}_${code}`;
+            const separator = "_-_";
+            return `${actionCode}${separator}${code}`;
         }
 
         return actionCode;

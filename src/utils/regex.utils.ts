@@ -13,7 +13,11 @@ export class RegexUtils {
         return new RegExp(`^${BOT.ACTION.EXPAND_WALLET}_.+$`);
     }
 
-    static matchActionCode(action: string) {
-        return new RegExp(`^${action}_(.+)$`);
+    static matchActionCode(action?: string) {
+        const separator = "_-_";
+        if (!action) {
+            return new RegExp(`^.+${separator}(.+)$`);
+        }
+        return new RegExp(`^${action}${separator}(.+)$`);
     }
 }

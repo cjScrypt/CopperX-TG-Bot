@@ -50,7 +50,7 @@ export class WalletController {
         if (ctx.callbackQuery && 'data' in ctx.callbackQuery) {
             data = ctx.callbackQuery.data;
         }
-        const match = data.match(RegexUtils.matchActionCode(BOT.ACTION.EXPAND_WALLET));
+        const match = data.match(RegexUtils.matchActionCode());
         if (!match) {
             return;
         }
