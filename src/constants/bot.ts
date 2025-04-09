@@ -15,7 +15,7 @@ export const BOT: { [ index: string ]: { [ index: string ]: string } } = {
         HELP: "help",
         SUPPORT: "support",
         WALLET_MANAGEMENT: "wallet_management",
-        SEND_TRANSFER: "send_transfer",
+        TRANSFER: "transfer",
         PROFILE: "profile",
         LOGOUT: "logout",
         CANCEL: "cancel",

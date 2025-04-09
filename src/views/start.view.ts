@@ -29,8 +29,8 @@ export class StartView {
                     BOT.ACTION.WALLET_MANAGEMENT
                 ),
                 Markup.button.callback(
-                    LocaleUtils.getActionText(i18n, BOT.ACTION.SEND_TRANSFER),
-                    BOT.ACTION.SEND_TRANSFER
+                    LocaleUtils.getActionText(i18n, BOT.ACTION.TRANSFER),
+                    BOT.ACTION.TRANSFER
                 )
             ],
             [

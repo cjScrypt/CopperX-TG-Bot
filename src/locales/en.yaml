@@ -32,7 +32,7 @@ action:
     help: "${code} Help"
     support: "${code} Support"
     wallet_management: "${code} Wallet Management"
-    send_transfer: "${code} Send/Transfer"
+    transfer: "${code} Transfer"
     profile: "${code} Profile"
     logout: "${code} Logout"
     back: "${code} Back"
