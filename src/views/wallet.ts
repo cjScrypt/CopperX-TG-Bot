@@ -75,4 +75,15 @@ export class WalletView {
             ]
         ]);
     }
+
+    static getCancelKeyboard(i18n: I18nContext, walletId: string) {
+        return Markup.inlineKeyboard([
+            [
+                Markup.button.callback(
+                    LocaleUtils.getActionText(i18n, BOT.ACTION.CANCEL),
+                    ConstantUtils.getActionData(BOT.ACTION.CANCEL, walletId)
+                ),
+            ]
+        ])
+    }
 }

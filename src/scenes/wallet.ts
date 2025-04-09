@@ -4,7 +4,6 @@ import { BOT } from "../constants";
 import { CommonController, WalletController } from "../controllers";
 import { ExtendedContext } from "../interfaces";
 import { GlobalMiddleware } from "../middlewares";
-import { GlobalMiddleware } from "../middlewares";
 import { RegexUtils } from "../utils";
 
 export const walletScene = new Scenes.BaseScene<ExtendedContext>(
@@ -33,4 +32,4 @@ walletScene.on(message('text'), WalletController.editWalletName);
 walletScene.action(
     RegexUtils.matchAction(BOT.ACTION.CANCEL),
     WalletController.showWalletDetails
-)
+);

@@ -6,7 +6,8 @@ export class RegexUtils {
     }
 
     static matchAction(action: string) {
-        return new RegExp(`^${action}_.+$`);
+        const separator = "_-_";
+        return new RegExp(`^${action}${separator}.+$`);
     }
 
     static matchExpandWallet() {

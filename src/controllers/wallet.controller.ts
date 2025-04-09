@@ -83,9 +83,13 @@ export class WalletController {
 
         const walletId = match[1];
         ctx.session.editWalletId = walletId;
+        const keyboard = WalletView.getCancelKeyboard(ctx.i18n, walletId).reply_markup;
 
         await ctx.reply(
-            LocaleUtils.getWalletText(ctx.i18n, "editName.prompt")
+            LocaleUtils.getWalletText(ctx.i18n, "editName.prompt"),
+            {
+                reply_markup: keyboard
+            }
         );
 
         return next();
@@ -94,20 +98,29 @@ export class WalletController {
     static async editWalletName(ctx: ExtendedContext, next: () => Promise<void>) {
         const walletId = ctx.session.editWalletId;
         if (!walletId) {
-            return;
+            return next();
         }
 
+        const keyboard = WalletView.getCancelKeyboard(ctx.i18n, walletId).reply_markup;
         const newName = TelegramUtils.getMessageText(ctx);
         if (!newName) {
             await ctx.reply(
-                LocaleUtils.getWalletText(ctx.i18n, "editName.prompt")
+                LocaleUtils.getWalletText(ctx.i18n, "editName.prompt"),
+                {
+                    reply_markup: keyboard
+                }
             );
             return;
         }
 
         await (new WalletService()).upsertName(walletId, newName);
+        ctx.session.editWalletId = undefined;
+
         await ctx.reply(
-            LocaleUtils.getWalletText(ctx.i18n, "editName.success")
+            LocaleUtils.getWalletText(ctx.i18n, "editName.success"),
+            {
+                reply_markup: keyboard
+            }
         );
 
         return next();
