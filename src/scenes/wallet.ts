@@ -3,7 +3,7 @@ import { message } from "telegraf/filters";
 import { BOT } from "../constants";
 import { CommonController, WalletController } from "../controllers";
 import { ExtendedContext } from "../interfaces";
-import { GlobalMiddleware } from "../middlewares";
+import { WalletMiddleware } from "../middlewares";
 import { RegexUtils } from "../utils";
 
 export const walletScene = new Scenes.BaseScene<ExtendedContext>(
@@ -11,6 +11,8 @@ export const walletScene = new Scenes.BaseScene<ExtendedContext>(
 );
 
 walletScene.enter(WalletController.showWalletOverview);
+
+walletScene.use(WalletMiddleware.expectWalletName);
 
 walletScene.action(
     RegexUtils.matchExpandWallet(),

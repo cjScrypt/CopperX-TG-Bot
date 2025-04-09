@@ -14,6 +14,7 @@ export interface WizardSessionData extends Scenes.WizardSessionData {
 export interface SessionData {
     copperX: CopperXSession;
     editWalletId?: string;
+    expectInput?: boolean;
     botMessageId: number;
     userMessageId: number;
 }
