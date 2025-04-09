@@ -65,12 +65,12 @@ export class WalletView {
         });
     }
 
-    static getWalletDetailsKeyboard(i18n: I18nContext) {
+    static getWalletDetailsKeyboard(i18n: I18nContext, walletId: string) {
         return Markup.inlineKeyboard([
             [
                 Markup.button.callback(
                     LocaleUtils.getActionText(i18n, BOT.ACTION.EDIT_WALLET_NAME),
-                    BOT.ACTION.EDIT_WALLET_NAME
+                    ConstantUtils.getActionData(BOT.ACTION.EDIT_WALLET_NAME, walletId)
                 ),
             ]
         ]);

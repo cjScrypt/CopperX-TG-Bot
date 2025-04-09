@@ -63,7 +63,10 @@ export class WalletController {
             return;
         }
         const htmlContent = await WalletView.getWalletDetailsView(ctx.i18n, wallet);
-        const keyboard = WalletView.getWalletDetailsKeyboard(ctx.i18n).reply_markup;
+        const keyboard = WalletView.getWalletDetailsKeyboard(
+            ctx.i18n,
+            walletId
+        ).reply_markup;
 
         ctx.reply(htmlContent, {
             parse_mode: "HTML",

@@ -20,12 +20,7 @@ walletScene.action(
 );
 
 walletScene.action(
-    BOT.ACTION.EDIT_WALLET_NAME,
-    CommonController.enterScene(BOT.SCENE.EDIT_WALLET_NAME)
-);
-
-walletScene.action(
-    BOT.ACTION.EDIT_WALLET_NAME,
+    RegexUtils.matchAction(BOT.ACTION.EDIT_WALLET_NAME),
     WalletController.promptEditWalletName
 );
 

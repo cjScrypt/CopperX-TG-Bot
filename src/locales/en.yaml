@@ -39,6 +39,7 @@ action:
     profile_back: "${code} Back"
     cancel: "${code} Cancel"
     expand_default_wallet: "Expand Default"
+    edit_wallet_name: "Edit Wallet Name"
 header:
     welcome: "Welcome to Copperx Payout Bot!"
 description:
