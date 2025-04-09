@@ -120,10 +120,7 @@ export class WalletController {
         ctx.session.editWalletId = undefined;
 
         await ctx.reply(
-            LocaleUtils.getWalletText(ctx.i18n, "editName.success"),
-            {
-                reply_markup: keyboard
-            }
+            LocaleUtils.getWalletText(ctx.i18n, "editName.success")
         );
 
         return next();
