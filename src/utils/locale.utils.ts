@@ -22,6 +22,10 @@ export class LocaleUtils {
         return this.getActionCommonText(i18n, "wallet", text, value);
     }
 
+    static getTransferText(i18n: I18nContext, text: string, value?: string) {
+        return this.getActionCommonText(i18n, "transfer", text, value);
+    }
+
     private static getActionCommonText(
         i18n: I18nContext,
         group: string,

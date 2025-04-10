@@ -82,3 +82,6 @@ wallet:
         prompt: "Please provide a new wallet name."
         expectName: "Please providea wallet name or click the cancel button to abort."
         success: "Wallet name successfully updated"
+transfer:
+    prompt:
+        menu: "Select a transfer method"

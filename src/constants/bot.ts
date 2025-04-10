@@ -28,6 +28,7 @@ export const BOT: { [ index: string ]: { [ index: string ]: string } } = {
     SCENE: {
         LOGIN: "login",
         PROFILE: "profile",
-        WALLET_MANAGEMENT: "wallet_management"
+        WALLET_MANAGEMENT: "wallet_management",
+        TRANSFER: "transfer"
     }
 }
