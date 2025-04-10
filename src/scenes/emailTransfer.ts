@@ -8,6 +8,7 @@ export const emailTransfer = new Scenes.WizardScene<ExtendedContext>(
     BOT.SCENE.TRANSFER_EMAIL,
     EmailTransferController.promptEmail,
     EmailTransferController.promptPayeeId,
+    EmailTransferController.promptPurposeCode,
 );
 
 emailTransfer.action(

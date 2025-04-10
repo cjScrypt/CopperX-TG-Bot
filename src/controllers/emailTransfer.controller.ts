@@ -35,4 +35,25 @@ export class EmailTransferController {
 
         return ctx.wizard.next();
     }
+
+    static async promptPurposeCode(ctx: ExtendedContext) {
+        const payeeId = TelegramUtils.getMessageText(ctx);
+        if (!payeeId) {
+            await ctx.reply(
+                LocaleUtils.getTransferText(ctx.i18n, "prompt.enterPayeeId"),
+                {
+                    reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
+                }
+            );
+        }
+
+        ctx.wizard.state.emailTransfer.payeeId = payeeId;
+
+        const prompt = LocaleUtils.getTransferText(ctx.i18n, "prompt.enterPurposeCode");
+        await ctx.reply(prompt, {
+            reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
+        });
+
+        return ctx.wizard.next();
+    }
 }
