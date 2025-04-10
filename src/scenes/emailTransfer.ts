@@ -6,7 +6,8 @@ import { GlobalMiddleware } from "../middlewares";
 
 export const emailTransfer = new Scenes.WizardScene<ExtendedContext>(
     BOT.SCENE.TRANSFER_EMAIL,
-    EmailTransferController.promptEmail
+    EmailTransferController.promptEmail,
+    EmailTransferController.promptPayeeId,
 );
 
 emailTransfer.action(

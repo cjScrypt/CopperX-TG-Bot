@@ -8,6 +8,13 @@ export interface WizardSessionData extends Scenes.WizardSessionData {
     }
     history?: {
         botMessageId: number
+    },
+    emailTransfer: {
+        email?: string,
+        payeeId?: string,
+        purposeCode?: string
+        currency?: string,
+        amount?: string
     }
 }
 

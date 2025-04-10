@@ -89,3 +89,6 @@ transfer:
     prompt:
         menu: "Select a transfer method"
         enterEmail: "Please enter the recipient's email address:"
+        enterPayeeId: "Please enter the recipient's Payee ID:"
+    error:
+        invalidEmail: "Please enter a valid email address."
