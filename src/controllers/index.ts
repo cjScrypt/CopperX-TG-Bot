@@ -1,4 +1,5 @@
 export * from "./common.controller";
+export * from "./emailTransfer.controller";
 export * from "./help.controller";
 export * from "./login.controller";
 export * from "./profile.controller";
