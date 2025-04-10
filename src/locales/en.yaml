@@ -40,6 +40,9 @@ action:
     cancel: "${code} Cancel"
     expand_default_wallet: "Expand Default"
     edit_wallet_name: "Edit Wallet Name"
+    transfer_email: "${code} Email"
+    transfer_wallet: "${code} Wallet"
+    transfer_bank: "${code} Bank"
 header:
     welcome: "Welcome to Copperx Payout Bot!"
 description:

@@ -9,14 +9,17 @@ export const CODE: { [ index: string ]: { [ index: string ]: string } } = {
         PROFILE_BACK: "🔙",
         HELP: "❓",
         PROFILE: "👤",
-        SEND_TRANSFER: "💸",
+        TRANSFER: "💸",
         LOGIN: "🔑",
         LOGOUT: "🚪➡️",
         WALLET_MANAGEMENT: "💼",
         SUPPORT: "📞",
         RESEND_OTP: "🔄",
         CHANGE_EMAIL: "✉",
-        CANCEL: "🚫"
+        CANCEL: "🚫",
+        TRANSFER_EMAIL: "✉",
+        TRANSFER_WALLET: "👛",
+        TRANSFER_BANK: " 🏦"
     },
     NETWORK: {
         23434: "23434",

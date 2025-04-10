@@ -23,7 +23,10 @@ export const BOT: { [ index: string ]: { [ index: string ]: string } } = {
         EXPAND_DEFAULT_WALLET: "expand_default_wallet",
         EXPAND_WALLET: "expand_wallet",
         EDIT_WALLET_NAME: "edit_wallet_name",
-        EDIT_WALLET_NAME_BACK: "edit_wallet_name_back"
+        EDIT_WALLET_NAME_BACK: "edit_wallet_name_back",
+        TRANSFER_EMAIL: "transfer_email",
+        TRANSFER_WALLET: "transfer_wallet",
+        TRANSFER_BANK: "transfer_bank"
     },
     SCENE: {
         LOGIN: "login",
