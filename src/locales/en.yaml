@@ -88,3 +88,4 @@ wallet:
 transfer:
     prompt:
         menu: "Select a transfer method"
+        enterEmail: "Please enter the recipient's email address:"

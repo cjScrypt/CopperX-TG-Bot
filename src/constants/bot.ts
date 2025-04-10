@@ -32,6 +32,7 @@ export const BOT: { [ index: string ]: { [ index: string ]: string } } = {
         LOGIN: "login",
         PROFILE: "profile",
         WALLET_MANAGEMENT: "wallet_management",
-        TRANSFER: "transfer"
+        TRANSFER: "transfer",
+        TRANSFER_EMAIL: "transfer_email"
     }
 }

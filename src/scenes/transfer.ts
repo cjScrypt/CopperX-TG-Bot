@@ -1,6 +1,6 @@
 import { Scenes } from "telegraf";
 import { BOT } from "../constants";
-import { TransferController } from "../controllers";
+import { CommonController, TransferController } from "../controllers";
 import { ExtendedContext } from "../interfaces";
 
 export const transferScene = new Scenes.BaseScene<ExtendedContext>(
@@ -8,3 +8,8 @@ export const transferScene = new Scenes.BaseScene<ExtendedContext>(
 );
 
 transferScene.enter(TransferController.showTransferMenu);
+
+transferScene.action(
+    BOT.ACTION.TRANSFER_EMAIL,
+    CommonController.enterScene(BOT.SCENE.TRANSFER_EMAIL)
+);
