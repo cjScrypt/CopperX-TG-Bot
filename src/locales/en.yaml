@@ -43,6 +43,16 @@ action:
     transfer_email: "${code} Email"
     transfer_wallet: "${code} Wallet"
     transfer_bank: "${code} Bank"
+    transferPurpose:
+        self: "Self"
+        salary: "Salary"
+        gift: "Gift"
+        income: "Income"
+        saving: "Saving"
+        education_support: "Education Support"
+        family: "Family"
+        home_improvement: "Home Improvement"
+        reimbursement: "Reimbursement"
 header:
     welcome: "Welcome to Copperx Payout Bot!"
 description:

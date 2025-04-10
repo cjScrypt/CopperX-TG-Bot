@@ -50,8 +50,9 @@ export class EmailTransferController {
         ctx.wizard.state.emailTransfer.payeeId = payeeId;
 
         const prompt = LocaleUtils.getTransferText(ctx.i18n, "prompt.enterPurposeCode");
+        const keyboard = TransferView.paymentPurposeKeyboard(ctx.i18n).reply_markup;
         await ctx.reply(prompt, {
-            reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
+            reply_markup: keyboard
         });
 
         return ctx.wizard.next();
