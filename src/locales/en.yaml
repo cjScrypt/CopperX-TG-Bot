@@ -102,5 +102,15 @@ transfer:
         enterPayeeId: "Please enter the recipient's Payee ID:"
         enterPurposeCode: "Please select the purpose for this transfer:"
         enterCurrencyCode: "Please select the currency for this transfer:"
+        enterAmount: "Please enter the transfer amount"
     error:
         invalidEmail: "Please enter a valid email address."
+        enterValidAmount: "Please enter a valid amount:"
+    emailSummary:
+        title: "Transfer Summary"
+        email: "Recipient Email"
+        payeeId: "Payee ID"
+        purposeCode: "Purpose"
+        currency: "Currency"
+        amount: "Amount"
+        confirmOrCancelPrompt: "✅ If everything looks good, press Confirm to proceed.\n❌ Press Cancel to go back."

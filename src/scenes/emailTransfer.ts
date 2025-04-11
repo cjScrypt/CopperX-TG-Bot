@@ -10,6 +10,7 @@ export const emailTransfer = new Scenes.WizardScene<ExtendedContext>(
     EmailTransferController.promptEmail,
     EmailTransferController.promptPayeeId,
     EmailTransferController.promptPurposeCode,
+    EmailTransferController.handleAmountInput
 );
 
 emailTransfer.action(

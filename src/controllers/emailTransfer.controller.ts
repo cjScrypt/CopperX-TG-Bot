@@ -1,4 +1,4 @@
-import { isEmail } from "class-validator";
+import { isEmail, isNumber } from "class-validator";
 import { BOT } from "../constants";
 import { ExtendedContext } from "../interfaces";
 import { WalletService } from "../services";
@@ -129,5 +129,22 @@ export class EmailTransferController {
         );
 
         return ctx.wizard.next();
+    }
+
+    static async handleAmountInput(ctx: ExtendedContext) {
+        const amount = TelegramUtils.getMessageText(ctx);
+        if (!isNumber(amount)) {
+            await ctx.reply(
+                LocaleUtils.getTransferText(ctx.i18n, "prompt.enterValidAmount")
+            );
+        }
+        ctx.wizard.state.emailTransfer.amount = amount;
+
+        const htmlContent = await TransferView.emailtransferSummary(
+            ctx.i18n,
+            ctx.wizard.state.emailTransfer
+        );
+
+        await ctx.reply(htmlContent);
     }
 }

@@ -1,7 +1,9 @@
 import { I18nContext } from "@grammyjs/i18n";
+import { renderFile } from "ejs";
+import { resolve } from "path";
 import { Markup } from "telegraf";
 import { BOT, TRANSFER } from "../constants";
-import { WalletBalanceDto } from "../interfaces";
+import { EmailTransferDto, WalletBalanceDto } from "../interfaces";
 import { ConstantUtils, LocaleUtils } from "../utils";
 
 export class TransferView {
@@ -88,5 +90,16 @@ export class TransferView {
         keyboard.push(row);
 
         return Markup.inlineKeyboard(keyboard);
+    }
+
+    static emailtransferSummary(
+        i18n: I18nContext,
+        summary: EmailTransferDto
+    ) {
+        return renderFile(resolve(__dirname, "./templates/emailTransferSummary.ejs"), {
+            LocaleUtils,
+            i18n,
+            summary
+        });
     }
 }
