@@ -19,5 +19,6 @@ emailTransfer.action(
 
 emailTransfer.action(
     RegexUtils.matchAction(BOT.ACTION.TRANSFER_EMAIL),
-    EmailTransferController.handlePurposeCode
+    EmailTransferController.handlePurposeCode,
+    EmailTransferController.promptCurrencyCode
 );

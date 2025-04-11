@@ -17,7 +17,7 @@ export class WalletService {
         return this.walletRepository.upsert(walletId, name);
     }
 
-    async getDefaultWallet(token: string, profileId: string) {
+    async getDefaultWallet(token: string) {
         const endpoint = "api/wallets/default";
         const response = await this.copperXService.makeGetRequest(
             endpoint,

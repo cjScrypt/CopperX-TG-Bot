@@ -101,5 +101,6 @@ transfer:
         enterEmail: "Please enter the recipient's email address:"
         enterPayeeId: "Please enter the recipient's Payee ID:"
         enterPurposeCode: "Please select the purpose for this transfer:"
+        enterCurrencyCode: "Please select the currency for this transfer:"
     error:
         invalidEmail: "Please enter a valid email address."

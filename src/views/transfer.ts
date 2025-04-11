@@ -1,6 +1,7 @@
 import { I18nContext } from "@grammyjs/i18n";
 import { Markup } from "telegraf";
 import { BOT, TRANSFER } from "../constants";
+import { WalletBalanceDto } from "../interfaces";
 import { ConstantUtils, LocaleUtils } from "../utils";
 
 export class TransferView {
@@ -60,6 +61,32 @@ export class TransferView {
         ]
         keyboard.push(lastRow);
         
+        return Markup.inlineKeyboard(keyboard);
+    }
+
+    static currencyKeyboard(wallet: WalletBalanceDto) {
+        const keyboard = [];
+        let row = [];
+
+        for (const balance of wallet.balances) {
+            const currency = balance.symbol;
+
+            const button = Markup.button.callback(
+                `${currency} (${balance.balance})`,
+                ConstantUtils.getActionData(
+                    BOT.ACTION.TRANSFER_CURRENCY,
+                    currency
+                )
+            );
+            row.push(button);
+
+            if (row.length === 6) {
+                keyboard.push(row);
+                row = []
+            }
+        }
+        keyboard.push(row);
+
         return Markup.inlineKeyboard(keyboard);
     }
 }

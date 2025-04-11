@@ -1,8 +1,8 @@
 export interface WalletDto {
-    "id": string,
-    "network": string,
-    "walletAddress": string,
-    "name": string
+    id: string,
+    network: string,
+    walletAddress: string,
+    name: string
 }
 
 export interface BalanceDto {

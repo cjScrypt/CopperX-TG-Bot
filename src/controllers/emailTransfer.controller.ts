@@ -1,8 +1,9 @@
 import { isEmail } from "class-validator";
+import { BOT } from "../constants";
 import { ExtendedContext } from "../interfaces";
+import { WalletService } from "../services";
 import { LocaleUtils, RegexUtils, TelegramUtils } from "../utils";
 import { TransferView } from "../views";
-import { BOT } from "../constants";
 
 export class EmailTransferController {
     static async promptEmail(ctx: ExtendedContext) {
@@ -76,5 +77,27 @@ export class EmailTransferController {
         ctx.wizard.state.emailTransfer.purposeCode = purposeCode[1];
 
         return next();
+    }
+
+    static async promptCurrencyCode(ctx: ExtendedContext) {
+        const walletService = new WalletService();
+        const token = ctx.session.copperX.token;
+
+        const defaultWallet = await walletService.getDefaultWallet(token);
+        const wallet = await walletService.getWalletById(defaultWallet.id, token);
+        if (!wallet) {
+            console.error(`Wallet with ID ${defaultWallet.id} not found`);
+            return;
+        }
+
+        const keyboard = TransferView.currencyKeyboard(wallet).reply_markup;
+        await ctx.reply(
+            LocaleUtils.getTransferText(ctx.i18n, "prompt.enterCurrencyCode"),
+            {
+                reply_markup: keyboard
+            }
+        );
+
+        return ctx.wizard.next();
     }
 }
