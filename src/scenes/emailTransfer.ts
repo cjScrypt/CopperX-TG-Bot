@@ -22,3 +22,8 @@ emailTransfer.action(
     EmailTransferController.handlePurposeCode,
     EmailTransferController.promptCurrencyCode
 );
+
+emailTransfer.action(
+    RegexUtils.matchAction(BOT.ACTION.TRANSFER_CURRENCY),
+    EmailTransferController.handleCurrencyInput
+);

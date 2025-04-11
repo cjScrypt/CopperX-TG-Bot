@@ -62,7 +62,7 @@ export class EmailTransferController {
 
     static async handlePurposeCode(ctx: ExtendedContext, next: () => Promise<void>) {
         if (ctx.wizard.cursor !== 3) {
-            console.error(`Unexpected Action`);
+            console.error("Unexpected Action");
             return;
         }
 
@@ -99,5 +99,24 @@ export class EmailTransferController {
         );
 
         return ctx.wizard.next();
+    }
+
+    static async handleCurrencyInput(ctx: ExtendedContext, next: () => Promise<void>) {
+        if (ctx.wizard.cursor !== 4) {
+            console.error("Unexpected Action");
+            return;
+        }
+
+        const data = TelegramUtils.getCallbackData(ctx);
+        const match = data.match(
+            RegexUtils.matchActionCode(BOT.ACTION.TRANSFER_CURRENCY)
+        );
+        if (!match) {
+            return;
+        }
+
+        ctx.wizard.state.emailTransfer.currency = match[1];
+
+        return next();
     }
 }
