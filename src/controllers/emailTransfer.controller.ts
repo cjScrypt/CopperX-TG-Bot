@@ -119,4 +119,15 @@ export class EmailTransferController {
 
         return next();
     }
+
+    static async promptAmount(ctx: ExtendedContext) {
+        await ctx.reply(
+            LocaleUtils.getActionText(ctx.i18n, "prompt.enterAmount"),
+            {
+                reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
+            }
+        );
+
+        return ctx.wizard.next();
+    }
 }
