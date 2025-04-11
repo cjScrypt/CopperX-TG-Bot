@@ -3,6 +3,7 @@ import { BOT } from "../constants";
 import { EmailTransferController } from "../controllers";
 import { ExtendedContext } from "../interfaces";
 import { GlobalMiddleware } from "../middlewares";
+import { RegexUtils } from "../utils";
 
 export const emailTransfer = new Scenes.WizardScene<ExtendedContext>(
     BOT.SCENE.TRANSFER_EMAIL,
@@ -14,4 +15,9 @@ export const emailTransfer = new Scenes.WizardScene<ExtendedContext>(
 emailTransfer.action(
     BOT.ACTION.CANCEL,
     GlobalMiddleware.cancelScene
-)
+);
+
+emailTransfer.action(
+    RegexUtils.matchAction(BOT.ACTION.TRANSFER_EMAIL),
+    EmailTransferController.handlePurposeCode
+);

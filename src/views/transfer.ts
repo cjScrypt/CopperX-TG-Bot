@@ -1,7 +1,7 @@
 import { I18nContext } from "@grammyjs/i18n";
 import { Markup } from "telegraf";
 import { BOT, TRANSFER } from "../constants";
-import { LocaleUtils } from "../utils";
+import { ConstantUtils, LocaleUtils } from "../utils";
 
 export class TransferView {
     static getTransferMenuKeyboard(i18n: I18nContext) {
@@ -41,7 +41,7 @@ export class TransferView {
             row.push(
                 Markup.button.callback(
                     LocaleUtils.getActionText(i18n, actionKey),
-                    purpose
+                    ConstantUtils.getActionData(BOT.ACTION.TRANSFER_EMAIL, purpose)
                 )
             );
 

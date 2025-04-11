@@ -1,7 +1,8 @@
 import { isEmail } from "class-validator";
 import { ExtendedContext } from "../interfaces";
-import { LocaleUtils, TelegramUtils } from "../utils";
+import { LocaleUtils, RegexUtils, TelegramUtils } from "../utils";
 import { TransferView } from "../views";
+import { BOT } from "../constants";
 
 export class EmailTransferController {
     static async promptEmail(ctx: ExtendedContext) {
@@ -56,5 +57,24 @@ export class EmailTransferController {
         });
 
         return ctx.wizard.next();
+    }
+
+    static async handlePurposeCode(ctx: ExtendedContext, next: () => Promise<void>) {
+        if (ctx.wizard.cursor !== 3) {
+            console.error(`Unexpected Action`);
+            return;
+        }
+
+        const data = TelegramUtils.getCallbackData(ctx);
+        const purposeCode = data.match(
+            RegexUtils.matchActionCode(BOT.ACTION.TRANSFER_EMAIL)
+        );
+        if (!purposeCode) {
+            return;
+        }
+
+        ctx.wizard.state.emailTransfer.purposeCode = purposeCode[1];
+
+        return next();
     }
 }

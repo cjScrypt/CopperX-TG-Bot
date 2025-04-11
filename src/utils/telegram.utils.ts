@@ -27,6 +27,15 @@ export class TelegramUtils {
         return '';
     }
 
+    static getCallbackData(ctx: ExtendedContext) {
+        let data = "";
+        if (ctx.callbackQuery && 'data' in ctx.callbackQuery) {
+            data = ctx.callbackQuery.data;
+        }
+
+        return data;
+    }
+
     static getAuthTokenFromSession(session: SceneSession) {
         if (!session.copperX) {
             return null;
