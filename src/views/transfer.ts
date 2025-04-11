@@ -102,4 +102,19 @@ export class TransferView {
             summary
         });
     }
+
+    static emailTransferKeyboard(i18n: I18nContext) {
+        return Markup.inlineKeyboard([
+            [
+                Markup.button.callback(
+                    LocaleUtils.getActionText(i18n, BOT.ACTION.CONFIRM_EMAIL_TRANSFER),
+                    BOT.ACTION.CONFIRM_EMAIL_TRANSFER
+                ),
+                Markup.button.callback(
+                    LocaleUtils.getActionText(i18n, BOT.ACTION.CANCEL),
+                    BOT.ACTION.CANCEL
+                )
+            ]
+        ]);
+    }
 }

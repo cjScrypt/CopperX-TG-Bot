@@ -27,7 +27,8 @@ export const BOT: { [ index: string ]: { [ index: string ]: string } } = {
         TRANSFER_EMAIL: "transfer_email",
         TRANSFER_WALLET: "transfer_wallet",
         TRANSFER_BANK: "transfer_bank",
-        TRANSFER_CURRENCY: "transfer_currency"
+        TRANSFER_CURRENCY: "transfer_currency",
+        CONFIRM_EMAIL_TRANSFER: "confirm_email_transfer"
     },
     SCENE: {
         LOGIN: "login",

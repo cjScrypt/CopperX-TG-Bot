@@ -145,6 +145,11 @@ export class EmailTransferController {
             ctx.wizard.state.emailTransfer
         );
 
-        await ctx.reply(htmlContent);
+        await ctx.reply(
+            htmlContent,
+            {
+                reply_markup: TransferView.emailTransferKeyboard(ctx.i18n).reply_markup
+            }
+        );
     }
 }
