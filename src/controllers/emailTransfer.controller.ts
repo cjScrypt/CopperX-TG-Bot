@@ -57,7 +57,7 @@ export class EmailTransferController {
             reply_markup: keyboard
         });
 
-        return ctx.wizard.next();
+        return;
     }
 
     static async handlePurposeCode(ctx: ExtendedContext, next: () => Promise<void>) {
