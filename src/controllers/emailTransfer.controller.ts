@@ -26,6 +26,7 @@ export class EmailTransferController {
                     reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
                 }
             );
+            return;
         }
 
         ctx.wizard.state.emailTransfer.email = email;
@@ -47,6 +48,7 @@ export class EmailTransferController {
                     reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
                 }
             );
+            return;
         }
 
         ctx.wizard.state.emailTransfer.payeeId = payeeId;
