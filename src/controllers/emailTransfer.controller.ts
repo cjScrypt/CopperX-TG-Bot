@@ -121,6 +121,7 @@ export class EmailTransferController {
             await ctx.reply(
                 LocaleUtils.getTransferText(ctx.i18n, "prompt.enterValidAmount")
             );
+            return;
         }
 
         ctx.wizard.state.emailTransfer.amount = amount;
@@ -133,6 +134,7 @@ export class EmailTransferController {
         await ctx.reply(
             htmlContent,
             {
+                parse_mode: "HTML",
                 reply_markup: TransferView.emailTransferKeyboard(ctx.i18n).reply_markup
             }
         );
