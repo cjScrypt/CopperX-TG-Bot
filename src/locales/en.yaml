@@ -43,6 +43,7 @@ action:
     transfer_email: "${code} Email"
     transfer_wallet: "${code} Wallet"
     transfer_bank: "${code} Bank"
+    confirm_email_transfer: "${code} Confirm"
     transferPurpose:
         self: "Self"
         salary: "Salary"

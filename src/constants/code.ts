@@ -19,7 +19,8 @@ export const CODE: { [ index: string ]: { [ index: string ]: string } } = {
         CANCEL: "🚫",
         TRANSFER_EMAIL: "✉",
         TRANSFER_WALLET: "👛",
-        TRANSFER_BANK: " 🏦"
+        TRANSFER_BANK: "🏦",
+        CONFIRM_EMAIL_TRANSFER: "✅"
     },
     NETWORK: {
         23434: "23434",
