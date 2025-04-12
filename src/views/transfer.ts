@@ -72,12 +72,13 @@ export class TransferView {
 
         for (const balance of wallet.balances) {
             const currency = balance.symbol;
+            const actionId = `${currency}|${balance.decimals}`;
 
             const button = Markup.button.callback(
                 `${currency} (${balance.balance})`,
                 ConstantUtils.getActionData(
                     BOT.ACTION.TRANSFER_CURRENCY,
-                    currency
+                    actionId
                 )
             );
             row.push(button);

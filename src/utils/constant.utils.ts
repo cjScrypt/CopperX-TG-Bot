@@ -14,14 +14,14 @@ export class ConstantUtils {
         return networkCode;
     }
 
-    static getActionData(action: string, code?: string) {
+    static getActionData(action: string, actionId?: string) {
         const actionCode = BOT.ACTION[action.toUpperCase()];
         if (!actionCode) {
             return action;
         }
-        if (code) {
+        if (actionId) {
             const separator = "_-_";
-            return `${actionCode}${separator}${code}`;
+            return `${actionCode}${separator}${actionId}`;
         }
 
         return actionCode;

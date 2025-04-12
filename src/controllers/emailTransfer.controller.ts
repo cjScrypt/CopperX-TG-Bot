@@ -119,7 +119,7 @@ export class EmailTransferController {
         const amount = TelegramUtils.getMessageText(ctx);
         if (!isNumberString(amount)) {
             await ctx.reply(
-                LocaleUtils.getTransferText(ctx.i18n, "prompt.enterValidAmount")
+                LocaleUtils.getTransferText(ctx.i18n, "error.enterValidAmount")
             );
             return;
         }
