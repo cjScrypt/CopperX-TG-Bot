@@ -9,7 +9,7 @@ export class TransferService {
     }
 
     async sendEmailTransfer(body: EmailTransferDto, token: string) {
-        const endpoint = "/api/transfer/send";
+        const endpoint = "api/transfers/send";
 
         const response = await this.copperXService.makePostRequest(endpoint, body, token);
 
