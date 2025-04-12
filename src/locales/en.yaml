@@ -114,3 +114,11 @@ transfer:
         currency: "Currency"
         amount: "Amount"
         confirmOrCancelPrompt: "✅ If everything looks good, press Confirm to proceed.\n❌ Press Cancel to go back."
+
+    payment_success:
+        title: "✅ Payment Request Submitted"
+        amount: "Amount: ${value}"
+        status: "Status: ${value}"
+        reference: "Reference: #${value}"
+        track_link: "🔗 Track payment:"
+        help_text: "Need help? View invoice"

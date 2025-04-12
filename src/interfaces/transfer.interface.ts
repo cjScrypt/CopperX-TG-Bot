@@ -5,3 +5,11 @@ export interface EmailTransferDto {
     currency?: string,
     amount?: string
 }
+
+export interface TransactionDto {
+    amount: string,
+    status: string,
+    invoiceNumber: string,
+    paymentUrl: string,
+    invoiceUrl: string
+}

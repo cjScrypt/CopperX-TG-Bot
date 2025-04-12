@@ -1,7 +1,7 @@
 import { isEmail, isNumber } from "class-validator";
 import { BOT } from "../constants";
 import { ExtendedContext } from "../interfaces";
-import { WalletService } from "../services";
+import { TransferService, WalletService } from "../services";
 import { LocaleUtils, RegexUtils, TelegramUtils } from "../utils";
 import { TransferView } from "../views";
 
@@ -151,5 +151,24 @@ export class EmailTransferController {
                 reply_markup: TransferView.emailTransferKeyboard(ctx.i18n).reply_markup
             }
         );
+    }
+
+    static async sendEmailTransfer (ctx: ExtendedContext, next: () => Promise<void>) {
+        const summary = ctx.wizard.state.emailTransfer;
+        const token = ctx.session.copperX.token;
+        
+        const transaction = await (new TransferService()).sendEmailTransfer(
+            summary,
+            token
+        );
+        
+        const htmlContent = await TransferView.transferSuccessHtml(
+            ctx.i18n,
+            transaction
+        );
+
+        await ctx.reply(htmlContent);
+
+        return next();
     }
 }

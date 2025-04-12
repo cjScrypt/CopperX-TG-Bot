@@ -1,0 +1,9 @@
+<%= LocaleUtils.getTransferText(i18n, "payment_success.title") %>
+
+<%= LocaleUtils.getTransferText(i18n, "payment_success.amount", transaction.amount) %>
+<%= LocaleUtils.getTransferText(i18n, "payment_success.status", transaction.status) %>
+<%= LocaleUtils.getTransferText(i18n, "payment_success.reference", transaction.invoiceNumber) %>
+
+<%= LocaleUtils.getTransferText(i18n, "payment_success.track_link") %> <a href="<%= transaction.paymentUrl %>">here</a>
+
+<%= LocaleUtils.getTransferText(i18n, "payment_success.help_text", transaction.help_text) %> <a href="<%= transaction.invoiceUrl %>">here</a>

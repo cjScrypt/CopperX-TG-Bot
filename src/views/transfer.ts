@@ -3,7 +3,7 @@ import { renderFile } from "ejs";
 import { resolve } from "path";
 import { Markup } from "telegraf";
 import { BOT, TRANSFER } from "../constants";
-import { EmailTransferDto, WalletBalanceDto } from "../interfaces";
+import { EmailTransferDto, TransactionDto, WalletBalanceDto } from "../interfaces";
 import { ConstantUtils, LocaleUtils } from "../utils";
 
 export class TransferView {
@@ -116,5 +116,13 @@ export class TransferView {
                 )
             ]
         ]);
+    }
+
+    static transferSuccessHtml(i18n: I18nContext, transaction: TransactionDto) {
+        return renderFile(resolve(__dirname, "./templates/transferSuccess.ejs"), {
+            LocaleUtils,
+            i18n,
+            transaction
+        });
     }
 }

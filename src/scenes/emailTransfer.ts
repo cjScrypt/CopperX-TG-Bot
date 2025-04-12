@@ -26,6 +26,12 @@ emailTransfer.action(
 );
 
 emailTransfer.action(
+    BOT.ACTION.CONFIRM_EMAIL_TRANSFER,
+    EmailTransferController.sendEmailTransfer,
+    GlobalMiddleware.cancelScene
+);
+
+emailTransfer.action(
     BOT.ACTION.CANCEL,
     GlobalMiddleware.cancelScene
 );
