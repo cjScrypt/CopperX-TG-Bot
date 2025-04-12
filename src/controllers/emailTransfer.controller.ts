@@ -1,4 +1,4 @@
-import { isEmail, isNumber } from "class-validator";
+import { isEmail, isNumberString } from "class-validator";
 import { BOT } from "../constants";
 import { ExtendedContext } from "../interfaces";
 import { TransferService, WalletService } from "../services";
@@ -117,7 +117,7 @@ export class EmailTransferController {
 
     static async promptConfirmTransaction(ctx: ExtendedContext) {
         const amount = TelegramUtils.getMessageText(ctx);
-        if (!isNumber(amount)) {
+        if (!isNumberString(amount)) {
             await ctx.reply(
                 LocaleUtils.getTransferText(ctx.i18n, "prompt.enterValidAmount")
             );
