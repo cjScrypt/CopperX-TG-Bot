@@ -9,19 +9,10 @@ export class WalletController {
         ctx: ExtendedContext,
         next: () => Promise<void>
     ) {
-        const profileId = ctx.session.copperX.user?.id;
-        if (!profileId) {
-            console.error(`User Profile ID not found`);
-            return;
-        }
-
         const token = ctx.session.copperX.token;
         const walletService = new WalletService();
 
-        const defaultWallet = await walletService.getDefaultWallet(
-            token,
-            profileId
-        );
+        const defaultWallet = await walletService.getDefaultWallet(token);
         const wallets = await walletService.getWallets(token);
 
         const htmlContent = await WalletView.getDefaultWalletHtml(
