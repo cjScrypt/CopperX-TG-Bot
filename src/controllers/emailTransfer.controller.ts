@@ -106,7 +106,7 @@ export class EmailTransferController {
         ctx.wizard.state.emailTransfer.currency = match[1];
 
         await ctx.reply(
-            LocaleUtils.getActionText(ctx.i18n, "prompt.enterAmount"),
+            LocaleUtils.getTransferText(ctx.i18n, "prompt.enterAmount"),
             {
                 reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
             }
