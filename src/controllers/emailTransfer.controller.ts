@@ -59,15 +59,10 @@ export class EmailTransferController {
             reply_markup: keyboard
         });
 
-        return;
+        return ctx.wizard.next();
     }
 
-    static async handlePurposeCode(ctx: ExtendedContext, next: () => Promise<void>) {
-        if (ctx.wizard.cursor !== 3) {
-            console.error("Unexpected Action");
-            return;
-        }
-
+    static async promptCurrencyCode(ctx: ExtendedContext) {
         const data = TelegramUtils.getCallbackData(ctx);
         const purposeCode = data.match(
             RegexUtils.matchActionCode(BOT.ACTION.TRANSFER_EMAIL)
@@ -78,10 +73,6 @@ export class EmailTransferController {
 
         ctx.wizard.state.emailTransfer.purposeCode = purposeCode[1];
 
-        return next();
-    }
-
-    static async promptCurrencyCode(ctx: ExtendedContext) {
         const walletService = new WalletService();
         const token = ctx.session.copperX.token;
 
@@ -92,11 +83,10 @@ export class EmailTransferController {
             return;
         }
 
-        const keyboard = TransferView.currencyKeyboard(wallet).reply_markup;
         await ctx.reply(
             LocaleUtils.getTransferText(ctx.i18n, "prompt.enterCurrencyCode"),
             {
-                reply_markup: keyboard
+                reply_markup: TransferView.currencyKeyboard(wallet).reply_markup
             }
         );
 

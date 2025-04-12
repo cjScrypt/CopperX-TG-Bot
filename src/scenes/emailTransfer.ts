@@ -10,13 +10,8 @@ export const emailTransfer = new Scenes.WizardScene<ExtendedContext>(
     EmailTransferController.promptEmail,
     EmailTransferController.promptPayeeId,
     EmailTransferController.promptPurposeCode,
+    EmailTransferController.promptCurrencyCode,
     EmailTransferController.handleAmountInput
-);
-
-emailTransfer.action(
-    RegexUtils.matchAction(BOT.ACTION.TRANSFER_EMAIL),
-    EmailTransferController.handlePurposeCode,
-    EmailTransferController.promptCurrencyCode
 );
 
 emailTransfer.action(
