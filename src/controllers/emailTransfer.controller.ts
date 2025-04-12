@@ -115,13 +115,14 @@ export class EmailTransferController {
         return ctx.wizard.next();
     }
 
-    static async handleAmountInput(ctx: ExtendedContext) {
+    static async promptConfirmTransaction(ctx: ExtendedContext) {
         const amount = TelegramUtils.getMessageText(ctx);
         if (!isNumber(amount)) {
             await ctx.reply(
                 LocaleUtils.getTransferText(ctx.i18n, "prompt.enterValidAmount")
             );
         }
+
         ctx.wizard.state.emailTransfer.amount = amount;
 
         const htmlContent = await TransferView.emailtransferSummary(
