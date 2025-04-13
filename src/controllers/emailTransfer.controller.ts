@@ -85,7 +85,7 @@ export class EmailTransferController {
 
         await ctx.reply(
             LocaleUtils.getTransferText(ctx.i18n, "prompt.enterCurrencyCode"),
-            {
+            { // @todo Format the balance correctly using the decimals
                 reply_markup: TransferView.currencyKeyboard(wallet).reply_markup
             }
         );
@@ -126,7 +126,9 @@ export class EmailTransferController {
             return;
         }
 
-        ctx.wizard.state.emailTransfer.amount = amount;
+        const decimal = ctx.wizard.state.emailTransfer.decimal;
+        const transformedAmount = StringUtils.convertDecimalToWhole(amount, decimal);
+        ctx.wizard.state.emailTransfer.amount = transformedAmount;
 
         const htmlContent = await TransferView.emailtransferSummary(
             ctx.i18n,
