@@ -85,7 +85,7 @@ export class EmailTransferController {
 
         await ctx.reply(
             LocaleUtils.getTransferText(ctx.i18n, "prompt.enterCurrencyCode"),
-            { // @todo Format the balance correctly using the decimals
+            {
                 reply_markup: TransferView.currencyKeyboard(wallet).reply_markup
             }
         );

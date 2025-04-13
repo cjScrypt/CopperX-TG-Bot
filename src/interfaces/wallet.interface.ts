@@ -8,7 +8,7 @@ export interface WalletDto {
 export interface BalanceDto {
     symbol: string,
     balance: string,
-    decimals: string,
+    decimals: number,
     address: string
 }
 

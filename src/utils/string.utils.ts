@@ -29,4 +29,21 @@ export class StringUtils {
 
         return result;
     }
+
+    static convertWholeToDecimal(numStr: string, decimal?: number) {
+        if (!decimal) {
+            return numStr;
+        }
+
+        const insertPosition = numStr.length - decimal;
+        
+        const integerPart = numStr.length > decimal
+            ? numStr.substring(0, insertPosition)
+            : "0";
+        const decimalPart = numStr.length > decimal
+            ? numStr.substring(insertPosition, insertPosition + 3)
+            : numStr.substring(0, 3);
+
+        return integerPart + "." + decimalPart;
+    }
 }

@@ -4,7 +4,7 @@ import { resolve } from "path";
 import { Markup } from "telegraf";
 import { BOT, TRANSFER } from "../constants";
 import { EmailTransferDto, TransactionDto, WalletBalanceDto } from "../interfaces";
-import { ConstantUtils, LocaleUtils } from "../utils";
+import { ConstantUtils, LocaleUtils, StringUtils } from "../utils";
 
 export class TransferView {
     static getTransferMenuKeyboard(i18n: I18nContext) {
@@ -72,15 +72,20 @@ export class TransferView {
 
         for (const balance of wallet.balances) {
             const currency = balance.symbol;
+            const formattedBalance = StringUtils.convertWholeToDecimal(
+                balance.balance,
+                balance.decimals
+            );
             const actionId = `${currency}|${balance.decimals}`;
 
             const button = Markup.button.callback(
-                `${currency} (${balance.balance})`,
+                `${currency} - (${formattedBalance}${currency.toLowerCase()})`,
                 ConstantUtils.getActionData(
                     BOT.ACTION.TRANSFER_CURRENCY,
                     actionId
                 )
             );
+
             row.push(button);
 
             if (row.length === 6) {
