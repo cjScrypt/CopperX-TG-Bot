@@ -2,7 +2,7 @@ import { isEmail, isNumberString } from "class-validator";
 import { BOT } from "../constants";
 import { ExtendedContext } from "../interfaces";
 import { TransferService, WalletService } from "../services";
-import { LocaleUtils, RegexUtils, TelegramUtils } from "../utils";
+import { LocaleUtils, RegexUtils, StringUtils, TelegramUtils } from "../utils";
 import { TransferView } from "../views";
 
 export class EmailTransferController {
@@ -102,8 +102,10 @@ export class EmailTransferController {
             console.error("Unknown action");
             return;
         }
+        const actionIdArr = match[1].split("|");
 
-        ctx.wizard.state.emailTransfer.currency = match[1];
+        ctx.wizard.state.emailTransfer.currency = actionIdArr[0];
+        ctx.wizard.state.emailTransfer.decimal = actionIdArr[1];
 
         await ctx.reply(
             LocaleUtils.getTransferText(ctx.i18n, "prompt.enterAmount"),
@@ -143,12 +145,12 @@ export class EmailTransferController {
     static async sendEmailTransfer (ctx: ExtendedContext, next: () => Promise<void>) {
         const summary = ctx.wizard.state.emailTransfer;
         const token = ctx.session.copperX.token;
-        
+
         const transaction = await (new TransferService()).sendEmailTransfer(
             summary,
             token
         );
-        
+
         const htmlContent = await TransferView.transferSuccessHtml(
             ctx.i18n,
             transaction
