@@ -3,7 +3,7 @@ export interface EmailTransferDto {
     payeeId?: string,
     purposeCode?: string
     currency?: string,
-    decimal?: string
+    decimal?: number
     amount?: string
 }
 

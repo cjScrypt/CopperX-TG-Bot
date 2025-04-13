@@ -105,7 +105,7 @@ export class EmailTransferController {
         const actionIdArr = match[1].split("|");
 
         ctx.wizard.state.emailTransfer.currency = actionIdArr[0];
-        ctx.wizard.state.emailTransfer.decimal = actionIdArr[1];
+        ctx.wizard.state.emailTransfer.decimal = Number(actionIdArr[1]);
 
         await ctx.reply(
             LocaleUtils.getTransferText(ctx.i18n, "prompt.enterAmount"),
