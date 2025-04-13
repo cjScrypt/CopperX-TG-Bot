@@ -35,6 +35,10 @@ export class StringUtils {
             return numStr;
         }
 
+        if (numStr === "0") {
+            return numStr;
+        }
+
         const insertPosition = numStr.length - decimal;
         
         const integerPart = numStr.length > decimal
