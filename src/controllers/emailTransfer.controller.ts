@@ -126,9 +126,7 @@ export class EmailTransferController {
             return;
         }
 
-        const decimal = ctx.wizard.state.emailTransfer.decimal;
-        const transformedAmount = StringUtils.convertDecimalToWhole(amount, decimal);
-        ctx.wizard.state.emailTransfer.amount = transformedAmount;
+        ctx.wizard.state.emailTransfer.amount = amount;
 
         const htmlContent = await TransferView.emailtransferSummary(
             ctx.i18n,
@@ -147,6 +145,12 @@ export class EmailTransferController {
     static async sendEmailTransfer (ctx: ExtendedContext, next: () => Promise<void>) {
         const summary = ctx.wizard.state.emailTransfer;
         const token = ctx.session.copperX.token;
+        
+        summary.amount = StringUtils.convertDecimalToWhole(
+            summary.amount || "0",
+            summary.decimal
+        );
+        summary.decimal = undefined;
 
         const transaction = await (new TransferService()).sendEmailTransfer(
             summary,
