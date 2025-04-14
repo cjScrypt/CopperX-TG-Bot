@@ -5,7 +5,7 @@ import { ExtendedContext } from "../interfaces";
 import { GlobalMiddleware } from "../middlewares";
 
 export const walletTransfer = new Scenes.WizardScene<ExtendedContext>(
-    BOT.SCENE.TRANSFER_EMAIL,
+    BOT.SCENE.TRANSFER_WALLET,
     WalletTransferController.promptAddress,
     WalletTransferController.promptPurposeCode,
     WalletTransferController.promptCurrencyCode,
