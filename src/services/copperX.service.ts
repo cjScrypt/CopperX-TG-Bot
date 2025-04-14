@@ -90,6 +90,7 @@ export class CopperXService {
 
         return {
             id: userProfile.id,
+            organizationId: userProfile.organizationId,
             firstName: userProfile.firstName,
             lastName: userProfile.lastName,
             email: userProfile.email,
