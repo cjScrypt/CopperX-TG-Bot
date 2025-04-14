@@ -18,10 +18,10 @@ export class TransferView {
                     LocaleUtils.getActionText(i18n, BOT.ACTION.TRANSFER_WALLET),
                     BOT.ACTION.TRANSFER_WALLET
                 ),
-                Markup.button.callback(
-                    LocaleUtils.getActionText(i18n, BOT.ACTION.TRANSFER_BANK),
-                    BOT.ACTION.TRANSFER_BANK
-                )
+                // Markup.button.callback(
+                //     LocaleUtils.getActionText(i18n, BOT.ACTION.TRANSFER_BANK),
+                //     BOT.ACTION.TRANSFER_BANK
+                // )
             ]            
         ]);
     }
