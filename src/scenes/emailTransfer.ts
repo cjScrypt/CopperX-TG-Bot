@@ -15,7 +15,7 @@ export const emailTransfer = new Scenes.WizardScene<ExtendedContext>(
 );
 
 emailTransfer.action(
-    BOT.ACTION.CONFIRM_EMAIL_TRANSFER,
+    BOT.ACTION.CONFIRM_TRANSFER,
     EmailTransferController.sendEmailTransfer,
     GlobalMiddleware.cancelScene
 );

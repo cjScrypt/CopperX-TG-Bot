@@ -5,7 +5,8 @@ import { profileScene } from "./profile";
 import { transferScene } from "./transfer";
 import { walletScene } from "./wallet";
 import { emailTransfer } from "./emailTransfer";
+import { walletTransfer } from "./walletTransfer";
 
 export const mainStage = new Scenes.Stage<ExtendedContext>(
-    [loginScene, profileScene, walletScene, transferScene, emailTransfer]
+    [loginScene, profileScene, walletScene, transferScene, emailTransfer, walletTransfer]
 );

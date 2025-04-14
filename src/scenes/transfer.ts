@@ -13,3 +13,8 @@ transferScene.action(
     BOT.ACTION.TRANSFER_EMAIL,
     CommonController.enterScene(BOT.SCENE.TRANSFER_EMAIL)
 );
+
+transferScene.action(
+    BOT.ACTION.TRANSFER_WALLET,
+    CommonController.enterScene(BOT.SCENE.TRANSFER_WALLET)
+);

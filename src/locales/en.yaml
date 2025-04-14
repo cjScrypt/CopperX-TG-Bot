@@ -104,10 +104,12 @@ transfer:
         enterPurposeCode: "Please select the purpose for this transfer:"
         enterCurrencyCode: "Please select the currency for this transfer:"
         enterAmount: "Please enter the transfer amount"
+        enterAddress: "Please enter the recipient's wallet address"
     error:
         invalidEmail: "Please enter a valid email address."
+        invalidAddress: "Please enter a valid wallet address."
         enterValidAmount: "Please enter a valid amount:"
-    emailSummary:
+    summary:
         title: "Transfer Summary"
         email: "Recipient Email"
         payeeId: "Payee ID"

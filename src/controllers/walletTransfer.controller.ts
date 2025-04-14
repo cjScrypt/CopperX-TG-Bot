@@ -5,45 +5,23 @@ import { TransferService, WalletService } from "../services";
 import { LocaleUtils, RegexUtils, StringUtils, TelegramUtils } from "../utils";
 import { TransferView } from "../views";
 
-export class EmailTransferController {
-    static async promptEmail(ctx: ExtendedContext) {
-        const prompt = LocaleUtils.getTransferText(ctx.i18n, "prompt.enterEmail");
+export class WalletTransferController {
+    static async promptAddress(ctx: ExtendedContext) {
+        const prompt = LocaleUtils.getTransferText(ctx.i18n, "prompt.enterAddress");
         await ctx.reply(prompt, {
             reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
         });
 
-        ctx.wizard.state.emailTransfer = {}
-
-        return ctx.wizard.next();
-    }
-
-    static async promptPayeeId(ctx: ExtendedContext) {
-        const email = TelegramUtils.getMessageText(ctx);
-        if (!email || !isEmail(email)) {
-            await ctx.reply(
-                LocaleUtils.getTransferText(ctx.i18n, "error.invalidEmail"),
-                {
-                    reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
-                }
-            );
-            return;
-        }
-
-        ctx.wizard.state.emailTransfer.email = email;
-
-        const prompt = LocaleUtils.getTransferText(ctx.i18n, "prompt.enterPayeeId");
-        await ctx.reply(prompt, {
-            reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
-        });
+        ctx.wizard.state.walletTransfer = {}
 
         return ctx.wizard.next();
     }
 
     static async promptPurposeCode(ctx: ExtendedContext) {
-        const payeeId = TelegramUtils.getMessageText(ctx);
-        if (!payeeId) {
+        const address = TelegramUtils.getMessageText(ctx);
+        if (!address) {
             await ctx.reply(
-                LocaleUtils.getTransferText(ctx.i18n, "prompt.enterPayeeId"),
+                LocaleUtils.getTransferText(ctx.i18n, "error.invalidAddress"),
                 {
                     reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
                 }
@@ -51,7 +29,7 @@ export class EmailTransferController {
             return;
         }
 
-        ctx.wizard.state.emailTransfer.payeeId = payeeId;
+        ctx.wizard.state.walletTransfer.address = address;
 
         const prompt = LocaleUtils.getTransferText(ctx.i18n, "prompt.enterPurposeCode");
         const keyboard = TransferView.paymentPurposeKeyboard(ctx.i18n).reply_markup;
@@ -65,13 +43,13 @@ export class EmailTransferController {
     static async promptCurrencyCode(ctx: ExtendedContext) {
         const data = TelegramUtils.getCallbackData(ctx);
         const purposeCode = data.match(
-            RegexUtils.matchActionCode(BOT.ACTION.TRANSFER_EMAIL)
+            RegexUtils.matchActionCode(BOT.ACTION.TRANSFER_WALLET)
         );
         if (!purposeCode) {
             return;
         }
 
-        ctx.wizard.state.emailTransfer.purposeCode = purposeCode[1];
+        ctx.wizard.state.walletTransfer.purposeCode = purposeCode[1];
 
         const walletService = new WalletService();
         const token = ctx.session.copperX.token;
@@ -104,8 +82,8 @@ export class EmailTransferController {
         }
         const actionIdArr = match[1].split("|");
 
-        ctx.wizard.state.emailTransfer.currency = actionIdArr[0];
-        ctx.wizard.state.emailTransfer.decimal = Number(actionIdArr[1]);
+        ctx.wizard.state.walletTransfer.currency = actionIdArr[0];
+        ctx.wizard.state.walletTransfer.decimal = Number(actionIdArr[1]);
 
         await ctx.reply(
             LocaleUtils.getTransferText(ctx.i18n, "prompt.enterAmount"),
@@ -126,11 +104,11 @@ export class EmailTransferController {
             return;
         }
 
-        ctx.wizard.state.emailTransfer.amount = amount;
+        ctx.wizard.state.walletTransfer.amount = amount;
 
-        const htmlContent = await TransferView.emailtransferSummary(
+        const htmlContent = await TransferView.walletTransferSummary(
             ctx.i18n,
-            ctx.wizard.state.emailTransfer
+            ctx.wizard.state.walletTransfer
         );
 
         await ctx.reply(
@@ -142,8 +120,8 @@ export class EmailTransferController {
         );
     }
 
-    static async sendEmailTransfer (ctx: ExtendedContext, next: () => Promise<void>) {
-        const summary = ctx.wizard.state.emailTransfer;
+    static async sendWalletTransfer (ctx: ExtendedContext, next: () => Promise<void>) {
+        const summary = ctx.wizard.state.walletTransfer;
         const token = ctx.session.copperX.token;
         
         summary.amount = StringUtils.convertDecimalToWhole(
@@ -152,7 +130,7 @@ export class EmailTransferController {
         );
         summary.decimal = undefined;
 
-        const transaction = await (new TransferService()).sendEmailTransfer(
+        const transaction = await (new TransferService()).sendWalletTransfer(
             summary,
             token
         );

@@ -1,6 +1,6 @@
 import { Scenes } from "telegraf";
 import { CopperXSession } from "./copperx.interface";
-import { EmailTransferDto } from "./transfer.interface";
+import { EmailTransferDto, WalletTransferDto } from "./transfer.interface";
 
 export interface WizardSessionData extends Scenes.WizardSessionData {
     userOtp: {
@@ -10,7 +10,8 @@ export interface WizardSessionData extends Scenes.WizardSessionData {
     history?: {
         botMessageId: number
     },
-    emailTransfer: EmailTransferDto
+    emailTransfer: EmailTransferDto,
+    walletTransfer: WalletTransferDto
 }
 
 export interface SessionData {

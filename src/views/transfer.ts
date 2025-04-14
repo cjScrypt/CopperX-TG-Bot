@@ -3,7 +3,7 @@ import { renderFile } from "ejs";
 import { resolve } from "path";
 import { Markup } from "telegraf";
 import { BOT, TRANSFER } from "../constants";
-import { EmailTransferDto, TransactionDto, WalletBalanceDto } from "../interfaces";
+import { EmailTransferDto, TransactionDto, WalletBalanceDto, WalletTransferDto } from "../interfaces";
 import { ConstantUtils, LocaleUtils, StringUtils } from "../utils";
 
 export class TransferView {
@@ -109,12 +109,23 @@ export class TransferView {
         });
     }
 
-    static emailTransferKeyboard(i18n: I18nContext) {
+    static walletTransferSummary(
+        i18n: I18nContext,
+        summary: WalletTransferDto
+    ) {
+        return renderFile(resolve(__dirname, "./templates/walletTransferSummary.ejs"), {
+            LocaleUtils,
+            i18n,
+            summary
+        });
+    }
+
+    static sendTransferKeyboard(i18n: I18nContext) {
         return Markup.inlineKeyboard([
             [
                 Markup.button.callback(
-                    LocaleUtils.getActionText(i18n, BOT.ACTION.CONFIRM_EMAIL_TRANSFER),
-                    BOT.ACTION.CONFIRM_EMAIL_TRANSFER
+                    LocaleUtils.getActionText(i18n, BOT.ACTION.CONFIRM_TRANSFER),
+                    BOT.ACTION.CONFIRM_TRANSFER
                 ),
                 Markup.button.callback(
                     LocaleUtils.getActionText(i18n, BOT.ACTION.CANCEL),

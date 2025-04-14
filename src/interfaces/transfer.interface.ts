@@ -7,6 +7,14 @@ export interface EmailTransferDto {
     amount?: string
 }
 
+export interface WalletTransferDto {
+    address?: string,
+    purposeCode?: string,
+    currency?: string,
+    decimal?: number,
+    amount?: string
+}
+
 export interface TransactionDto {
     amount: string,
     status: string,

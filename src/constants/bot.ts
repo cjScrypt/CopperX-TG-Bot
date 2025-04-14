@@ -28,13 +28,14 @@ export const BOT: { [ index: string ]: { [ index: string ]: string } } = {
         TRANSFER_WALLET: "transfer_wallet",
         TRANSFER_BANK: "transfer_bank",
         TRANSFER_CURRENCY: "transfer_currency",
-        CONFIRM_EMAIL_TRANSFER: "confirm_email_transfer"
+        CONFIRM_TRANSFER: "confirm_transfer"
     },
     SCENE: {
         LOGIN: "login",
         PROFILE: "profile",
         WALLET_MANAGEMENT: "wallet_management",
         TRANSFER: "transfer",
-        TRANSFER_EMAIL: "transfer_email"
+        TRANSFER_EMAIL: "transfer_email",
+        TRANSFER_WALLET: "transfer_wallet"
     }
 }
