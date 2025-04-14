@@ -2,15 +2,20 @@ import { Agent } from "https";
 import { Telegraf } from "telegraf";
 
 import { TG_TOKEN } from "./config";
+import { BOT } from "./constants";
 import { ExtendedContext } from "./interfaces";
+import { mainStage } from "./scenes";
 import {
     CommonController,
     HelpController,
     StartController
 } from "./controllers";
-import { BOT } from "./constants";
-import { GlobalMiddleware, UserMiddleware, errorHandler } from "./middlewares";
-import { mainStage } from "./scenes";
+import {
+    GlobalMiddleware,
+    PusherMiddleware,
+    UserMiddleware,
+    errorHandler
+} from "./middlewares";
 
 export const setupBot = () => {
     const agent = new Agent({
@@ -25,6 +30,7 @@ export const setupBot = () => {
     bot.use(GlobalMiddleware.addSessionToContext);
     bot.use(UserMiddleware.addUserToContext);
     bot.use(GlobalMiddleware.initializeCopperXSession);
+    bot.use(PusherMiddleware.subscribeToEvent);
 
     bot.use(mainStage.middleware());
 
