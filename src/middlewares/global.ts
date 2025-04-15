@@ -180,5 +180,7 @@ export class GlobalMiddleware {
                 throw error;
             }
         }
+
+        return next();
     }
 }
