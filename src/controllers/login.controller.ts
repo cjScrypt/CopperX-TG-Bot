@@ -107,7 +107,8 @@ export class LoginController {
                 lastName: response.user.lastName,
                 email: response.user.email,
                 status: response.user.status,
-                walletAddress: response.user.walletAddress
+                walletAddress: response.user.walletAddress,
+                organizationId: response.user.organizationId
             }
         }
 

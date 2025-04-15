@@ -15,7 +15,8 @@ interface AuthenticateResponseDto {
         lastName: string,
         email: string,
         status: "pending" | "active" | "suspended"
-        walletAddress: string
+        walletAddress: string,
+        organizationId: string
     }
 }
 
