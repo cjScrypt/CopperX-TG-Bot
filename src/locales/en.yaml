@@ -25,6 +25,8 @@ reply:
         success: "Login successful! You are now authenticated."
         commandInScene: "Please use the 'Cancel' button to exit this process before trying other commands."
         expiredSession: "Your session has expired. Please /login again to continue using the bot."
+    logout:
+        success: "Logout successful"
 action:
     login: "${code} Login"
     resend_otp: "${code} Resend OTP"

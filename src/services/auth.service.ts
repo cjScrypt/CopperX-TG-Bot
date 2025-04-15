@@ -64,4 +64,18 @@ export class AuthService {
 
         return response;
     }
+
+    async logout(token: string) {
+        const endpoint = "api/auth/logout";
+        const response = await this.copperXService.makePostRequest(
+            endpoint,
+            {},
+            token
+        );
+        if (response.message != "Ok") {
+            return false;
+        }
+
+        return true;
+    }
 }

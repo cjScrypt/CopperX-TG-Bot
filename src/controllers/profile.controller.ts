@@ -1,4 +1,6 @@
 import { ExtendedContext } from "../interfaces";
+import { AuthService } from "../services";
+import { LocaleUtils } from "../utils";
 import { ProfileView } from "../views";
 
 export class ProfileController {
@@ -14,6 +16,19 @@ export class ProfileController {
             reply_markup: ProfileView.getProfileKeyboard(ctx.i18n).reply_markup
         });
         ctx.session.botMessageId = msg.message_id;
+
+        return next();
+    }
+
+    static async logout(ctx: ExtendedContext, next: () => Promise<void>) {
+        const token = ctx.session.copperX.token;
+        const response = await (new AuthService()).logout(token);
+        if (response) {
+            ctx.session.copperX.token = "";
+            return ctx.reply(
+                LocaleUtils.getActionReplyText(ctx.i18n, "logout.success")
+            );
+        }
 
         return next();
     }

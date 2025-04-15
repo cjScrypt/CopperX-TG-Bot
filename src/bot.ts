@@ -8,6 +8,7 @@ import { mainStage } from "./scenes";
 import {
     CommonController,
     HelpController,
+    ProfileController,
     StartController
 } from "./controllers";
 import {
@@ -47,6 +48,11 @@ export const setupBot = () => {
     bot.action(
         BOT.ACTION.LOGIN,
         CommonController.enterScene(BOT.SCENE.LOGIN)
+    );
+
+    bot.action(
+        BOT.ACTION.LOGOUT,
+        ProfileController.logout
     );
 
     bot.command(
