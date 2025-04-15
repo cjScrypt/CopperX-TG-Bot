@@ -8,10 +8,11 @@ import { TransferView } from "../views";
 export class EmailTransferController {
     static async promptEmail(ctx: ExtendedContext) {
         const prompt = LocaleUtils.getTransferText(ctx.i18n, "prompt.enterEmail");
-        await ctx.reply(prompt, {
+        const msg = await ctx.reply(prompt, {
             reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
         });
 
+        ctx.session.botMessageId = msg.message_id;
         ctx.wizard.state.emailTransfer = {}
 
         return ctx.wizard.next();
@@ -145,7 +146,7 @@ export class EmailTransferController {
     static async sendEmailTransfer (ctx: ExtendedContext, next: () => Promise<void>) {
         const summary = ctx.wizard.state.emailTransfer;
         const token = ctx.session.copperX.token;
-        
+
         summary.amount = StringUtils.convertDecimalToWhole(
             summary.amount || "0",
             summary.decimal
