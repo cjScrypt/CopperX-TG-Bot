@@ -20,7 +20,7 @@ export class EmailTransferController {
     static async promptPayeeId(ctx: ExtendedContext) {
         const email = TelegramUtils.getMessageText(ctx);
         if (!email || !isEmail(email)) {
-            await ctx.reply(
+            await ctx.editMessage(
                 LocaleUtils.getTransferText(ctx.i18n, "error.invalidEmail"),
                 {
                     reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
@@ -32,7 +32,7 @@ export class EmailTransferController {
         ctx.wizard.state.emailTransfer.email = email;
 
         const prompt = LocaleUtils.getTransferText(ctx.i18n, "prompt.enterPayeeId");
-        await ctx.reply(prompt, {
+        await ctx.editMessage(prompt, {
             reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
         });
 
@@ -42,7 +42,7 @@ export class EmailTransferController {
     static async promptPurposeCode(ctx: ExtendedContext) {
         const payeeId = TelegramUtils.getMessageText(ctx);
         if (!payeeId) {
-            await ctx.reply(
+            await ctx.editMessage(
                 LocaleUtils.getTransferText(ctx.i18n, "prompt.enterPayeeId"),
                 {
                     reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
@@ -55,7 +55,7 @@ export class EmailTransferController {
 
         const prompt = LocaleUtils.getTransferText(ctx.i18n, "prompt.enterPurposeCode");
         const keyboard = TransferView.paymentPurposeKeyboard(ctx.i18n).reply_markup;
-        await ctx.reply(prompt, {
+        await ctx.editMessage(prompt, {
             reply_markup: keyboard
         });
 
@@ -83,7 +83,7 @@ export class EmailTransferController {
             return;
         }
 
-        await ctx.reply(
+        await ctx.editMessage(
             LocaleUtils.getTransferText(ctx.i18n, "prompt.enterCurrencyCode"),
             {
                 reply_markup: TransferView.currencyKeyboard(wallet).reply_markup
@@ -107,7 +107,7 @@ export class EmailTransferController {
         ctx.wizard.state.emailTransfer.currency = actionIdArr[0];
         ctx.wizard.state.emailTransfer.decimal = Number(actionIdArr[1]);
 
-        await ctx.reply(
+        await ctx.editMessage(
             LocaleUtils.getTransferText(ctx.i18n, "prompt.enterAmount"),
             {
                 reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
@@ -120,7 +120,7 @@ export class EmailTransferController {
     static async promptConfirmTransaction(ctx: ExtendedContext) {
         const amount = TelegramUtils.getMessageText(ctx);
         if (!isNumberString(amount)) {
-            await ctx.reply(
+            await ctx.editMessage(
                 LocaleUtils.getTransferText(ctx.i18n, "error.enterValidAmount")
             );
             return;
@@ -133,7 +133,7 @@ export class EmailTransferController {
             ctx.wizard.state.emailTransfer
         );
 
-        await ctx.reply(
+        await ctx.editMessage(
             htmlContent,
             {
                 parse_mode: "HTML",
@@ -162,7 +162,7 @@ export class EmailTransferController {
             transaction
         );
 
-        await ctx.reply(htmlContent);
+        await ctx.editMessage(htmlContent);
 
         return next();
     }
