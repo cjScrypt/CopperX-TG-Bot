@@ -3,6 +3,7 @@ import { User } from "@prisma/client";
 import { Context, Scenes } from "telegraf";
 import { CopperXSession } from "./copperx.interface";
 import { SceneSession, WizardSessionData } from "./session.interface";
+import { ExtraEditMessageText } from "telegraf/typings/telegram-types";
 
 export interface ExtendedContext extends Context  {
     session: SceneSession,
@@ -11,5 +12,6 @@ export interface ExtendedContext extends Context  {
     user: User,
     wizard: Scenes.WizardContextWizard<ExtendedContext> & {
         state: WizardSessionData
-    }
+    },
+    editMessage: Context['editMessageText']
 }

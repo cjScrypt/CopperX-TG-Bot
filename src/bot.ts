@@ -29,6 +29,7 @@ export const setupBot = () => {
     bot.use(GlobalMiddleware.addI18nToContext);
     bot.use(GlobalMiddleware.addSessionToContext);
     bot.use(UserMiddleware.addUserToContext);
+    bot.use(GlobalMiddleware.addEditMessageToContext);
     bot.use(GlobalMiddleware.initializeCopperXSession);
     bot.use(PusherMiddleware.subscribeToEvent);
 

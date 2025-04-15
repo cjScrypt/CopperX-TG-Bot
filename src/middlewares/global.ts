@@ -1,4 +1,5 @@
 import { MiddlewareFn, session } from "telegraf";
+import { ExtraEditMessageText } from "telegraf/typings/telegram-types";
 import { i18n } from "../commons/locale";
 import { store } from "../database/session";
 import { ExtendedContext } from "../interfaces";
@@ -154,5 +155,30 @@ export class GlobalMiddleware {
         }
 
         return next();
+    }
+
+    static async addEditMessageToContext(ctx: ExtendedContext, next: () => Promise<void>) {
+        ctx.editMessage = async (text: string, extra?: ExtraEditMessageText) => {
+            try {
+                const messageId = ctx.session.botMessageId;
+                if (!messageId) {
+                    throw new Error("No botMessageId found in session");
+                }
+
+                return await ctx.telegram.editMessageText(
+                    ctx.chat?.id,
+                    messageId,
+                    undefined,
+                    text,
+                    extra
+                );
+            } catch (error: any) {
+                if (error.response.description.includes("message is not modified")) {
+                    return true; // @note Possibly, delete existing message and reply with a new message for better user experience
+                }
+
+                throw error;
+            }
+        }
     }
 }
