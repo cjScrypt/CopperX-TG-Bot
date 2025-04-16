@@ -120,6 +120,8 @@ export class WalletTransferController {
                 reply_markup: TransferView.sendTransferKeyboard(ctx.i18n).reply_markup
             }
         );
+
+        return ctx.wizard.next();
     }
 
     static async sendWalletTransfer (ctx: ExtendedContext, next: () => Promise<void>) {

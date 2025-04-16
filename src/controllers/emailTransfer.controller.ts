@@ -142,6 +142,7 @@ export class EmailTransferController {
                 reply_markup: TransferView.sendTransferKeyboard(ctx.i18n).reply_markup
             }
         );
+        return ctx.wizard.next();
     }
 
     static async sendEmailTransfer (ctx: ExtendedContext, next: () => Promise<void>) {
