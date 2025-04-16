@@ -6,11 +6,14 @@ import {
 import { setupBot } from "../bot";
 import { ExtendedContext } from "../interfaces";
 import { authorizerFn } from "../services";
-import { TelegramUtils } from "../utils";
+import { SessionUtils, TelegramUtils } from "../utils";
 
 export class PusherMiddleware {
     static subscribeToEvent(ctx: ExtendedContext, next: () => Promise<void>) {
-        // @todo Ensure Pusher event is subscribed occasionally
+        if (ctx.session.subscribedToPusher === true) {
+            return next();
+        }
+
         const pusherClient = new Pusher(PUSHER_KEY, {
             cluster: PUSHER_CLUSTER,
             authorizer: authorizerFn(ctx.session.copperX.token)
@@ -25,7 +28,10 @@ export class PusherMiddleware {
         const channelName = `private-org-${organizationId}`
         const channel = pusherClient.subscribe(channelName);
 
-        channel.bind("pusher:subscription_succeeded", () => {
+        channel.bind("pusher:subscription_succeeded", async () => {
+            ctx.session.subscribedToPusher = true;
+            await SessionUtils.saveSession(ctx);
+
             console.log('Successfully subscribed to private channel');
         });
 
