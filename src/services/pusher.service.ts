@@ -1,31 +1,27 @@
 import axios from "axios";
-import Pusher, {
+import {
     ChannelAuthorizationCallback,
     ChannelAuthorizerGenerator
 } from "pusher-js";
-import {
-    PUSHER_KEY,
-    PUSHER_CLUSTER,
-    PUSHER_API_KEY
-} from "../config";
 
-const authorizerFn: ChannelAuthorizerGenerator = (channel) => {
-    return {
+export const authorizerFn = (authToken: string): ChannelAuthorizerGenerator => {
+    return (channel) => ({
         authorize: async (socketId: string, callback: ChannelAuthorizationCallback) => {
             try {
+                const endpoint = "https://income-api.copperx.io/api/notifications/auth";
                 const response = await axios.post(
-                    "/api/notifications/auth",
+                    endpoint,
                     {
                         socket_id: socketId,
                         channel_name: channel.name
                     },
                     {
                         headers: {
-                            Authorization: `Bearer ${PUSHER_API_KEY}`
+                            Authorization: `Bearer ${authToken}`
                         }
                     }
                 );
-
+        
                 if (response.data) {
                     callback(null, response.data);
                 } else {
@@ -36,11 +32,5 @@ const authorizerFn: ChannelAuthorizerGenerator = (channel) => {
                 callback(error, null);
             }
         }
-    }
+    })
 }
-
-export const pusherClient = new Pusher(PUSHER_KEY, {
-    cluster: PUSHER_CLUSTER,
-    authorizer: authorizerFn
-});
-
