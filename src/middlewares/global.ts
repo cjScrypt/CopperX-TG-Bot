@@ -183,4 +183,23 @@ export class GlobalMiddleware {
 
         return next();
     }
+
+    static async deleteUserMessage(ctx: ExtendedContext, next: () => Promise<void>) {
+        const text = TelegramUtils.getMessageText(ctx);
+        if (!text) {
+            return next();
+        }
+
+        if (ctx.session.deleteMessage == true) {
+            const messageId = ctx.message?.message_id;
+            await ctx.deleteMessage(messageId);
+        }
+
+        return next();
+    }
+
+    static async unsetDeleteMessage(ctx: ExtendedContext, next: () => Promise<void>) {
+        ctx.session.deleteMessage = undefined;
+        return next();
+    }
 }

@@ -13,6 +13,8 @@ export const walletTransfer = new Scenes.WizardScene<ExtendedContext>(
     WalletTransferController.promptConfirmTransaction
 );
 
+walletTransfer.use(GlobalMiddleware.deleteUserMessage);
+
 walletTransfer.action(
     BOT.ACTION.CONFIRM_TRANSFER,
     WalletTransferController.sendWalletTransfer,
@@ -23,3 +25,5 @@ walletTransfer.action(
     BOT.ACTION.CANCEL,
     GlobalMiddleware.cancelScene
 );
+
+walletTransfer.leave(GlobalMiddleware.unsetDeleteMessage);

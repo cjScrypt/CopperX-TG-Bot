@@ -13,6 +13,7 @@ export class EmailTransferController {
         });
 
         ctx.session.botMessageId = msg.message_id;
+        ctx.session.deleteMessage = true;
         ctx.wizard.state.emailTransfer = {}
 
         return ctx.wizard.next();

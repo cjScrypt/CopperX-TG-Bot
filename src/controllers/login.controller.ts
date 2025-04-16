@@ -1,7 +1,7 @@
 import { isEmail } from "class-validator";
 import { ExtendedContext } from "../interfaces";
 import { AuthService } from "../services";
-import { LocaleUtils, SessionUtils, TelegramUtils } from "../utils";
+import { LocaleUtils, TelegramUtils } from "../utils";
 import { LoginView } from "../views";
 
 export class LoginController {
@@ -13,6 +13,7 @@ export class LoginController {
             }
         );
         ctx.session.botMessageId = msg.message_id;
+        ctx.session.deleteMessage = true;
 
         return ctx.wizard.next();
     }

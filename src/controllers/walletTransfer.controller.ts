@@ -8,10 +8,12 @@ import { TransferView } from "../views";
 export class WalletTransferController {
     static async promptAddress(ctx: ExtendedContext) {
         const prompt = LocaleUtils.getTransferText(ctx.i18n, "prompt.enterAddress");
-        await ctx.reply(prompt, {
+        const msg = await ctx.reply(prompt, {
             reply_markup: TransferView.getCancelKeyboard(ctx.i18n).reply_markup
         });
 
+        ctx.session.botMessageId = msg.message_id;
+        ctx.session.deleteMessage = true;
         ctx.wizard.state.walletTransfer = {}
 
         return ctx.wizard.next();

@@ -14,6 +14,8 @@ export const emailTransfer = new Scenes.WizardScene<ExtendedContext>(
     EmailTransferController.promptConfirmTransaction
 );
 
+emailTransfer.use(GlobalMiddleware.deleteUserMessage);
+
 emailTransfer.action(
     BOT.ACTION.CONFIRM_TRANSFER,
     EmailTransferController.sendEmailTransfer,
@@ -24,3 +26,5 @@ emailTransfer.action(
     BOT.ACTION.CANCEL,
     GlobalMiddleware.cancelScene
 );
+
+emailTransfer.leave(GlobalMiddleware.unsetDeleteMessage);

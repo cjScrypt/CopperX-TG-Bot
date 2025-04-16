@@ -13,9 +13,11 @@ export const loginScene = new Scenes.WizardScene<ExtendedContext>(
 
 loginScene.use(
     GlobalMiddleware.preventCommandsInScene(`/${BOT.ACTION.LOGIN}`),
-    GlobalMiddleware.filterForeignCallbacks(BOT.ACTION.LOGIN),
-    GlobalMiddleware.clearPreviousStage
+    GlobalMiddleware.deleteUserMessage
+    // GlobalMiddleware.filterForeignCallbacks(BOT.ACTION.LOGIN),
+    // GlobalMiddleware.clearPreviousStage
 );
+
 loginScene.action(
     BOT.ACTION.CANCEL,
     GlobalMiddleware.cancelScene,
@@ -24,3 +26,5 @@ loginScene.action(
 
 loginScene.action(BOT.ACTION.RESEND_OTP, LoginController.resendOtp);
 loginScene.action(BOT.ACTION.CHANGE_EMAIL, LoginController.changeEmail);
+
+loginScene.leave(GlobalMiddleware.unsetDeleteMessage);
